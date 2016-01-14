@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.MainRV = new RS.RelationView();
             this.SuspendLayout();
             // 
             // MainRV
             // 
-            this.MainRV.circleR = 50;
+            this.MainRV.AutoSize = true;
             this.MainRV.Location = new System.Drawing.Point(0, 0);
             this.MainRV.Name = "MainRV";
             this.MainRV.Size = new System.Drawing.Size(1920, 1080);
@@ -47,10 +48,13 @@
             this.ClientSize = new System.Drawing.Size(810, 489);
             this.Controls.Add(this.MainRV);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
             this.Text = "MainForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
             this.LocationChanged += new System.EventHandler(this.mainForm_LocationChanged);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
