@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="edgeGetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="edgeGetForm.Designer.cs">
+      <DependentUpon>edgeGetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
       <DependentUpon>reNameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Skill.cs" />
+    <EmbeddedResource Include="edgeGetForm.resx">
+      <DependentUpon>edgeGetForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

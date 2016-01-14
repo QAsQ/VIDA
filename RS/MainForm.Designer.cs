@@ -30,6 +30,8 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.MainRV = new RS.RelationView();
+            this.tea = new System.Windows.Forms.Button();
+            this.sut = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -50,12 +52,35 @@
             this.MainRV.Size = new System.Drawing.Size(742, 418);
             this.MainRV.TabIndex = 3;
             // 
+            // tea
+            // 
+            this.tea.Location = new System.Drawing.Point(594, 444);
+            this.tea.Name = "tea";
+            this.tea.Size = new System.Drawing.Size(75, 23);
+            this.tea.TabIndex = 4;
+            this.tea.Text = "tea";
+            this.tea.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tea.UseVisualStyleBackColor = true;
+            this.tea.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // sut
+            // 
+            this.sut.Location = new System.Drawing.Point(488, 444);
+            this.sut.Name = "sut";
+            this.sut.Size = new System.Drawing.Size(75, 23);
+            this.sut.TabIndex = 5;
+            this.sut.Text = "stu";
+            this.sut.UseVisualStyleBackColor = true;
+            this.sut.Click += new System.EventHandler(this.sut_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(810, 489);
+            this.Controls.Add(this.sut);
+            this.Controls.Add(this.tea);
             this.Controls.Add(this.MainRV);
             this.Controls.Add(this.button1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -70,6 +95,8 @@
 
         private System.Windows.Forms.Button button1;
         private RelationView MainRV;
+        private System.Windows.Forms.Button tea;
+        private System.Windows.Forms.Button sut;
 
 
 

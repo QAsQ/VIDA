@@ -12,10 +12,15 @@ namespace RS
         {
             name = _name;
             tail = new List<int>();
+            isLearn = false;    
         }
         public void addTail(int ID)
         {
             tail.Add(ID);
+        }
+        public void removeTail(int ID)
+        {
+            tail.Remove(ID);
         }
         public List<int> getTail
         {
@@ -25,8 +30,8 @@ namespace RS
             }
         }
         public string name;
-        List<int> succ;  //后继
-        private List<int> tail; //前驱
+        List<int> succ;  //前驱
+        private List<int> tail; //后继    
         public bool isLearn;
     }
 }

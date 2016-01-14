@@ -45,5 +45,15 @@ namespace RS
             MainRV.FormLocate = this.Location;
             MainRV.FormLocate.Offset(FrameOffset);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MainRV.TeacherMode();
+        }
+
+        private void sut_Click(object sender, EventArgs e)
+        {
+            MainRV.StudentMode();
+        }
     }
 }

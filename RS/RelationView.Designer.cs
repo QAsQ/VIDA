@@ -35,9 +35,9 @@
             this.添加技能 = new System.Windows.Forms.ToolStripMenuItem();
             this.删除技能 = new System.Windows.Forms.ToolStripMenuItem();
             this.学习技能 = new System.Windows.Forms.ToolStripMenuItem();
-            this.遗忘技能 = new System.Windows.Forms.ToolStripMenuItem();
             this.添加依赖关系 = new System.Windows.Forms.ToolStripMenuItem();
             this.删除依赖关系 = new System.Windows.Forms.ToolStripMenuItem();
+            this.检查依赖关系 = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,67 +49,67 @@
             this.添加技能,
             this.删除技能,
             this.学习技能,
-            this.遗忘技能,
             this.添加依赖关系,
-            this.删除依赖关系});
+            this.删除依赖关系,
+            this.检查依赖关系});
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(149, 180);
+            this.MenuStrip.Size = new System.Drawing.Size(153, 202);
             // 
             // 刷新
             // 
             this.刷新.Name = "刷新";
-            this.刷新.Size = new System.Drawing.Size(148, 22);
+            this.刷新.Size = new System.Drawing.Size(152, 22);
             this.刷新.Text = "刷新";
             this.刷新.Click += new System.EventHandler(this.刷新_Click);
             // 
             // 重命名
             // 
             this.重命名.Name = "重命名";
-            this.重命名.Size = new System.Drawing.Size(148, 22);
+            this.重命名.Size = new System.Drawing.Size(152, 22);
             this.重命名.Text = "重命名";
             this.重命名.Click += new System.EventHandler(this.重命名_Click);
             // 
             // 添加技能
             // 
             this.添加技能.Name = "添加技能";
-            this.添加技能.Size = new System.Drawing.Size(148, 22);
+            this.添加技能.Size = new System.Drawing.Size(152, 22);
             this.添加技能.Text = "添加技能";
             this.添加技能.Click += new System.EventHandler(this.添加技能_Click);
             // 
             // 删除技能
             // 
             this.删除技能.Name = "删除技能";
-            this.删除技能.Size = new System.Drawing.Size(148, 22);
+            this.删除技能.Size = new System.Drawing.Size(152, 22);
             this.删除技能.Text = "删除技能";
             this.删除技能.Click += new System.EventHandler(this.删除技能_Click);
             // 
             // 学习技能
             // 
             this.学习技能.Name = "学习技能";
-            this.学习技能.Size = new System.Drawing.Size(148, 22);
+            this.学习技能.Size = new System.Drawing.Size(152, 22);
             this.学习技能.Text = "学习技能";
             this.学习技能.Click += new System.EventHandler(this.学习技能_Click);
-            // 
-            // 遗忘技能
-            // 
-            this.遗忘技能.Name = "遗忘技能";
-            this.遗忘技能.Size = new System.Drawing.Size(148, 22);
-            this.遗忘技能.Text = "遗忘技能";
-            this.遗忘技能.Click += new System.EventHandler(this.忘记技能_Click);
             // 
             // 添加依赖关系
             // 
             this.添加依赖关系.Name = "添加依赖关系";
-            this.添加依赖关系.Size = new System.Drawing.Size(148, 22);
+            this.添加依赖关系.Size = new System.Drawing.Size(152, 22);
             this.添加依赖关系.Text = "添加依赖关系";
             this.添加依赖关系.Click += new System.EventHandler(this.添加依赖关系_Click);
             // 
             // 删除依赖关系
             // 
             this.删除依赖关系.Name = "删除依赖关系";
-            this.删除依赖关系.Size = new System.Drawing.Size(148, 22);
+            this.删除依赖关系.Size = new System.Drawing.Size(152, 22);
             this.删除依赖关系.Text = "删除依赖关系";
             this.删除依赖关系.Click += new System.EventHandler(this.删除依赖关系_Click);
+            // 
+            // 检查依赖关系
+            // 
+            this.检查依赖关系.Name = "检查依赖关系";
+            this.检查依赖关系.Size = new System.Drawing.Size(152, 22);
+            this.检查依赖关系.Text = "检查依赖关系";
+            this.检查依赖关系.Click += new System.EventHandler(this.检查依赖关系_Click);
             // 
             // RelationView
             // 
@@ -134,9 +134,9 @@
         private System.Windows.Forms.ToolStripMenuItem 添加技能;
         private System.Windows.Forms.ToolStripMenuItem 删除技能;
         private System.Windows.Forms.ToolStripMenuItem 学习技能;
-        private System.Windows.Forms.ToolStripMenuItem 遗忘技能;
         private System.Windows.Forms.ToolStripMenuItem 添加依赖关系;
         private System.Windows.Forms.ToolStripMenuItem 删除依赖关系;
+        private System.Windows.Forms.ToolStripMenuItem 检查依赖关系;
 
     }
 }
