@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace RS
 {
@@ -38,10 +40,10 @@ namespace RS
         {
             InitializeComponent();  
         }
-        public void ShowRelation(Skill[] _skillList)
+        public void ShowRelation(List<Skill> _skillList)
         {
-            skill_size = _skillList.Length;
-            for (int i = 0; i < skill_size; i++)
+            skill_size = _skillList.Count;
+            for(int i = 0; i < skill_size; i++)
             {
                 drawModeList.Add(SkillDrawMode.cantLearn);
                 skillList.Add(_skillList[i]);
@@ -284,6 +286,11 @@ namespace RS
 
         private void 学习技能_Click(object sender, EventArgs e)
         {
+            if (drawModeList[MenuSkillId_selested] == SkillDrawMode.cantLearn)
+            {
+                MessageBox.Show("该技能现在不可学习，请先学习该技能的前置技能");
+                return;
+            }
             skillList[MenuSkillId_selested].isLearn = true;
             drawModeList[MenuSkillId_selested] = SkillDrawMode.Learned;
             setAllDrawmode();
