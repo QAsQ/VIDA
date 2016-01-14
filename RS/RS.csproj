@@ -79,12 +79,6 @@
     <Compile Include="reNameForm.Designer.cs">
       <DependentUpon>reNameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SignUpForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SignUpForm.Designer.cs">
-      <DependentUpon>SignUpForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Skill.cs" />
     <EmbeddedResource Include="edgeGetForm.resx">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
@@ -110,10 +104,6 @@
     <EmbeddedResource Include="reNameForm.resx">
       <DependentUpon>reNameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SignUpForm.resx">
-      <DependentUpon>SignUpForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

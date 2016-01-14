@@ -67,7 +67,6 @@
             // 
             this.password.Location = new System.Drawing.Point(118, 66);
             this.password.Name = "password";
-            this.password.PasswordChar = '*';
             this.password.Size = new System.Drawing.Size(103, 21);
             this.password.TabIndex = 3;
             // 
@@ -105,7 +104,6 @@
             this.Name = "Start";
             this.Text = "LogIn";
             this.SizeChanged += new System.EventHandler(this.Start_SizeChanged);
-            this.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.Start_ControlRemoved);
             this.ResumeLayout(false);
             this.PerformLayout();
 

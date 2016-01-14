@@ -81,7 +81,6 @@
             this.Controls.Add(this.OK);
             this.Name = "reNameForm";
             this.Text = "重命名";
-            this.Activated += new System.EventHandler(this.reNameForm_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -37,10 +37,5 @@ namespace RS
             inputBox.Text = "";
             this.Close();
         }
-        private void reNameForm_Activated(object sender, EventArgs e)
-        {
-            inputBox.Focus();
-            inputBox.SelectAll();
-        }
     }
 }

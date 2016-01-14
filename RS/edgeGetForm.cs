@@ -16,74 +16,37 @@ namespace RS
         {
             InitializeComponent();
         }
-        bool isAdded;
-        List<Skill> skillList;
-        public int start
+        public string start
         {
             get
             {
                 return st;
             }
         }
-        public int end
+        public string end
         {
             get
             {
                 return ed;
             }
         }
-        int st, ed;
-        public void getEdge(List<Skill> _skillList,bool _isAdded)
+        string st, ed;
+        public void getEdge()
         {
-            skillList = _skillList;
-            From.Items.Clear();
-            To.Items.Clear();
-            From.Text = "";
-            To.Text = "";
-            isAdded = _isAdded;
-            foreach (Skill currSkill in skillList)
-            {
-                From.Items.Add(currSkill.name);
-                if (isAdded)
-                {
-                    To.Items.Add(currSkill.name); ;
-                }
-            }
-            this.ShowDialog(); 
-        }
-        private int getId(string _name)
-        {
-            for (int i = 0; i < skillList.Count; i++)
-            {
-                if (skillList[i].name == _name)
-                {
-                    return i;
-                }
-            }
-            return -1;
+            st = ed = "";
+            from.Text = to.Text = "";
+            this.ShowDialog();
         }
         private void OK_Click(object sender, EventArgs e)
         {
-            st = From.SelectedIndex;
-            if(st!=-1)
-                ed = getId(To.SelectedItem.ToString());
+            st = from.Text;
+            ed = to.Text;
             Close();
         }
         private void cancel_Click(object sender, EventArgs e)
         {
-            st = ed = -1;
+            st = ed = "";
             Close();
-        }
-
-        private void From_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           To.Items.Clear();
-           List<int> tail = skillList[From.SelectedIndex].getTail;
-           for(int i=0;i<skillList.Count;i++){
-               if(tail.Contains(i) != isAdded){
-                   To.Items.Add(skillList[i].name);
-               }
-           }
         }
     }
 }

@@ -30,8 +30,8 @@
         {
             this.OK = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
-            this.From = new System.Windows.Forms.ComboBox();
-            this.To = new System.Windows.Forms.ComboBox();
+            this.from = new System.Windows.Forms.TextBox();
+            this.to = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // OK
@@ -54,35 +54,33 @@
             this.cancel.UseVisualStyleBackColor = true;
             this.cancel.Click += new System.EventHandler(this.cancel_Click);
             // 
-            // From
+            // from
             // 
-            this.From.FormattingEnabled = true;
-            this.From.Location = new System.Drawing.Point(42, 26);
-            this.From.Name = "From";
-            this.From.Size = new System.Drawing.Size(110, 20);
-            this.From.TabIndex = 4;
-            this.From.SelectedIndexChanged += new System.EventHandler(this.From_SelectedIndexChanged);
+            this.from.Location = new System.Drawing.Point(42, 22);
+            this.from.Name = "from";
+            this.from.Size = new System.Drawing.Size(110, 21);
+            this.from.TabIndex = 2;
             // 
-            // To
+            // to
             // 
-            this.To.FormattingEnabled = true;
-            this.To.Location = new System.Drawing.Point(187, 25);
-            this.To.Name = "To";
-            this.To.Size = new System.Drawing.Size(121, 20);
-            this.To.TabIndex = 5;
+            this.to.Location = new System.Drawing.Point(187, 22);
+            this.to.Name = "to";
+            this.to.Size = new System.Drawing.Size(109, 21);
+            this.to.TabIndex = 3;
             // 
             // edgeGetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(326, 128);
-            this.Controls.Add(this.To);
-            this.Controls.Add(this.From);
+            this.Controls.Add(this.to);
+            this.Controls.Add(this.from);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.OK);
             this.Name = "edgeGetForm";
             this.Text = "edgeGetForm";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -90,7 +88,7 @@
 
         private System.Windows.Forms.Button OK;
         private System.Windows.Forms.Button cancel;
-        private System.Windows.Forms.ComboBox From;
-        private System.Windows.Forms.ComboBox To;
+        private System.Windows.Forms.TextBox from;
+        private System.Windows.Forms.TextBox to;
     }
 }
