@@ -1,0 +1,12 @@
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\bin\Debug\RS.exe.config
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\bin\Debug\RS.exe
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\bin\Debug\RS.pdb
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\obj\Debug\RS.Properties.Resources.resources
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\obj\Debug\RS.csproj.GenerateResource.Cache
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\obj\Debug\RS.exe
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\obj\Debug\RS.pdb
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\bin\Debug\RelationView.dll
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\bin\Debug\RelationView.pdb
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\obj\Debug\RS.mainForm.resources
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\obj\Debug\RS.RelationView.resources
+F:\code\cSharp\RelationSupervise\ver0.2\RS\RS\obj\Debug\RS.csprojResolveAssemblyReference.cache
