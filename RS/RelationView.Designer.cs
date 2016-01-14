@@ -28,22 +28,115 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.刷新 = new System.Windows.Forms.ToolStripMenuItem();
+            this.重命名 = new System.Windows.Forms.ToolStripMenuItem();
+            this.添加技能 = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除技能 = new System.Windows.Forms.ToolStripMenuItem();
+            this.学习技能 = new System.Windows.Forms.ToolStripMenuItem();
+            this.遗忘技能 = new System.Windows.Forms.ToolStripMenuItem();
+            this.添加依赖关系 = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除依赖关系 = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // MenuStrip
+            // 
+            this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.刷新,
+            this.重命名,
+            this.添加技能,
+            this.删除技能,
+            this.学习技能,
+            this.遗忘技能,
+            this.添加依赖关系,
+            this.删除依赖关系});
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(149, 180);
+            // 
+            // 刷新
+            // 
+            this.刷新.Name = "刷新";
+            this.刷新.Size = new System.Drawing.Size(148, 22);
+            this.刷新.Text = "刷新";
+            this.刷新.Click += new System.EventHandler(this.刷新_Click);
+            // 
+            // 重命名
+            // 
+            this.重命名.Name = "重命名";
+            this.重命名.Size = new System.Drawing.Size(148, 22);
+            this.重命名.Text = "重命名";
+            this.重命名.Click += new System.EventHandler(this.重命名_Click);
+            // 
+            // 添加技能
+            // 
+            this.添加技能.Name = "添加技能";
+            this.添加技能.Size = new System.Drawing.Size(148, 22);
+            this.添加技能.Text = "添加技能";
+            this.添加技能.Click += new System.EventHandler(this.添加技能_Click);
+            // 
+            // 删除技能
+            // 
+            this.删除技能.Name = "删除技能";
+            this.删除技能.Size = new System.Drawing.Size(148, 22);
+            this.删除技能.Text = "删除技能";
+            this.删除技能.Click += new System.EventHandler(this.删除技能_Click);
+            // 
+            // 学习技能
+            // 
+            this.学习技能.Name = "学习技能";
+            this.学习技能.Size = new System.Drawing.Size(148, 22);
+            this.学习技能.Text = "学习技能";
+            this.学习技能.Click += new System.EventHandler(this.学习技能_Click);
+            // 
+            // 遗忘技能
+            // 
+            this.遗忘技能.Name = "遗忘技能";
+            this.遗忘技能.Size = new System.Drawing.Size(148, 22);
+            this.遗忘技能.Text = "遗忘技能";
+            this.遗忘技能.Click += new System.EventHandler(this.忘记技能_Click);
+            // 
+            // 添加依赖关系
+            // 
+            this.添加依赖关系.Name = "添加依赖关系";
+            this.添加依赖关系.Size = new System.Drawing.Size(148, 22);
+            this.添加依赖关系.Text = "添加依赖关系";
+            this.添加依赖关系.Click += new System.EventHandler(this.添加依赖关系_Click);
+            // 
+            // 删除依赖关系
+            // 
+            this.删除依赖关系.Name = "删除依赖关系";
+            this.删除依赖关系.Size = new System.Drawing.Size(148, 22);
+            this.删除依赖关系.Text = "删除依赖关系";
+            this.删除依赖关系.Click += new System.EventHandler(this.删除依赖关系_Click);
             // 
             // RelationView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "RelationView";
-            this.Size = new System.Drawing.Size(414, 211);
+            this.Size = new System.Drawing.Size(689, 367);
             this.Load += new System.EventHandler(this.RelationView_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseUp);
+            this.MenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.ContextMenuStrip MenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem 刷新;
+        private System.Windows.Forms.ToolStripMenuItem 重命名;
+        private System.Windows.Forms.ToolStripMenuItem 添加技能;
+        private System.Windows.Forms.ToolStripMenuItem 删除技能;
+        private System.Windows.Forms.ToolStripMenuItem 学习技能;
+        private System.Windows.Forms.ToolStripMenuItem 遗忘技能;
+        private System.Windows.Forms.ToolStripMenuItem 添加依赖关系;
+        private System.Windows.Forms.ToolStripMenuItem 删除依赖关系;
+
     }
 }

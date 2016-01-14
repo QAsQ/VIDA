@@ -8,16 +8,25 @@ namespace RS
 {
     public class Skill
     {
-        public Skill(string _name, int len)
+        public Skill(string _name)
         {
             name = _name;
-            tril = new bool[len];
-            for(int i=0;i<len;i++)
-                tril[i] = false;
+            tail = new List<int>();
+        }
+        public void addTail(int ID)
+        {
+            tail.Add(ID);
+        }
+        public List<int> getTail
+        {
+            get
+            {
+                return tail;
+            }
         }
         public string name;
-        public int[] succ;  //后继
-        public bool[] tril; //前驱
+        List<int> succ;  //后继
+        private List<int> tail; //前驱
         public bool isLearn;
     }
 }

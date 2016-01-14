@@ -44,30 +44,32 @@
             // 
             // MainRV
             // 
-            this.MainRV.circleR = 20;
-            this.MainRV.circleSize = 5;
-            this.MainRV.Location = new System.Drawing.Point(37, 30);
+            this.MainRV.circleR = 50;
+            this.MainRV.Location = new System.Drawing.Point(28, 21);
             this.MainRV.Name = "MainRV";
-            this.MainRV.Size = new System.Drawing.Size(728, 409);
-            this.MainRV.TabIndex = 0;
+            this.MainRV.Size = new System.Drawing.Size(742, 418);
+            this.MainRV.TabIndex = 3;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(810, 489);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.MainRV);
+            this.Controls.Add(this.button1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "mainForm";
             this.Text = "MainForm";
+            this.LocationChanged += new System.EventHandler(this.mainForm_LocationChanged);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private RelationView MainRV;
         private System.Windows.Forms.Button button1;
+        private RelationView MainRV;
 
 
 
