@@ -1,0 +1,38 @@
+explain:
+Finished work: + 
+want but not finish:  
+
+Client
+	Student
+		+learn Skill
+		forget Skill
+		+list Skill what can learn(by color mode)
+		add nick name
+		whan can't learn,list what need to learn
+		add nickname
+		save progress in file
+	Teacher
+		+delete Skill (and delete all relation with this skill)
+		+add skill
+		+delete relation
+		+add relation
+		+check relation
+		save progress in file
+		+rename
+
+
+
+
+
+UI
+	+drag skill
+	+flash
+	+drag background
+	scale map
+	+add arrow
+	+change arrow
+	change arrow again
+	spin when space down
+	change color 
+
+
