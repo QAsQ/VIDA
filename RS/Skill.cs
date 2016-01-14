@@ -53,5 +53,26 @@ namespace RS
         List<int> succ;  //前驱
         private List<int> tail; //后继    
         public bool isLearn;
+        public string toSQLstring()
+        {
+            string tailString = "";
+            foreach (int i in tail)
+            {
+                tailString += i.ToString() + " ";
+            }
+            string ret = "'" + name + "'," + tail.Count.ToString() + ",'" + tailString+"'";
+            return ret;
+        }
+        public void removeIDAndSub(int ID)
+        {
+            removeTail(ID);
+            for (int i = 0; i < tail.Count; i++)
+            {
+                if (tail[i] > ID)
+                {
+                    tail[i]--;
+                }
+            }
+        }
     }
 }
