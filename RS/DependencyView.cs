@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace RS
 {
-    public partial class RelationView : UserControl
+    public partial class DependencyView : UserControl
     {
         bool BackspaceIsDown;
         bool MouseLeftButtonIsDown;
@@ -37,7 +37,7 @@ namespace RS
             Usermode = userMode.teacher;
         }
 
-        public RelationView()
+        public DependencyView()
         {
             InitializeComponent();  
         }
@@ -108,10 +108,10 @@ namespace RS
         public Color color_background = Control.DefaultBackColor;
         Point default_StartCenter = new Point(size_circle, size_circle);
         const int size_circle = 50;
-        const int selected_noSkill = -1;
+        const int selectedId_None = -1;
         private int font_size = 25;
-        int selected_idSkill; // wait update
-        int selested_idSkillMenu;
+        int selectedId_drag; // wait update
+        int selestedId_menu;
         private Graphics g;
         private Point locate_mouse;
         private List<Point> circleCenter = new List<Point>();
@@ -260,7 +260,7 @@ namespace RS
                     return i;
                 }
             }
-            return selected_noSkill;
+            return selectedId_None;
         }
         Point afterMenuMouseLocation;
         private void RelationView_MouseDown(object sender, MouseEventArgs e)
@@ -269,12 +269,12 @@ namespace RS
             {
                 MouseLeftButtonIsDown = true;
                 locate_mouse = e.Location;
-                selected_idSkill = get_circleID(e.Location);
+                selectedId_drag = get_circleID(e.Location);
                 spaceMouseLocate = e.Location;
             }
             if( e.Button == MouseButtons.Right)
             {
-                selested_idSkillMenu = get_circleID(e.Location);
+                selestedId_menu = get_circleID(e.Location);
                 ChangeMenuVisible();
                 Point currMouseLocation = e.Location + (Size)FormLocate + (Size)Location;
                 afterMenuMouseLocation = e.Location + (Size)Location;
@@ -284,7 +284,7 @@ namespace RS
         private void ChangeMenuVisible()
         {
             int selectable;
-            if (selested_idSkillMenu == selected_noSkill)
+            if (selestedId_menu == selectedId_None)
                 selectable = 1;
             else
                 selectable = 0;
@@ -306,12 +306,12 @@ namespace RS
         Point spaceMouseLocate;
         private void RelationView_MouseMove(object sender, MouseEventArgs e)
         {
-            if (selected_idSkill != selected_noSkill && MouseLeftButtonIsDown)
+            if (selectedId_drag != selectedId_None && MouseLeftButtonIsDown)
             {
                 Point offset = e.Location - (Size)locate_mouse;
                 locate_mouse = e.Location;
-                offset.Offset(circleCenter[selected_idSkill]);
-                circleCenter[selected_idSkill] = offset;
+                offset.Offset(circleCenter[selectedId_drag]);
+                circleCenter[selectedId_drag] = offset;
                 redraw_all();
             }
             if (BackspaceIsDown == true && MouseLeftButtonIsDown)
@@ -331,7 +331,7 @@ namespace RS
             if (e.Button == MouseButtons.Left)
             {
                 MouseLeftButtonIsDown = false;
-                selected_idSkill = selected_noSkill;
+                selectedId_drag = selectedId_None;
                 spaceMouseLocate.X = spaceMouseLocate.Y = 0;
             }
         }
@@ -339,8 +339,8 @@ namespace RS
         {
             MouseLeftButtonIsDown = false;
             BackspaceIsDown = false;
-            selected_idSkill = selected_noSkill;
-            selested_idSkillMenu = selected_noSkill;
+            selectedId_drag = selectedId_None;
+            selestedId_menu = selectedId_None;
             Usermode = initUsermode;
             g = this.CreateGraphics();
         }
@@ -348,61 +348,61 @@ namespace RS
         private edgeGetForm getedge = new edgeGetForm();
         private void 重命名_Click(object sender, EventArgs e)
         {
-            rename.getName(skillList[selested_idSkillMenu].name);
+            rename.getName(skillList[selestedId_menu].name);
             if (rename.newName != "")
-                skillList[selested_idSkillMenu].name = rename.newName;
+                skillList[selestedId_menu].name = rename.newName;
             redraw_all();
-            selested_idSkillMenu = selected_noSkill;
+            selestedId_menu = selectedId_None;
         }
 
         private void 刷新_Click(object sender, EventArgs e)
         {
             redraw_all();
-            selested_idSkillMenu = selected_noSkill;
+            selestedId_menu = selectedId_None;
         }
         private void 删除技能_Click(object sender, EventArgs e)
         {
-            if(DialogResult.Cancel ==  MessageBox.Show("确定要删除 " + skillList[selested_idSkillMenu].name + "吗 ? 删除后不可撤销", "Delete", MessageBoxButtons.OKCancel)){
+            if(DialogResult.Cancel ==  MessageBox.Show("确定要删除 " + skillList[selestedId_menu].name + "吗 ? 删除后不可撤销", "Delete", MessageBoxButtons.OKCancel)){
                 return;
             }
-            skillList.RemoveAt(selested_idSkillMenu);
-            drawModeList.RemoveAt(selested_idSkillMenu);
-            circleCenter.RemoveAt(selested_idSkillMenu);
+            skillList.RemoveAt(selestedId_menu);
+            drawModeList.RemoveAt(selestedId_menu);
+            circleCenter.RemoveAt(selestedId_menu);
             foreach (Skill currSkill in skillList)
             {
-                currSkill.removeIDAndSub(selested_idSkillMenu);
+                currSkill.removeIDAndSub(selestedId_menu);
             }
-            selested_idSkillMenu = selected_noSkill;
+            selestedId_menu = selectedId_None;
             redraw_all();
         }
         
         private void 学习技能_Click(object sender, EventArgs e)
         {
-             if (drawModeList[selested_idSkillMenu] == SkillDrawMode.cantLearn)
+             if (drawModeList[selestedId_menu] == SkillDrawMode.cantLearn)
             {
                 MessageBox.Show("该技能现在不可学习，请先学习该技能的前置技能");
                 return;
             }
-            skillList[selested_idSkillMenu].isLearn = true;
-            drawModeList[selested_idSkillMenu] = SkillDrawMode.Learned;
+            skillList[selestedId_menu].isLearn = true;
+            drawModeList[selestedId_menu] = SkillDrawMode.Learned;
             setAllDrawmode();
             redraw_all();
-            selested_idSkillMenu = selected_noSkill;
+            selestedId_menu = selectedId_None;
         }
 
         private void 忘记技能_Click(object sender, EventArgs e)
         {
-            if (selested_idSkillMenu != selected_noSkill)
+            if (selestedId_menu != selectedId_None)
             {
-                skillList[selested_idSkillMenu].isLearn = false;
-                drawModeList[selested_idSkillMenu] = SkillDrawMode.canLearn;
+                skillList[selestedId_menu].isLearn = false;
+                drawModeList[selestedId_menu] = SkillDrawMode.canLearn;
                 redraw_all();
             }
-            selested_idSkillMenu = selected_noSkill;
+            selestedId_menu = selectedId_None;
         }
         private void 添加依赖关系_Click(object sender, EventArgs e)
         {
-            selested_idSkillMenu = selected_noSkill;
+            selestedId_menu = selectedId_None;
             int st, ed;
             getedge.getEdge(skillList,true);
             st = getedge.start;
@@ -421,7 +421,7 @@ namespace RS
         }
         private void 删除依赖关系_Click(object sender, EventArgs e)
         {
-            selested_idSkillMenu = selected_noSkill;
+            selestedId_menu = selectedId_None;
             int st, ed;
             getedge.getEdge(skillList, false);
             st = getedge.start;
@@ -491,7 +491,7 @@ namespace RS
             {
                 MessageBox.Show("关系不合法!");
             }
-            selested_idSkillMenu = selected_noSkill;
+            selestedId_menu = selectedId_None;
         }
         public List<Skill> getAllSkill
         {

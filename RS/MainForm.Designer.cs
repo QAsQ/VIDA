@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
-            this.MainRV = new RS.RelationView();
+            this.MainDV = new RS.DependencyView();
             this.SuspendLayout();
             // 
-            // MainRV
+            // MainDV
             // 
-            this.MainRV.AutoSize = true;
-            this.MainRV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainRV.Location = new System.Drawing.Point(0, 0);
-            this.MainRV.Name = "MainRV";
-            this.MainRV.Size = new System.Drawing.Size(810, 489);
-            this.MainRV.TabIndex = 3;
+            this.MainDV.AutoSize = true;
+            this.MainDV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainDV.Location = new System.Drawing.Point(0, 0);
+            this.MainDV.Name = "MainDV";
+            this.MainDV.Size = new System.Drawing.Size(810, 489);
+            this.MainDV.TabIndex = 3;
             // 
             // mainForm
             // 
@@ -47,7 +47,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(810, 489);
-            this.Controls.Add(this.MainRV);
+            this.Controls.Add(this.MainDV);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
@@ -61,11 +61,7 @@
 
         #endregion
 
-        private RelationView MainRV;
-
-
-
-
+        private DependencyView MainDV;
     }
 }
 

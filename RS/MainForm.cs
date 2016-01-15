@@ -26,7 +26,7 @@ namespace RS
         {
             Point FormOffset = this.Location;
             FormOffset.Offset(FrameOffset);
-            MainRV.FormLocate = FormOffset;
+            MainDV.FormLocate = FormOffset;
         }
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
