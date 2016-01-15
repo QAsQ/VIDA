@@ -19,6 +19,7 @@ namespace RS
         enum userMode { student, teacher};
         enum SkillDrawMode { Learned, canLearn, cantLearn };//已经学过的，可以学的，还不能学的
         private userMode Usermode;
+        private userMode initUsermode = userMode.teacher;
         private int count = 1;
         const int Menusize = 8;
         string defaultSkillName = "新技能_";
@@ -42,8 +43,7 @@ namespace RS
         }
         public void ShowRelation(List<Skill> _skillList)
         {
-            skill_size = _skillList.Count;
-            for(int i = 0; i < skill_size; i++)
+            for(int i = 0; i < _skillList.Count; i++)
             {
                 SkillDrawMode curr_state;
                 if (userMode.teacher == Usermode)
@@ -59,20 +59,20 @@ namespace RS
                 }
                 drawModeList.Add(curr_state); 
                 skillList.Add(_skillList[i]);
-                circle_center.Add(StartCenter);
-                StartCenter.X += circle_R * 2;
+                circleCenter.Add(default_StartCenter);
+                default_StartCenter.X += size_circle * 2;
             }
             setAllDrawmode();
             redraw_all();
         }
         private void setAllDrawmode()
         {
-            bool[] vis = new bool[skill_size];
-            for (int i = 0; i < skill_size; i++)
+            bool[] vis = new bool[skillList.Count];
+            for (int i = 0; i < skillList.Count; i++)
             {
                 vis[i] = false;
             }
-            for (int i = 0; i < skill_size; i++)
+            for (int i = 0; i < skillList.Count; i++)
             {
                 if (skillList[i].isLearn == false)
                 {
@@ -83,7 +83,7 @@ namespace RS
                     }
                 }
             }
-            for (int i = 0; i < skill_size; i++)
+            for (int i = 0; i < skillList.Count; i++)
             {
                 if (vis[i] == false && skillList[i].isLearn==false)
                 {
@@ -96,38 +96,30 @@ namespace RS
             Skill adder = new Skill(defaultSkillName+count.ToString());
             count++;
             skillList.Add(adder);
-            circle_center.Add(afterMenuMouseLocation);
+            circleCenter.Add(afterMenuMouseLocation);
             drawModeList.Add(SkillDrawMode.Learned);
-            skill_size++;
             redraw_all();
         }
-        public Color canLearn_color = Color.SkyBlue;
-        public Color cantLearn_color = Color.Red;
-        public Color Learned_color = Color.SkyBlue;
-        public Color font_color = Color.Black;
-        public Color line_color = Color.Black;
-        public Color backgroundColor = Control.DefaultBackColor;
-        Point StartCenter = new Point(circle_R, circle_R);
-        const int maxSize = 300;
-        const int maxR = 500;
-        private bool inBound(int value, int bound)
-        {
-            return value >= 0 && value < bound;
-        }
-        const int circle_R = 50;
-        private int skill_size = 5;
-        const int noSkill_select = -1;
+        public Color color_canLearnr = Color.SkyBlue;
+        public Color color_cantLearn = Color.Red;
+        public Color color_Learned = Color.SkyBlue;
+        public Color color_font = Color.Black;
+        public Color color_line = Color.Black;
+        public Color color_background = Control.DefaultBackColor;
+        Point default_StartCenter = new Point(size_circle, size_circle);
+        const int size_circle = 50;
+        const int selected_noSkill = -1;
         private int font_size = 25;
-        int skillId_selected;
-        int MenuSkillId_selested;
+        int selected_idSkill; // wait update
+        int selested_idSkillMenu;
         private Graphics g;
-        private Point mouse_locate;
-        private List<Point> circle_center = new List<Point>();
+        private Point locate_mouse;
+        private List<Point> circleCenter = new List<Point>();
         private List<Skill> skillList = new List<Skill>();
         private List<SkillDrawMode> drawModeList = new List<SkillDrawMode>();
         private void drawSkill(Point center, Skill curr_skill,SkillDrawMode curr_mode)
         {
-            int r = circle_R;
+            int r = size_circle;
             int stx = center.X - r,sty = center.Y - r;
             int d = r * 2;
             Rectangle rect = new Rectangle(stx, sty, d, d);
@@ -135,15 +127,15 @@ namespace RS
             switch (curr_mode)
             {
                 case SkillDrawMode.Learned:
-                    Brush bush = new SolidBrush(Learned_color);
+                    Brush bush = new SolidBrush(color_Learned);
                     g.FillEllipse(bush, rect);
                     break;
                 case SkillDrawMode.cantLearn:
-                    p = new Pen(cantLearn_color);
+                    p = new Pen(color_cantLearn);
                     g.DrawEllipse(p, rect);
                     break;
                 case SkillDrawMode.canLearn:
-                    p = new Pen(canLearn_color);
+                    p = new Pen(color_canLearnr);
                     g.DrawEllipse(p, rect);
                     break;
                 default:
@@ -174,16 +166,16 @@ namespace RS
             switch (currDrawMode)
             {
                 case SkillDrawMode.canLearn:
-                    ret = new Pen(canLearn_color);
+                    ret = new Pen(color_canLearnr);
                     break;
                 case SkillDrawMode.cantLearn:
-                    ret = new Pen(cantLearn_color);
+                    ret = new Pen(color_cantLearn);
                     break;
                 case SkillDrawMode.Learned:
-                    ret = new Pen(Learned_color);
+                    ret = new Pen(color_Learned);
                     break;
                 default:
-                    ret = new Pen(line_color);
+                    ret = new Pen(color_line);
                     break;
             }
             return ret;
@@ -197,18 +189,18 @@ namespace RS
         private void DrawArrow(Point st, Point ed, SkillDrawMode startMode, SkillDrawMode endMode)
         {
             int length = distance(st, ed);
-            if (length <= circle_R * 2)
+            if (length <= size_circle * 2)
                 return;
             Point vR = ed - (Size)st;  // 从圆心到圆周的向量
-            Scale(ref vR, circle_R, length);
+            Scale(ref vR, size_circle, length);
             st += (Size)vR;
             ed -= (Size)vR; 
             Point Vst_ed = ed - (Size)st; // 向量 
             int LengthV = distance(new Point(0, 0), Vst_ed);
             Scale(ref Vst_ed,5,8);
-            if (LengthV * 5> circle_R * 16 )
+            if (LengthV * 5> size_circle * 16 )
             {
-                Scale(ref Vst_ed, circle_R * 16, LengthV * 5);
+                Scale(ref Vst_ed, size_circle * 16, LengthV * 5);
             }
             Point nst = ed - (Size)Vst_ed;   // new start
             Point mid = ed - (Size)nst;
@@ -219,9 +211,9 @@ namespace RS
             Scale(ref perp, 3, 8);
             int LengthPerp = distance(new Point(0, 0), perp);
             LengthPerp = LengthPerp * 8 / 5;
-            if (LengthPerp * 8 < circle_R * 5 && LengthPerp * 5 > circle_R * 8)
-            { // length * 618 / 1000 = circle_R
-                Scale(ref perp, circle_R, LengthPerp);
+            if (LengthPerp * 8 < size_circle * 5 && LengthPerp * 5 > size_circle * 8)
+            { 
+                Scale(ref perp, size_circle, LengthPerp);
             }
             Pen edPen = getDrawModePen(startMode);
             g.DrawLine(edPen, st, nst);
@@ -235,7 +227,7 @@ namespace RS
         {
             if (currMode == SkillDrawMode.Learned)
             {
-                Brush bush = new SolidBrush(Learned_color);
+                Brush bush = new SolidBrush(color_Learned);
                 g.FillPolygon(bush, PointList);
             }
             else
@@ -246,29 +238,29 @@ namespace RS
         }
         private void redraw_all()
         {
-            g.Clear(backgroundColor);
-            Pen p = new Pen(line_color);
-            for (int i = 0; i < skill_size; i++)
+            g.Clear(color_background);
+            Pen p = new Pen(color_line);
+            for (int i = 0; i < skillList.Count; i++)
             {
                 List<int> currTail = skillList[i].getTail;
                 foreach (int end in currTail)
                 {
-                    DrawArrow(circle_center[i], circle_center[end],drawModeList[i],drawModeList[end]);
+                    DrawArrow(circleCenter[i], circleCenter[end],drawModeList[i],drawModeList[end]);
                 }
             }
-            for (int i = 0; i < skill_size; i++)
-                drawSkill(circle_center[i], skillList[i],drawModeList[i] );
+            for (int i = 0; i < skillList.Count; i++)
+                drawSkill(circleCenter[i], skillList[i],drawModeList[i] );
         }
         private int get_circleID(Point lotated)
         {
-            for (int i = 0; i < skill_size; i++)
+            for (int i = 0; i < skillList.Count; i++)
             {
-                if (distance(lotated, circle_center[i]) <= circle_R )
+                if (distance(lotated, circleCenter[i]) <= size_circle )
                 {
                     return i;
                 }
             }
-            return noSkill_select;
+            return selected_noSkill;
         }
         Point afterMenuMouseLocation;
         private void RelationView_MouseDown(object sender, MouseEventArgs e)
@@ -276,13 +268,13 @@ namespace RS
             if (e.Button == MouseButtons.Left)
             {
                 MouseLeftButtonIsDown = true;
-                mouse_locate = e.Location;
-                skillId_selected = get_circleID(e.Location);
+                locate_mouse = e.Location;
+                selected_idSkill = get_circleID(e.Location);
                 spaceMouseLocate = e.Location;
             }
             if( e.Button == MouseButtons.Right)
             {
-                MenuSkillId_selested = get_circleID(e.Location);
+                selested_idSkillMenu = get_circleID(e.Location);
                 ChangeMenuVisible();
                 Point currMouseLocation = e.Location + (Size)FormLocate + (Size)Location;
                 afterMenuMouseLocation = e.Location + (Size)Location;
@@ -292,7 +284,7 @@ namespace RS
         private void ChangeMenuVisible()
         {
             int selectable;
-            if (MenuSkillId_selested == noSkill_select)
+            if (selested_idSkillMenu == selected_noSkill)
                 selectable = 1;
             else
                 selectable = 0;
@@ -314,22 +306,22 @@ namespace RS
         Point spaceMouseLocate;
         private void RelationView_MouseMove(object sender, MouseEventArgs e)
         {
-            if (skillId_selected != noSkill_select && MouseLeftButtonIsDown)
+            if (selected_idSkill != selected_noSkill && MouseLeftButtonIsDown)
             {
-                Point offset = e.Location - (Size)mouse_locate;
-                mouse_locate = e.Location;
-                offset.Offset(circle_center[skillId_selected]);
-                circle_center[skillId_selected] = offset;
+                Point offset = e.Location - (Size)locate_mouse;
+                locate_mouse = e.Location;
+                offset.Offset(circleCenter[selected_idSkill]);
+                circleCenter[selected_idSkill] = offset;
                 redraw_all();
             }
             if (BackspaceIsDown == true && MouseLeftButtonIsDown)
             {
                 Point deviaion;
-                deviaion = mouse_locate - (Size)e.Location;
-                mouse_locate = e.Location;
-                for (int i = 0; i < skill_size; i++)
+                deviaion = locate_mouse - (Size)e.Location;
+                locate_mouse = e.Location;
+                for (int i = 0; i < skillList.Count; i++)
                 {
-                    circle_center[i] = circle_center[i] - (Size)deviaion;
+                    circleCenter[i] = circleCenter[i] - (Size)deviaion;
                 }
                 redraw_all();
             }
@@ -339,7 +331,7 @@ namespace RS
             if (e.Button == MouseButtons.Left)
             {
                 MouseLeftButtonIsDown = false;
-                skillId_selected = noSkill_select;
+                selected_idSkill = selected_noSkill;
                 spaceMouseLocate.X = spaceMouseLocate.Y = 0;
             }
         }
@@ -347,71 +339,70 @@ namespace RS
         {
             MouseLeftButtonIsDown = false;
             BackspaceIsDown = false;
-            skillId_selected = noSkill_select;
-            MenuSkillId_selested = noSkill_select;
-            skill_size = 0;
+            selected_idSkill = selected_noSkill;
+            selested_idSkillMenu = selected_noSkill;
+            Usermode = initUsermode;
             g = this.CreateGraphics();
         }
         private reNameForm rename = new reNameForm();
         private edgeGetForm getedge = new edgeGetForm();
         private void 重命名_Click(object sender, EventArgs e)
         {
-            rename.getName(skillList[MenuSkillId_selested].name);
+            rename.getName(skillList[selested_idSkillMenu].name);
             if (rename.newName != "")
-                skillList[MenuSkillId_selested].name = rename.newName;
+                skillList[selested_idSkillMenu].name = rename.newName;
             redraw_all();
-            MenuSkillId_selested = noSkill_select;
+            selested_idSkillMenu = selected_noSkill;
         }
 
         private void 刷新_Click(object sender, EventArgs e)
         {
             redraw_all();
-            MenuSkillId_selested = noSkill_select;
+            selested_idSkillMenu = selected_noSkill;
         }
         private void 删除技能_Click(object sender, EventArgs e)
         {
-            if(DialogResult.Cancel ==  MessageBox.Show("确定要删除 " + skillList[MenuSkillId_selested].name + "吗 ? 删除后不可撤销", "Delete", MessageBoxButtons.OKCancel)){
+            if(DialogResult.Cancel ==  MessageBox.Show("确定要删除 " + skillList[selested_idSkillMenu].name + "吗 ? 删除后不可撤销", "Delete", MessageBoxButtons.OKCancel)){
                 return;
             }
-            skill_size--;
-            skillList.RemoveAt(MenuSkillId_selested);
-            drawModeList.RemoveAt(MenuSkillId_selested);
-            circle_center.RemoveAt(MenuSkillId_selested);
+            skillList.RemoveAt(selested_idSkillMenu);
+            drawModeList.RemoveAt(selested_idSkillMenu);
+            circleCenter.RemoveAt(selested_idSkillMenu);
             foreach (Skill currSkill in skillList)
             {
-                currSkill.removeIDAndSub(MenuSkillId_selested);
+                currSkill.removeIDAndSub(selested_idSkillMenu);
             }
-            MenuSkillId_selested = noSkill_select;
+            selested_idSkillMenu = selected_noSkill;
             redraw_all();
         }
         
         private void 学习技能_Click(object sender, EventArgs e)
         {
-             if (drawModeList[MenuSkillId_selested] == SkillDrawMode.cantLearn)
+             if (drawModeList[selested_idSkillMenu] == SkillDrawMode.cantLearn)
             {
                 MessageBox.Show("该技能现在不可学习，请先学习该技能的前置技能");
                 return;
             }
-            skillList[MenuSkillId_selested].isLearn = true;
-            drawModeList[MenuSkillId_selested] = SkillDrawMode.Learned;
+            skillList[selested_idSkillMenu].isLearn = true;
+            drawModeList[selested_idSkillMenu] = SkillDrawMode.Learned;
             setAllDrawmode();
             redraw_all();
-            MenuSkillId_selested = noSkill_select;
+            selested_idSkillMenu = selected_noSkill;
         }
 
         private void 忘记技能_Click(object sender, EventArgs e)
         {
-            if (MenuSkillId_selested != noSkill_select)
+            if (selested_idSkillMenu != selected_noSkill)
             {
-                skillList[MenuSkillId_selested].isLearn = false;
-                drawModeList[MenuSkillId_selested] = SkillDrawMode.canLearn;
+                skillList[selested_idSkillMenu].isLearn = false;
+                drawModeList[selested_idSkillMenu] = SkillDrawMode.canLearn;
                 redraw_all();
             }
-            MenuSkillId_selested = noSkill_select;
+            selested_idSkillMenu = selected_noSkill;
         }
         private void 添加依赖关系_Click(object sender, EventArgs e)
         {
-            MenuSkillId_selested = noSkill_select;
+            selested_idSkillMenu = selected_noSkill;
             int st, ed;
             getedge.getEdge(skillList,true);
             st = getedge.start;
@@ -430,7 +421,7 @@ namespace RS
         }
         private void 删除依赖关系_Click(object sender, EventArgs e)
         {
-            MenuSkillId_selested = noSkill_select;
+            selested_idSkillMenu = selected_noSkill;
             int st, ed;
             getedge.getEdge(skillList, false);
             st = getedge.start;
@@ -500,7 +491,7 @@ namespace RS
             {
                 MessageBox.Show("关系不合法!");
             }
-            MenuSkillId_selested = noSkill_select;
+            selested_idSkillMenu = selected_noSkill;
         }
         public List<Skill> getAllSkill
         {

@@ -35,9 +35,10 @@
             // MainRV
             // 
             this.MainRV.AutoSize = true;
+            this.MainRV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainRV.Location = new System.Drawing.Point(0, 0);
             this.MainRV.Name = "MainRV";
-            this.MainRV.Size = new System.Drawing.Size(1920, 1080);
+            this.MainRV.Size = new System.Drawing.Size(810, 489);
             this.MainRV.TabIndex = 3;
             // 
             // mainForm

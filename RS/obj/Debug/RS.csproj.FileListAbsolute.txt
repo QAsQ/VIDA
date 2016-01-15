@@ -100,3 +100,16 @@ F:\code\cSharp\VIDA\ver0.7\RS\RS\obj\Debug\RS.RelationView.resources
 F:\code\cSharp\VIDA\ver0.7\RS\RS\obj\Debug\RS.reNameForm.resources
 F:\code\cSharp\VIDA\ver0.7\RS\RS\obj\Debug\RS.SignUpForm.resources
 F:\code\cSharp\VIDA\ver0.7\RS\RS\obj\Debug\RS.csproj.GenerateResource.Cache
+F:\code\GitHub\VIDA\RS\bin\Debug\RS.exe.config
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.exe
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.pdb
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.csprojResolveAssemblyReference.cache
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.edgeGetForm.resources
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.mainForm.resources
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.Properties.Resources.resources
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.RelationView.resources
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.reNameForm.resources
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.csproj.GenerateResource.Cache
+F:\code\GitHub\VIDA\RS\bin\Debug\RS.exe
+F:\code\GitHub\VIDA\RS\bin\Debug\RS.pdb
+F:\code\GitHub\VIDA\RS\bin\Debug\RelationView.pdb
