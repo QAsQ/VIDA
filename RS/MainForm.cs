@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace RS
 {
@@ -39,15 +40,6 @@ namespace RS
                 }
             }
         }
-
-        private void mainForm_Load(object sender, EventArgs e)
-        {
-            Skill[] skiller = new Skill[2];
-            skiller[0] = (Skill)"QAQ,0,";
-            skiller[1] = (Skill)"orz,1,0";
-            MainDV.ShowRelation(skiller.ToList());
-        }
-
         private void mainForm_Resize(object sender, EventArgs e)
         {  
             MainDV.Size = this.Size;
@@ -56,12 +48,64 @@ namespace RS
 
         private void 管理模式ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            MainDV.TeacherMode();
         }
         private void 学习模式ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MainDV.StudentMode();
             MainDV.Flash();
+        }
+
+        private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var skillList = new List<Skill>();
+                var pointList = new List<Point>();
+                StreamReader reader = new StreamReader(openfile.FileName, Encoding.Default);
+                try
+                {
+                    int n = Convert.ToInt32(reader.ReadLine());
+                    for (int i = 0; i < n; i++)
+                    {
+                        Skill curr = (Skill)reader.ReadLine();
+                        skillList.Add(curr);
+                    }
+                    for(int i=0;i<n;i++){
+                        string[] coordinate = reader.ReadLine().Split(',');
+                        int x = Convert.ToInt32(coordinate[0]);
+                        int y = Convert.ToInt32(coordinate[1]);
+                        pointList.Add(new Point(x, y));
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("该文件损坏");
+                    return;
+                }
+                MainDV.ShowRelation(skillList,pointList);
+            }
+        }
+
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                var writer = new StreamWriter(savefile.FileName,false,Encoding.Default);
+                var skillList = MainDV.getAllSkill;
+                writer.WriteLine(skillList.Count.ToString());
+                foreach (Skill curr in skillList)
+                {
+                    writer.WriteLine(curr.ToString());
+                }
+                var pointList = MainDV.PointList;
+                foreach (Point poi in pointList)
+                {
+                    writer.WriteLine(poi.X.ToString() + "," + poi.Y.ToString());
+                }
+                writer.Flush();
+                writer.Close();
+            }
         }
     }
 }

@@ -41,8 +41,10 @@ namespace RS
         {
             InitializeComponent();  
         }
-        public void ShowRelation(List<Skill> _skillList)
+        public void ShowRelation(List<Skill> _skillList,List<Point> _pointList)
         {
+            skillList = _skillList;
+            circleCenter = _pointList;
             for(int i = 0; i < _skillList.Count; i++)
             {
                 SkillDrawMode curr_state;
@@ -58,13 +60,10 @@ namespace RS
                         curr_state = SkillDrawMode.cantLearn;
                 }
                 drawModeList.Add(curr_state); 
-                skillList.Add(_skillList[i]);
-                circleCenter.Add(default_StartCenter);
-                default_StartCenter.X += size_circle * 2;
             }
             setAllDrawmode();
             redraw_all();
-        }
+        }     
         private void setAllDrawmode()
         {
             bool[] vis = new bool[skillList.Count];

@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.openfile = new System.Windows.Forms.OpenFileDialog();
             this.savefile = new System.Windows.Forms.SaveFileDialog();
-            this.MainDV = new RS.DependencyView();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,17 +39,17 @@
             this.模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.管理模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.学习模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainDV = new RS.DependencyView();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // MainDV
+            // openfile
             // 
-            this.MainDV.AutoSize = true;
-            this.MainDV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainDV.Location = new System.Drawing.Point(0, 25);
-            this.MainDV.Name = "MainDV";
-            this.MainDV.Size = new System.Drawing.Size(810, 464);
-            this.MainDV.TabIndex = 3;
+            this.openfile.Filter = "DMA文件(*.dma)|*.dma";
+            // 
+            // savefile
+            // 
+            this.savefile.Filter = "DMA文件(*.dma)|*.dma";
             // 
             // menu
             // 
@@ -78,12 +77,14 @@
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
             this.打开ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.打开ToolStripMenuItem.Text = "打开";
+            this.打开ToolStripMenuItem.Click += new System.EventHandler(this.打开ToolStripMenuItem_Click);
             // 
             // 保存ToolStripMenuItem
             // 
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
             this.保存ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.保存ToolStripMenuItem.Text = "保存";
+            this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
             // 新建ToolStripMenuItem
             // 
@@ -103,16 +104,25 @@
             // 管理模式ToolStripMenuItem
             // 
             this.管理模式ToolStripMenuItem.Name = "管理模式ToolStripMenuItem";
-            this.管理模式ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.管理模式ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.管理模式ToolStripMenuItem.Text = "管理模式";
             this.管理模式ToolStripMenuItem.Click += new System.EventHandler(this.管理模式ToolStripMenuItem_Click);
             // 
             // 学习模式ToolStripMenuItem
             // 
             this.学习模式ToolStripMenuItem.Name = "学习模式ToolStripMenuItem";
-            this.学习模式ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.学习模式ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.学习模式ToolStripMenuItem.Text = "学习模式";
             this.学习模式ToolStripMenuItem.Click += new System.EventHandler(this.学习模式ToolStripMenuItem_Click);
+            // 
+            // MainDV
+            // 
+            this.MainDV.AutoSize = true;
+            this.MainDV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainDV.Location = new System.Drawing.Point(0, 25);
+            this.MainDV.Name = "MainDV";
+            this.MainDV.Size = new System.Drawing.Size(810, 464);
+            this.MainDV.TabIndex = 3;
             // 
             // mainForm
             // 
@@ -128,7 +138,6 @@
             this.Name = "mainForm";
             this.Text = "MainForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
-            this.Load += new System.EventHandler(this.mainForm_Load);
             this.LocationChanged += new System.EventHandler(this.mainForm_LocationChanged);
             this.Resize += new System.EventHandler(this.mainForm_Resize);
             this.menu.ResumeLayout(false);
