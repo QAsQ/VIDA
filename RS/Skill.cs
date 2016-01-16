@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace RS
 {
@@ -16,24 +15,13 @@ namespace RS
             tail = new List<int>();
             isLearn = false;    
         }
-        public Skill(SqlDataReader reader)
+        public Skill()
         {
+            // TODO: Complete member initialization
+
             tail = new List<int>();
-            name = (string)reader.GetValue(1);
-            int len = (int)reader.GetValue(2);
-            if (len != 0)
-            {
-                string input = (string)reader.GetValue(3);
-                string[] inputTail = input.Split(' ');
-                foreach (string num in inputTail)
-                {
-                    if (num != "")
-                    {
-                        addTail(Convert.ToInt32(num));
-                    }
-                }
-            }
-        }
+            isLearn = false;
+        }   
         public void addTail(int ID)
         {
             tail.Add(ID);
@@ -53,15 +41,14 @@ namespace RS
         List<int> succ;  //前驱
         private List<int> tail; //后继    
         public bool isLearn;
-        public string toSQLstring()
+        private string taiString()
         {
             string tailString = "";
             foreach (int i in tail)
             {
                 tailString += i.ToString() + " ";
             }
-            string ret = "'" + name + "'," + tail.Count.ToString() + ",'" + tailString+"'";
-            return ret;
+            return tailString;
         }
         public void removeIDAndSub(int ID)
         {
@@ -73,6 +60,28 @@ namespace RS
                     tail[i]--;
                 }
             }
+        }
+        override public string ToString()
+        {
+            string ret = name;
+            ret += "," + tail.Count.ToString();
+            ret += "," + taiString();
+            return ret;
+        }
+        static public explicit operator Skill(string _val)
+        {
+            string[] val = _val.Split(',');
+            Skill ret = new Skill();
+            ret.name = val[0];
+            string[] tails = val[2].Split(' ');
+            foreach (string id in tails)
+            {
+                if (id != "")
+                {
+                    ret.addTail(Convert.ToInt32(id));
+                }
+            }
+            return ret;
         }
     }
 }

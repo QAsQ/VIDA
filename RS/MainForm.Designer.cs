@@ -53,6 +53,7 @@
             this.Name = "mainForm";
             this.Text = "MainForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
+            this.Load += new System.EventHandler(this.mainForm_Load);
             this.LocationChanged += new System.EventHandler(this.mainForm_LocationChanged);
             this.ResumeLayout(false);
             this.PerformLayout();

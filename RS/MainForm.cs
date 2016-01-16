@@ -33,5 +33,14 @@ namespace RS
             if (DialogResult.Yes == MessageBox.Show("是否用当前的状态来覆盖之前的数据？", "Save", MessageBoxButtons.YesNo))
                 return;
         }
+
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+
+            Skill[] skiller = new Skill[2];
+            skiller[0] = (Skill)"QAQ,0,";
+            skiller[1] = (Skill)"orz,1,0";
+            MainDV.ShowRelation(skiller.ToList());
+        }
     }
 }
