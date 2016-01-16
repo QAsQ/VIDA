@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.MainDV = new RS.DependencyView();
+            this.openfile = new System.Windows.Forms.OpenFileDialog();
+            this.savefile = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // MainDV
@@ -63,6 +65,8 @@
         #endregion
 
         private DependencyView MainDV;
+        private System.Windows.Forms.OpenFileDialog openfile;
+        private System.Windows.Forms.SaveFileDialog savefile;
     }
 }
 

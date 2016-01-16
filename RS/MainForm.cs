@@ -36,7 +36,6 @@ namespace RS
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-
             Skill[] skiller = new Skill[2];
             skiller[0] = (Skill)"QAQ,0,";
             skiller[1] = (Skill)"orz,1,0";
