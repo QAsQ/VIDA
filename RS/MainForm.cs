@@ -31,7 +31,13 @@ namespace RS
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (DialogResult.Yes == MessageBox.Show("是否用当前的状态来覆盖之前的数据？", "Save", MessageBoxButtons.YesNo))
-                return;
+            {
+                var list_skill = MainDV.getAllSkill;
+                foreach (Skill curr in list_skill)
+                {
+                    MessageBox.Show(curr.ToString());
+                }
+            }
         }
 
         private void mainForm_Load(object sender, EventArgs e)
@@ -40,6 +46,12 @@ namespace RS
             skiller[0] = (Skill)"QAQ,0,";
             skiller[1] = (Skill)"orz,1,0";
             MainDV.ShowRelation(skiller.ToList());
+        }
+
+        private void mainForm_Resize(object sender, EventArgs e)
+        {  
+            MainDV.Size = this.Size;
+            MainDV.Location = new Point(0, 0);
         }
     }
 }

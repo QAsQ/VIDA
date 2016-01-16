@@ -111,13 +111,14 @@
             this.检查依赖关系.Text = "检查依赖关系";
             this.检查依赖关系.Click += new System.EventHandler(this.检查依赖关系_Click);
             // 
-            // RelationView
+            // DependencyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "RelationView";
+            this.Name = "DependencyView";
             this.Size = new System.Drawing.Size(698, 472);
             this.Load += new System.EventHandler(this.RelationView_Load);
+            this.SizeChanged += new System.EventHandler(this.DependencyView_SizeChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RelationView_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RelationView_KeyUp);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseDown);

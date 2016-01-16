@@ -516,5 +516,11 @@ namespace RS
                 BackspaceIsDown = false;
             }
         }
+
+        private void DependencyView_SizeChanged(object sender, EventArgs e)
+        {
+            g = this.CreateGraphics();
+            redraw_all();
+        }
     }
 }
