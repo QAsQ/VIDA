@@ -53,5 +53,15 @@ namespace RS
             MainDV.Size = this.Size;
             MainDV.Location = new Point(0, 0);
         }
+
+        private void 管理模式ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void 学习模式ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainDV.StudentMode();
+            MainDV.Flash();
+        }
     }
 }
