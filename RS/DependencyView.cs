@@ -520,7 +520,19 @@ namespace RS
         private void DependencyView_SizeChanged(object sender, EventArgs e)
         {
             g = this.CreateGraphics();
+            Flash();
+        }
+
+        public void Flash()
+        {
             redraw_all();
+        }
+        public List<Point> PointList
+        {
+            get
+            {
+                return circleCenter;
+            }
         }
     }
 }
