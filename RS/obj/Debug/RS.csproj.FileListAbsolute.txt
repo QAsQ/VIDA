@@ -111,3 +111,4 @@ F:\code\GitHub\VIDA\RS\obj\Debug\RS.csprojResolveAssemblyReference.cache
 F:\code\GitHub\VIDA\RS\obj\Debug\VIDA.exe
 F:\code\GitHub\VIDA\RS\obj\Debug\VIDA.pdb
 F:\code\GitHub\VIDA\RS\obj\Debug\RS.Properties.Resources.resources
+F:\code\GitHub\VIDA\RS\obj\Debug\RS.PasswordForm.resources

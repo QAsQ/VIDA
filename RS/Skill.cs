@@ -13,14 +13,12 @@ namespace RS
         {
             name = _name;
             tail = new List<int>();
-            isLearn = false;    
         }
         public Skill()
         {
             // TODO: Complete member initialization
 
             tail = new List<int>();
-            isLearn = false;
         }   
         public void addTail(int ID)
         {
@@ -39,8 +37,7 @@ namespace RS
         }
         public string name;
         List<int> succ;  //前驱
-        private List<int> tail; //后继    
-        public bool isLearn;
+        private List<int> tail; //后继 
         private string taiString()
         {
             string tailString = "";

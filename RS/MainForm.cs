@@ -31,24 +31,27 @@ namespace RS
         }
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("是否保存当前的状态", "Save", MessageBoxButtons.YesNo))
-            {
-                var list_skill = MainDV.getAllSkill;
-                foreach (Skill curr in list_skill)
-                {
-                    MessageBox.Show(curr.ToString());
-                }
-            }
+            //if (DialogResult.Yes == MessageBox.Show("是否保存当前的状态", "Save", MessageBoxButtons.YesNo))
+            //{
+            //    var list_skill = MainDV.getAllSkill;
+            //    foreach (Skill curr in list_skill)
+            //    {
+            //        MessageBox.Show(curr.ToString());
+            //    }
+            //}
         }
         private void mainForm_Resize(object sender, EventArgs e)
         {  
             MainDV.Size = this.Size;
             MainDV.Location = new Point(0, 0);
         }
-
+        PasswordForm checkPassword = new PasswordForm();
         private void 管理模式ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MainDV.TeacherMode();
+            checkPassword.checkPassword();
+            if(checkPassword.passwordRight)
+                MainDV.TeacherMode();
+            MainDV.Flash();
         }
         private void 学习模式ToolStripMenuItem_Click(object sender, EventArgs e)
         {

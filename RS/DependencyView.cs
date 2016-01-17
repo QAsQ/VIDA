@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
+
 namespace RS
 {
     public partial class DependencyView : UserControl
@@ -36,7 +37,13 @@ namespace RS
         {
             Usermode = userMode.teacher;
         }
-
+        List<bool> isLearnState
+        {
+            get
+            {
+                return isLearnList;
+            }
+        }
         public DependencyView()
         {
             InitializeComponent();  
@@ -47,19 +54,8 @@ namespace RS
             circleCenter = _pointList;
             for(int i = 0; i < _skillList.Count; i++)
             {
-                SkillDrawMode curr_state;
-                if (userMode.teacher == Usermode)
-                {
-                    curr_state = SkillDrawMode.Learned;
-                }
-                else
-                {
-                    if (_skillList[i].isLearn)
-                        curr_state = SkillDrawMode.Learned;
-                    else
-                        curr_state = SkillDrawMode.cantLearn;
-                }
-                drawModeList.Add(curr_state); 
+                drawModeList.Add(SkillDrawMode.cantLearn);
+                isLearnList.Add(false);
             }
             setAllDrawmode();
             redraw_all();
@@ -73,7 +69,7 @@ namespace RS
             }
             for (int i = 0; i < skillList.Count; i++)
             {
-                if (skillList[i].isLearn == false)
+                if (isLearnList[i] == false)
                 {
                     List<int> currList = skillList[i].getTail;
                     for (int j = 0; j < currList.Count; j++)
@@ -84,7 +80,7 @@ namespace RS
             }
             for (int i = 0; i < skillList.Count; i++)
             {
-                if (vis[i] == false && skillList[i].isLearn==false)
+                if (vis[i] == false && isLearnList[i]==false)
                 {
                     drawModeList[i] = SkillDrawMode.canLearn;
                 }
@@ -96,7 +92,9 @@ namespace RS
             count++;
             skillList.Add(adder);
             circleCenter.Add(afterMenuMouseLocation);
-            drawModeList.Add(SkillDrawMode.Learned);
+            drawModeList.Add(SkillDrawMode.cantLearn);
+            isLearnList.Add(false);
+            setAllDrawmode();
             redraw_all();
         }
         public Color color_canLearnr = Color.SkyBlue;
@@ -108,7 +106,7 @@ namespace RS
         Point default_StartCenter = new Point(size_circle, size_circle);
         const int size_circle = 50;
         const int selectedId_None = -1;
-        const int size_font = 25;
+        const int size_font = size_circle * 5 / 8;
         int selectedId_drag; 
         int selectedId_menu; 
         Font font_name = new Font("Arial", size_font);
@@ -116,8 +114,19 @@ namespace RS
         private Point locate_mouse;
         private List<Point> circleCenter = new List<Point>();
         private List<Skill> skillList = new List<Skill>();
+        private List<bool> isLearnList = new List<bool>();
         private List<SkillDrawMode> drawModeList = new List<SkillDrawMode>();
-        private void drawSkill(Point center, Skill curr_skill,SkillDrawMode curr_mode)
+        public bool changeLearnState(string biter)
+        {
+            if (biter.Length != isLearnList.Count)
+                return false;
+            for (int i = 0; i < biter.Length; i++)
+            {
+                isLearnList[i] = biter[i] == '1';
+            }
+            return true;
+        }
+        private void drawSkill(Point center, Skill curr_skill, SkillDrawMode curr_mode)
         {
             int r = size_circle;
             int stx = center.X - r,sty = center.Y - r;
@@ -248,11 +257,29 @@ namespace RS
                 List<int> currTail = skillList[i].getTail;
                 foreach (int end in currTail)
                 {
-                    DrawArrow(circleCenter[i], circleCenter[end],drawModeList[i],drawModeList[end]);
+                    switch (Usermode)
+                    {
+                        case userMode.student:
+                            DrawArrow(circleCenter[i], circleCenter[end], drawModeList[i], drawModeList[end]);
+                            break;
+                        case userMode.teacher:
+                            DrawArrow(circleCenter[i], circleCenter[end], SkillDrawMode.Learned, SkillDrawMode.Learned);
+                            break;
+                    }
                 }
             }
             for (int i = 0; i < skillList.Count; i++)
-                drawSkill(circleCenter[i], skillList[i],drawModeList[i] );
+            {
+                switch (Usermode)
+                {
+                    case userMode.student:
+                        drawSkill(circleCenter[i], skillList[i], drawModeList[i]);
+                        break;
+                    case userMode.teacher:
+                        drawSkill(circleCenter[i], skillList[i], SkillDrawMode.Learned);
+                        break;
+                }
+            }
         }
         private int get_circleID(Point lotated)
         {
@@ -402,7 +429,7 @@ namespace RS
                 MessageBox.Show("该技能现在不可学习，请先学习该技能的前置技能");
                 return;
             }
-            skillList[selectedId_menu].isLearn = true;
+            isLearnList[selectedId_menu] = true;
             drawModeList[selectedId_menu] = SkillDrawMode.Learned;
             setAllDrawmode();
             redraw_all();
@@ -413,7 +440,7 @@ namespace RS
         {
             if (selectedId_menu != selectedId_None)
             {
-                skillList[selectedId_menu].isLearn = false;
+                isLearnList[selectedId_menu] = false;
                 drawModeList[selectedId_menu] = SkillDrawMode.canLearn;
                 redraw_all();
             }
