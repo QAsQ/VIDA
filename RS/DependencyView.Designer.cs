@@ -38,6 +38,7 @@
             this.添加依赖关系 = new System.Windows.Forms.ToolStripMenuItem();
             this.删除依赖关系 = new System.Windows.Forms.ToolStripMenuItem();
             this.检查依赖关系 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reNameBox = new System.Windows.Forms.TextBox();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,10 +112,21 @@
             this.检查依赖关系.Text = "检查依赖关系";
             this.检查依赖关系.Click += new System.EventHandler(this.检查依赖关系_Click);
             // 
+            // reNameBox
+            // 
+            this.reNameBox.AllowDrop = true;
+            this.reNameBox.Location = new System.Drawing.Point(122, 132);
+            this.reNameBox.Name = "reNameBox";
+            this.reNameBox.Size = new System.Drawing.Size(100, 21);
+            this.reNameBox.TabIndex = 1;
+            this.reNameBox.TabStop = false;
+            this.reNameBox.Visible = false;
+            // 
             // DependencyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.reNameBox);
             this.Name = "DependencyView";
             this.Size = new System.Drawing.Size(698, 472);
             this.Load += new System.EventHandler(this.RelationView_Load);
@@ -126,6 +138,7 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseUp);
             this.MenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -140,6 +153,7 @@
         private System.Windows.Forms.ToolStripMenuItem 添加依赖关系;
         private System.Windows.Forms.ToolStripMenuItem 删除依赖关系;
         private System.Windows.Forms.ToolStripMenuItem 检查依赖关系;
+        private System.Windows.Forms.TextBox reNameBox;
 
     }
 }

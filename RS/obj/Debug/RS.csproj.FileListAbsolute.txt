@@ -102,7 +102,6 @@ F:\code\cSharp\VIDA\ver0.7\RS\RS\obj\Debug\RS.SignUpForm.resources
 F:\code\cSharp\VIDA\ver0.7\RS\RS\obj\Debug\RS.csproj.GenerateResource.Cache
 F:\code\GitHub\VIDA\RS\obj\Debug\RS.edgeGetForm.resources
 F:\code\GitHub\VIDA\RS\obj\Debug\RS.mainForm.resources
-F:\code\GitHub\VIDA\RS\obj\Debug\RS.reNameForm.resources
 F:\code\GitHub\VIDA\RS\obj\Debug\RS.csproj.GenerateResource.Cache
 F:\code\GitHub\VIDA\RS\obj\Debug\RS.DependencyView.resources
 F:\code\GitHub\VIDA\RS\bin\Debug\VIDA.exe.config

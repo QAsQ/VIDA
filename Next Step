@@ -7,7 +7,6 @@ Client
 		+learn Skill
 		forget Skill
 		+list Skill what can learn(by color mode)
-		add nick name
 		whan can't learn,list what need to learn
 		add nickname
 		save progress in file
@@ -17,12 +16,8 @@ Client
 		+delete relation
 		+add relation
 		+check relation
-		save progress in file
+		+save progress in file
 		+rename
-
-
-
-
 
 UI
 	+drag skill
@@ -31,6 +26,7 @@ UI
 	scale map
 	+add arrow
 	+change arrow
+	raname use moveable textBox not new Form
 	change arrow again
 	spin when space down
 	change color 

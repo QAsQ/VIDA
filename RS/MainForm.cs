@@ -31,7 +31,7 @@ namespace RS
         }
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("是否用当前的状态来覆盖之前的数据？", "Save", MessageBoxButtons.YesNo))
+            if (DialogResult.Yes == MessageBox.Show("是否保存当前的状态", "Save", MessageBoxButtons.YesNo))
             {
                 var list_skill = MainDV.getAllSkill;
                 foreach (Skill curr in list_skill)
@@ -84,6 +84,7 @@ namespace RS
                     return;
                 }
                 MainDV.ShowRelation(skillList,pointList);
+                MainDV.Flash();
             }
         }
 

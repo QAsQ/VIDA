@@ -108,9 +108,10 @@ namespace RS
         Point default_StartCenter = new Point(size_circle, size_circle);
         const int size_circle = 50;
         const int selectedId_None = -1;
-        private int font_size = 25;
-        int selectedId_drag; // wait update
-        int selestedId_menu;
+        const int size_font = 25;
+        int selectedId_drag; 
+        int selectedId_menu; 
+        Font font_name = new Font("Arial", size_font);
         private Graphics g;
         private Point locate_mouse;
         private List<Point> circleCenter = new List<Point>();
@@ -140,17 +141,20 @@ namespace RS
                 default:
                     break;
             }   
-            Font Font = new Font("Arial", font_size);
             Brush fontbush;
             if (curr_mode == SkillDrawMode.Learned)
                 fontbush = new SolidBrush(Color.Gray);
             else
                 fontbush = new SolidBrush(Color.Black);
-            SizeF fontSize = g.MeasureString(curr_skill.name,Font);
+            Point fontSize = (Point)getNameSize(curr_skill.name);
             Point DrawStringPoint = center;
-            DrawStringPoint.X -= (int)fontSize.Width / 2;
-            DrawStringPoint.Y -= (int)fontSize.Height / 2;
-            g.DrawString(curr_skill.name, Font, fontbush, DrawStringPoint);
+            Scale(ref fontSize, 1, 2);
+            DrawStringPoint -= (Size)fontSize;
+            g.DrawString(curr_skill.name, font_name, fontbush, DrawStringPoint);
+        }
+        private Size getNameSize(string name)
+        {
+            return g.MeasureString(name, font_name).ToSize();
         }
         int distance(Point st, Point ed)
         {
@@ -264,6 +268,15 @@ namespace RS
         Point afterMenuMouseLocation;
         private void RelationView_MouseDown(object sender, MouseEventArgs e)
         {
+            if (selectedId_renameBox != selectedId_None)
+            {
+                skillList[selectedId_renameBox].name = reNameBox.Text;
+                reNameBox.Hide();
+                this.Focus();
+                selectedId_renameBox = selectedId_None;
+                reNameBox.Location = (Point)Size;
+                Flash();
+            }
             if (e.Button == MouseButtons.Left)
             {
                 MouseLeftButtonIsDown = true;
@@ -273,7 +286,7 @@ namespace RS
             }
             if( e.Button == MouseButtons.Right)
             {
-                selestedId_menu = get_circleID(e.Location);
+                selectedId_menu = get_circleID(e.Location);
                 ChangeMenuVisible();
                 Point currMouseLocation = e.Location + (Size)FormLocate + (Size)Location;
                 afterMenuMouseLocation = e.Location + (Size)Location;
@@ -283,7 +296,7 @@ namespace RS
         private void ChangeMenuVisible()
         {
             int selectable;
-            if (selestedId_menu == selectedId_None)
+            if (selectedId_menu == selectedId_None)
                 selectable = 1;
             else
                 selectable = 0;
@@ -339,69 +352,76 @@ namespace RS
             MouseLeftButtonIsDown = false;
             BackspaceIsDown = false;
             selectedId_drag = selectedId_None;
-            selestedId_menu = selectedId_None;
+            selectedId_menu = selectedId_None;
+            selectedId_renameBox = selectedId_None;
             Usermode = initUsermode;
             g = this.CreateGraphics();
+            reNameBox.Font = font_name;
         }
-        private reNameForm rename = new reNameForm();
         private edgeGetForm getedge = new edgeGetForm();
+        int selectedId_renameBox;
         private void 重命名_Click(object sender, EventArgs e)
         {
-            rename.getName(skillList[selestedId_menu].name);
-            if (rename.newName != "")
-                skillList[selestedId_menu].name = rename.newName;
-            redraw_all();
-            selestedId_menu = selectedId_None;
+            string oldName = skillList[selectedId_menu].name;
+            Point sizeOfName = (Point)getNameSize(oldName);
+            reNameBox.Size = (Size)sizeOfName;
+            Scale(ref sizeOfName, 1, 2);
+            reNameBox.Location = circleCenter[selectedId_menu] - (Size)sizeOfName;
+            reNameBox.Text = oldName;
+            reNameBox.Show();
+            reNameBox.Focus();
+            reNameBox.SelectAll();
+            selectedId_renameBox = selectedId_menu;
+            selectedId_menu = selectedId_None;     
         }
-
         private void 刷新_Click(object sender, EventArgs e)
         {
             redraw_all();
-            selestedId_menu = selectedId_None;
+            selectedId_menu = selectedId_None;
         }
         private void 删除技能_Click(object sender, EventArgs e)
         {
-            if(DialogResult.Cancel ==  MessageBox.Show("确定要删除 " + skillList[selestedId_menu].name + "吗 ? 删除后不可撤销", "Delete", MessageBoxButtons.OKCancel)){
+            if(DialogResult.Cancel ==  MessageBox.Show("确定要删除 " + skillList[selectedId_menu].name + "吗 ? 删除后不可撤销", "Delete", MessageBoxButtons.OKCancel)){
                 return;
             }
-            skillList.RemoveAt(selestedId_menu);
-            drawModeList.RemoveAt(selestedId_menu);
-            circleCenter.RemoveAt(selestedId_menu);
+            skillList.RemoveAt(selectedId_menu);
+            drawModeList.RemoveAt(selectedId_menu);
+            circleCenter.RemoveAt(selectedId_menu);
             foreach (Skill currSkill in skillList)
             {
-                currSkill.removeIDAndSub(selestedId_menu);
+                currSkill.removeIDAndSub(selectedId_menu);
             }
-            selestedId_menu = selectedId_None;
+            selectedId_menu = selectedId_None;
             redraw_all();
         }
         
         private void 学习技能_Click(object sender, EventArgs e)
         {
-             if (drawModeList[selestedId_menu] == SkillDrawMode.cantLearn)
+             if (drawModeList[selectedId_menu] == SkillDrawMode.cantLearn)
             {
                 MessageBox.Show("该技能现在不可学习，请先学习该技能的前置技能");
                 return;
             }
-            skillList[selestedId_menu].isLearn = true;
-            drawModeList[selestedId_menu] = SkillDrawMode.Learned;
+            skillList[selectedId_menu].isLearn = true;
+            drawModeList[selectedId_menu] = SkillDrawMode.Learned;
             setAllDrawmode();
             redraw_all();
-            selestedId_menu = selectedId_None;
+            selectedId_menu = selectedId_None;
         }
 
         private void 忘记技能_Click(object sender, EventArgs e)
         {
-            if (selestedId_menu != selectedId_None)
+            if (selectedId_menu != selectedId_None)
             {
-                skillList[selestedId_menu].isLearn = false;
-                drawModeList[selestedId_menu] = SkillDrawMode.canLearn;
+                skillList[selectedId_menu].isLearn = false;
+                drawModeList[selectedId_menu] = SkillDrawMode.canLearn;
                 redraw_all();
             }
-            selestedId_menu = selectedId_None;
+            selectedId_menu = selectedId_None;
         }
         private void 添加依赖关系_Click(object sender, EventArgs e)
         {
-            selestedId_menu = selectedId_None;
+            selectedId_menu = selectedId_None;
             int st, ed;
             getedge.getEdge(skillList,true);
             st = getedge.start;
@@ -420,7 +440,7 @@ namespace RS
         }
         private void 删除依赖关系_Click(object sender, EventArgs e)
         {
-            selestedId_menu = selectedId_None;
+            selectedId_menu = selectedId_None;
             int st, ed;
             getedge.getEdge(skillList, false);
             st = getedge.start;
@@ -490,7 +510,7 @@ namespace RS
             {
                 MessageBox.Show("关系不合法!");
             }
-            selestedId_menu = selectedId_None;
+            selectedId_menu = selectedId_None;
         }
         public List<Skill> getAllSkill
         {
