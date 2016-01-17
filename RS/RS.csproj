@@ -69,7 +69,6 @@
     <Compile Include="edgeGetForm.Designer.cs">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="endcode.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +90,12 @@
       <DependentUpon>DependencyView.cs</DependentUpon>
     </Compile>
     <Compile Include="Skill.cs" />
+    <Compile Include="tailGetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tailGetForm.Designer.cs">
+      <DependentUpon>tailGetForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="edgeGetForm.resx">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,6 +117,9 @@
     </Compile>
     <EmbeddedResource Include="DependencyView.resx">
       <DependentUpon>DependencyView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tailGetForm.resx">
+      <DependentUpon>tailGetForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">

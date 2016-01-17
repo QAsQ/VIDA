@@ -22,13 +22,13 @@ namespace RS
         private userMode Usermode;
         private userMode initUsermode = userMode.teacher;
         private int count = 1;
-        const int Menusize = 8;
+        const int Menusize = 10;
         string defaultSkillName = "新技能_";
-        //刷新;重命名;添加技能;删除技能;学习技能,添加依赖关系,删除依赖关系,检查依赖关系;
-        bool[,] MenuVisible = {{true, true, false, false, true,false,false,false},       //student
-                               {true, true, true, true, false,true,true,true}};       //teacher
-        bool[,] AfterSelectVisible = {{true, true, true, true, true,false,false,false},  // 有选择一个skill
-                                      {true, false, true, false, false,true,true,true}};  // 没有选择一个skill
+        //刷新;重命名;添加技能;删除技能;学习技能,添加依赖关系,删除依赖关系,检查依赖关系,添加后继,删除后继;
+        bool[,] MenuVisible = {{true, true, false, false, true,false,false,false,false,false},       //student
+                               {true, true, true, true, false,true,true,true,true,true}};       //teacher
+        bool[,] AfterSelectVisible = {{true, true, true, true, true,false,false,false,true,true},  // 有选择一个skill
+                                      {true, false, true, false, false,true,true,true,false,false}};  // 没有选择一个skill
         public void StudentMode()
         {
             Usermode = userMode.student;
@@ -386,6 +386,7 @@ namespace RS
             reNameBox.Font = font_name;
         }
         private edgeGetForm getedge = new edgeGetForm();
+        tailGetForm tailGet = new tailGetForm();
         int selectedId_renameBox;
         private void 重命名_Click(object sender, EventArgs e)
         {
@@ -448,34 +449,32 @@ namespace RS
         }
         private void 添加依赖关系_Click(object sender, EventArgs e)
         {
-            selectedId_menu = selectedId_None;
-            int st, ed;
-            getedge.getEdge(skillList,true);
-            st = getedge.start;
-            ed = getedge.end;
-            if (st == -1 || ed == -1)
-                return;
-            int[] temp;
-            skillList[st].addTail(ed);
-            if (canTopSort(out temp) == false)
-            {
-                MessageBox.Show("添加这个关系后会导致技能无法学习,添加失败");
-                skillList[st].removeTail(ed);
-                return;
-            }
-            redraw_all();
+                int st, ed;
+                getedge.getEdge(skillList, true);
+                st = getedge.start;
+                ed = getedge.end;
+                if (st == -1 || ed == -1)
+                    return;
+                int[] temp;
+                skillList[st].addTail(ed);
+                if (canTopSort(out temp) == false)
+                {
+                    MessageBox.Show("添加这个关系后会导致技能无法学习,添加失败");
+                    skillList[st].removeTail(ed);
+                    return;
+                }
+                redraw_all();
         }
         private void 删除依赖关系_Click(object sender, EventArgs e)
         {
-            selectedId_menu = selectedId_None;
-            int st, ed;
-            getedge.getEdge(skillList, false);
-            st = getedge.start;
-            ed = getedge.end;
-            if (st == -1 || ed == -1)
-                return;
-            skillList[st].removeTail(ed);
-            redraw_all();
+                int st, ed;
+                getedge.getEdge(skillList, false);
+                st = getedge.start;
+                ed = getedge.end;
+                if (st == -1 || ed == -1)
+                    return;
+                skillList[st].removeTail(ed);
+                redraw_all();
         }
         private int getZero(ref bool[] vis,int[] Ind){
             for(int i=0;i<Ind.Length;i++){
@@ -525,7 +524,6 @@ namespace RS
             }
             return pos == len;
         }
-
         private void 检查依赖关系_Click(object sender, EventArgs e)
         {
             int[] menu;
@@ -546,7 +544,6 @@ namespace RS
                 return skillList;
             }
         }
-
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
@@ -554,7 +551,6 @@ namespace RS
                 BackspaceIsDown = true;
             }
         }
-
         private void RelationView_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
@@ -562,13 +558,11 @@ namespace RS
                 BackspaceIsDown = false;
             }
         }
-
         private void DependencyView_SizeChanged(object sender, EventArgs e)
         {
             g = this.CreateGraphics();
             Flash();
         }
-
         public void Flash()
         {
             redraw_all();
@@ -579,6 +573,35 @@ namespace RS
             {
                 return circleCenter;
             }
+        }
+
+        private void 添加后继_Click(object sender, EventArgs e)
+        {
+            tailGet.getTail(selectedId_menu, skillList, true);
+            if (tailGet.Selected != -1)
+            {
+                skillList[selectedId_menu].addTail(tailGet.Selected);
+            }
+            int[] temp;
+            if (canTopSort(out temp) == false)
+            {
+                MessageBox.Show("添加这个关系后会导致技能无法学习,添加失败");
+                selectedId_menu = selectedId_None; 
+                skillList[selectedId_menu].removeTail(tailGet.Selected);
+                return;
+            }
+            selectedId_menu = selectedId_None; 
+            redraw_all();
+        }
+        private void 删除后继_Click(object sender, EventArgs e)
+        {
+            tailGet.getTail(selectedId_menu, skillList, false);
+            if (tailGet.Selected != -1)
+            {
+                skillList[selectedId_menu].removeTail(tailGet.Selected);
+            }
+            selectedId_menu = selectedId_None;
+            redraw_all();
         }
     }
 }

@@ -2,15 +2,17 @@ explain:
 Finished work: + 
 working: (+)
 want:  
+gave up: (_)
 
 Client
 	Student
 		+learn Skill
 		+list Skill what can learn(by color mode)
+		(+)save progress in VCode
 		forget Skill
 		whan can't learn,list what need to learn
 		add nickname
-		(+)save progress in file
+		(_)save progress in file
 	Teacher
 		+delete Skill (and delete all relation with this skill)
 		+add skill
@@ -35,8 +37,8 @@ UI
 	spin
 	change Skill color like iMessage 
 	double click arrow to move to skill
+	no flicker
 
 network
 	temporary none
-
 

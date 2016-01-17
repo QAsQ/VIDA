@@ -80,7 +80,7 @@ namespace RS
            To.Items.Clear();
            List<int> tail = skillList[From.SelectedIndex].getTail;
            for(int i=0;i<skillList.Count;i++){
-               if(tail.Contains(i) != isAdded){
+               if(tail.Contains(i) != isAdded && i != From.SelectedIndex){
                    To.Items.Add(skillList[i].name);
                }
            }
