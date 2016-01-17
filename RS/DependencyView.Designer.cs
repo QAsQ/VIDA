@@ -115,7 +115,7 @@
             // reNameBox
             // 
             this.reNameBox.AllowDrop = true;
-            this.reNameBox.Location = new System.Drawing.Point(122, 132);
+            this.reNameBox.Location = new System.Drawing.Point(43, 59);
             this.reNameBox.Name = "reNameBox";
             this.reNameBox.Size = new System.Drawing.Size(100, 21);
             this.reNameBox.TabIndex = 1;
