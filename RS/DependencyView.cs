@@ -95,6 +95,7 @@ namespace RS
             drawModeList.Add(SkillDrawMode.cantLearn);
             isLearnList.Add(false);
             setAllDrawmode();
+            reName(skillList.Count - 1);
             redraw_all();
         }
         public Color color_canLearnr = Color.SkyBlue;
@@ -297,12 +298,7 @@ namespace RS
         {
             if (selectedId_renameBox != selectedId_None)
             {
-                skillList[selectedId_renameBox].name = reNameBox.Text;
-                reNameBox.Hide();
-                this.Focus();
-                selectedId_renameBox = selectedId_None;
-                reNameBox.Location = (Point)Size;
-                Flash();
+                startRename();
             }
             if (e.Button == MouseButtons.Left)
             {
@@ -319,6 +315,16 @@ namespace RS
                 afterMenuMouseLocation = e.Location + (Size)Location;
                 MenuStrip.Show(currMouseLocation);   
             }
+        }
+
+        private void startRename()
+        {
+            skillList[selectedId_renameBox].name = reNameBox.Text;
+            reNameBox.Hide();
+            this.Focus();
+            selectedId_renameBox = selectedId_None;
+            reNameBox.Location = (Point)Size;
+            Flash();
         }
         private void ChangeMenuVisible()
         {
@@ -390,17 +396,22 @@ namespace RS
         int selectedId_renameBox;
         private void 重命名_Click(object sender, EventArgs e)
         {
-            string oldName = skillList[selectedId_menu].name;
+            reName(selectedId_menu);
+            selectedId_menu = selectedId_None;     
+        }
+
+        private void reName(int selectedId)
+        {
+            string oldName = skillList[selectedId].name;
             Point sizeOfName = (Point)getNameSize(oldName);
             reNameBox.Size = (Size)sizeOfName;
             Scale(ref sizeOfName, 1, 2);
-            reNameBox.Location = circleCenter[selectedId_menu] - (Size)sizeOfName;
+            reNameBox.Location = circleCenter[selectedId] - (Size)sizeOfName;
             reNameBox.Text = oldName;
             reNameBox.Show();
             reNameBox.Focus();
             reNameBox.SelectAll();
-            selectedId_renameBox = selectedId_menu;
-            selectedId_menu = selectedId_None;     
+            selectedId_renameBox = selectedId;
         }
         private void 刷新_Click(object sender, EventArgs e)
         {
@@ -577,31 +588,41 @@ namespace RS
 
         private void 添加后继_Click(object sender, EventArgs e)
         {
-            tailGet.getTail(selectedId_menu, skillList, true);
-            if (tailGet.Selected != -1)
+            int selectedID = selectedId_menu;
+            selectedId_menu = selectedId_None;
+            tailGet.getTail(selectedID, skillList, true);
+            if (tailGet.Selected == -1)
             {
-                skillList[selectedId_menu].addTail(tailGet.Selected);
+                return;
             }
+            skillList[selectedID].addTail(tailGet.Selected);
             int[] temp;
             if (canTopSort(out temp) == false)
             {
                 MessageBox.Show("添加这个关系后会导致技能无法学习,添加失败");
-                selectedId_menu = selectedId_None; 
-                skillList[selectedId_menu].removeTail(tailGet.Selected);
+                skillList[selectedID].removeTail(tailGet.Selected);
                 return;
             }
-            selectedId_menu = selectedId_None; 
             redraw_all();
         }
         private void 删除后继_Click(object sender, EventArgs e)
         {
-            tailGet.getTail(selectedId_menu, skillList, false);
+            int selectedID = selectedId_menu;
+            selectedId_menu = selectedId_None;
+            tailGet.getTail(selectedID, skillList, false);
             if (tailGet.Selected != -1)
             {
-                skillList[selectedId_menu].removeTail(tailGet.Selected);
+                skillList[selectedID].removeTail(tailGet.Selected);
+                redraw_all();
             }
-            selectedId_menu = selectedId_None;
-            redraw_all();
+        }
+
+        private void reNameBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                startRename();
+            }
         }
     }
 }

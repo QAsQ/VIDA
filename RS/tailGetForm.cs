@@ -29,7 +29,13 @@ namespace RS
         {
             selectId = -1;
             To.Items.Clear();
+            To.Text = "";
             var tail = skillList[selectedID].getTail;
+            if (isAdd)
+                this.Text = "添加";
+            else
+                this.Text = "删除";
+            this.Text += " "+skillList[selectedID].name +" 的后继";
             showId.Clear();
             if (isAdd == false)
             {
