@@ -140,25 +140,28 @@ namespace RS
             int d = r * 2;
             Rectangle rect = new Rectangle(stx, sty, d, d);
             Pen p;
+            Brush bush;
             switch (curr_mode)
             {
                 case SkillDrawMode.Learned:
-                    Brush bush = new SolidBrush(color_Learned);
+                    bush = new SolidBrush(color_Learned);
                     p = new Pen(color_bound);
-                    buffer.FillEllipse(bush, rect);
-                    buffer.DrawEllipse(p, rect);
                     break;
                 case SkillDrawMode.cantLearn:
+                    bush = new SolidBrush(color_background);
                     p = new Pen(color_cantLearn);
-                    buffer.DrawEllipse(p, rect);
                     break;
                 case SkillDrawMode.canLearn:
+                    bush = new SolidBrush(color_background);
                     p = new Pen(color_canLearnr);
-                    buffer.DrawEllipse(p, rect);
                     break;
                 default:
+                    bush = new SolidBrush(color_bound);
+                    p = new Pen(color_bound);
                     break;
-            }   
+            }
+            buffer.FillEllipse(bush, rect);
+            buffer.DrawEllipse(p, rect);
             Brush fontbush;
             if (curr_mode == SkillDrawMode.Learned)
                 fontbush = new SolidBrush(Color.DeepSkyBlue);
@@ -248,18 +251,20 @@ namespace RS
         }
         private void DrawArrow(Point[] PointList, SkillDrawMode currMode)
         {
+            Pen pen;
+            Brush bush;
             if (currMode == SkillDrawMode.Learned)
             {
-                Pen pen = new Pen(color_bound);
-                Brush bush = new SolidBrush(color_Learned);
-                buffer.FillPolygon(bush, PointList);
-                buffer.DrawPolygon(pen, PointList);
+                pen = new Pen(color_bound);
+                bush = new SolidBrush(color_Learned);
             }
             else
             {
-                Pen pen = getDrawModePen(currMode);
-                buffer.DrawPolygon(pen, PointList);
+                pen = getDrawModePen(currMode);
+                bush = new SolidBrush(color_background);
             }
+            buffer.FillPolygon(bush, PointList);
+            buffer.DrawPolygon(pen, PointList);
         }
         private void redraw_all()
         {
