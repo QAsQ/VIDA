@@ -58,76 +58,76 @@
             this.添加后继,
             this.删除后继});
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(149, 224);
+            this.MenuStrip.Size = new System.Drawing.Size(170, 224);
             // 
             // 刷新
             // 
             this.刷新.Name = "刷新";
-            this.刷新.Size = new System.Drawing.Size(148, 22);
+            this.刷新.Size = new System.Drawing.Size(169, 22);
             this.刷新.Text = "刷新";
             this.刷新.Click += new System.EventHandler(this.刷新_Click);
             // 
             // 重命名
             // 
             this.重命名.Name = "重命名";
-            this.重命名.Size = new System.Drawing.Size(148, 22);
-            this.重命名.Text = "重命名";
+            this.重命名.Size = new System.Drawing.Size(169, 22);
+            this.重命名.Text = "重命名(&Rename)";
             this.重命名.Click += new System.EventHandler(this.重命名_Click);
             // 
             // 添加技能
             // 
             this.添加技能.Name = "添加技能";
-            this.添加技能.Size = new System.Drawing.Size(148, 22);
-            this.添加技能.Text = "添加技能";
+            this.添加技能.Size = new System.Drawing.Size(169, 22);
+            this.添加技能.Text = "添加技能(&New)";
             this.添加技能.Click += new System.EventHandler(this.添加技能_Click);
             // 
             // 删除技能
             // 
             this.删除技能.Name = "删除技能";
-            this.删除技能.Size = new System.Drawing.Size(148, 22);
-            this.删除技能.Text = "删除技能";
+            this.删除技能.Size = new System.Drawing.Size(169, 22);
+            this.删除技能.Text = "删除技能(&Delete)";
             this.删除技能.Click += new System.EventHandler(this.删除技能_Click);
             // 
             // 学习技能
             // 
             this.学习技能.Name = "学习技能";
-            this.学习技能.Size = new System.Drawing.Size(148, 22);
+            this.学习技能.Size = new System.Drawing.Size(169, 22);
             this.学习技能.Text = "学习技能";
             this.学习技能.Click += new System.EventHandler(this.学习技能_Click);
             // 
             // 添加依赖关系
             // 
             this.添加依赖关系.Name = "添加依赖关系";
-            this.添加依赖关系.Size = new System.Drawing.Size(148, 22);
+            this.添加依赖关系.Size = new System.Drawing.Size(169, 22);
             this.添加依赖关系.Text = "添加依赖关系";
             this.添加依赖关系.Click += new System.EventHandler(this.添加依赖关系_Click);
             // 
             // 删除依赖关系
             // 
             this.删除依赖关系.Name = "删除依赖关系";
-            this.删除依赖关系.Size = new System.Drawing.Size(148, 22);
+            this.删除依赖关系.Size = new System.Drawing.Size(169, 22);
             this.删除依赖关系.Text = "删除依赖关系";
             this.删除依赖关系.Click += new System.EventHandler(this.删除依赖关系_Click);
             // 
             // 检查依赖关系
             // 
             this.检查依赖关系.Name = "检查依赖关系";
-            this.检查依赖关系.Size = new System.Drawing.Size(148, 22);
+            this.检查依赖关系.Size = new System.Drawing.Size(169, 22);
             this.检查依赖关系.Text = "检查依赖关系";
             this.检查依赖关系.Click += new System.EventHandler(this.检查依赖关系_Click);
             // 
             // 添加后继
             // 
             this.添加后继.Name = "添加后继";
-            this.添加后继.Size = new System.Drawing.Size(148, 22);
-            this.添加后继.Text = "添加后继";
+            this.添加后继.Size = new System.Drawing.Size(169, 22);
+            this.添加后继.Text = "添加后继(&Link)";
             this.添加后继.Click += new System.EventHandler(this.添加后继_Click);
             // 
             // 删除后继
             // 
             this.删除后继.Name = "删除后继";
-            this.删除后继.Size = new System.Drawing.Size(148, 22);
-            this.删除后继.Text = "删除后继";
+            this.删除后继.Size = new System.Drawing.Size(169, 22);
+            this.删除后继.Text = "删除后继(&Cut)";
             this.删除后继.Click += new System.EventHandler(this.删除后继_Click);
             // 
             // reNameBox
@@ -135,7 +135,7 @@
             this.reNameBox.AllowDrop = true;
             this.reNameBox.BackColor = System.Drawing.SystemColors.Control;
             this.reNameBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.reNameBox.Location = new System.Drawing.Point(55, 52);
+            this.reNameBox.Location = new System.Drawing.Point(54, 55);
             this.reNameBox.Name = "reNameBox";
             this.reNameBox.Size = new System.Drawing.Size(100, 14);
             this.reNameBox.TabIndex = 1;

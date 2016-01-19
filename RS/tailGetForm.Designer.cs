@@ -70,7 +70,6 @@
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.OK);
             this.Name = "tailGetForm";
-            this.Text = "tailGetForm";
             this.ResumeLayout(false);
 
         }

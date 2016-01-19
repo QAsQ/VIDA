@@ -591,16 +591,17 @@ namespace RS
             int selectedID = selectedId_menu;
             selectedId_menu = selectedId_None;
             tailGet.getTail(selectedID, skillList, true);
-            if (tailGet.Selected == -1)
+            int tailAdded = tailGet.Selected;
+            if (tailAdded == -1)
             {
                 return;
             }
-            skillList[selectedID].addTail(tailGet.Selected);
+            skillList[selectedID].addTail(tailAdded);
             int[] temp;
             if (canTopSort(out temp) == false)
             {
                 MessageBox.Show("添加这个关系后会导致技能无法学习,添加失败");
-                skillList[selectedID].removeTail(tailGet.Selected);
+                skillList[selectedID].removeTail(tailAdded);
                 return;
             }
             redraw_all();

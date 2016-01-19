@@ -30,12 +30,14 @@ namespace RS
             selectId = -1;
             To.Items.Clear();
             To.Text = "";
+            this.Text = "";
             var tail = skillList[selectedID].getTail;
+            this.Text += "为" + skillList[selectedID].name + " ";
             if (isAdd)
-                this.Text = "添加";
+                this.Text += "添加";
             else
-                this.Text = "删除";
-            this.Text += " "+skillList[selectedID].name +" 的后继";
+                this.Text += "删除";
+            this.Text += "后继";
             showId.Clear();
             if (isAdd == false)
             {
@@ -57,8 +59,10 @@ namespace RS
         }
         private void OK_Click(object sender, EventArgs e)
         {
-            if(To.SelectedIndex != -1)
-            selectId = showId[To.SelectedIndex];
+            if (To.SelectedIndex != -1)
+                selectId = showId[To.SelectedIndex];
+            else
+                selectId = -1;
             Hide();
         }
         private void cancel_Click(object sender, EventArgs e)
