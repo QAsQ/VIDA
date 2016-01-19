@@ -32,12 +32,12 @@ UI
 	+add arrow
 	+change arrow
 	+raname use moveable textBox not new Form
+	+double click arrow to move to skill
+	+no flicker
 	change arrow again
 	scale map
 	spin
 	change Skill color like iMessage 
-	double click arrow to move to skill
-	no flicker
 
 network
 	temporary none

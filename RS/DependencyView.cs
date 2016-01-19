@@ -46,7 +46,7 @@ namespace RS
         }
         public DependencyView()
         {
-            InitializeComponent();  
+            InitializeComponent();
         }
         public void ShowRelation(List<Skill> _skillList,List<Point> _pointList)
         {
@@ -98,6 +98,7 @@ namespace RS
             reName(skillList.Count - 1);
             redraw_all();
         }
+        Graphics formGraphis;
         public Color color_canLearnr = Color.SkyBlue;
         public Color color_cantLearn = Color.Red;
         public Color color_Learned = Color.SkyBlue;
@@ -111,7 +112,7 @@ namespace RS
         int selectedId_drag; 
         int selectedId_menu; 
         Font font_name = new Font("Arial", size_font);
-        private Graphics g;
+        private Graphics buffer;
         private Point locate_mouse;
         private List<Point> circleCenter = new List<Point>();
         private List<Skill> skillList = new List<Skill>();
@@ -138,15 +139,15 @@ namespace RS
             {
                 case SkillDrawMode.Learned:
                     Brush bush = new SolidBrush(color_Learned);
-                    g.FillEllipse(bush, rect);
+                    buffer.FillEllipse(bush, rect);
                     break;
                 case SkillDrawMode.cantLearn:
                     p = new Pen(color_cantLearn);
-                    g.DrawEllipse(p, rect);
+                    buffer.DrawEllipse(p, rect);
                     break;
                 case SkillDrawMode.canLearn:
                     p = new Pen(color_canLearnr);
-                    g.DrawEllipse(p, rect);
+                    buffer.DrawEllipse(p, rect);
                     break;
                 default:
                     break;
@@ -160,11 +161,11 @@ namespace RS
             Point DrawStringPoint = center;
             Geometric.scale(ref fontSize, 1, 2);
             DrawStringPoint -= (Size)fontSize;
-            g.DrawString(curr_skill.name, font_name, fontbush, DrawStringPoint);
+            buffer.DrawString(curr_skill.name, font_name, fontbush, DrawStringPoint);
         }
         private Size getNameSize(string name)
         {
-            return g.MeasureString(name, font_name).ToSize();
+            return buffer.MeasureString(name, font_name).ToSize();
         }
         int distance(Point st, Point ed)
         {
@@ -201,7 +202,7 @@ namespace RS
             Pen edPen = getDrawModePen(startMode);
             Point[] pointList = getArrowHead(st,ed);
             scaleLine(ref st,ref ed);
-            g.DrawLine(edPen, st, pointList[0]);
+            buffer.DrawLine(edPen, st, pointList[0]);
             DrawArrow(pointList, startMode);
         }
         private void scaleLine(ref Point st,ref Point ed){
@@ -243,17 +244,19 @@ namespace RS
             if (currMode == SkillDrawMode.Learned)
             {
                 Brush bush = new SolidBrush(color_Learned);
-                g.FillPolygon(bush, PointList);
+                buffer.FillPolygon(bush, PointList);
             }
             else
             {
                 Pen pen = getDrawModePen(currMode);
-                g.DrawPolygon(pen, PointList);
+                buffer.DrawPolygon(pen, PointList);
             }
         }
         private void redraw_all()
         {
-            g.Clear(color_background);
+            Bitmap BUF = new Bitmap(this.Width, this.Height);
+            buffer = Graphics.FromImage(BUF);
+            buffer.Clear(color_background);
             Pen p = new Pen(color_line);
             for (int i = 0; i < skillList.Count; i++)
             {
@@ -283,6 +286,8 @@ namespace RS
                         break;
                 }
             }
+            formGraphis.DrawImage(BUF, 0, 0);
+            GC.Collect();
         }
         private int get_circleID(Point lotated)
         {
@@ -396,8 +401,8 @@ namespace RS
             selectedId_menu = selectedId_None;
             selectedId_renameBox = selectedId_None;
             Usermode = initUsermode;
-            g = this.CreateGraphics();
             reNameBox.Font = font_name;
+            formGraphis = CreateGraphics();
         }
         private edgeGetForm getedge = new edgeGetForm();
         tailGetForm tailGet = new tailGetForm();
@@ -576,11 +581,6 @@ namespace RS
             {
                 BackspaceIsDown = false;
             }
-        }
-        private void DependencyView_SizeChanged(object sender, EventArgs e)
-        {
-            g = this.CreateGraphics();
-            Flash();
         }
         public void Flash()
         {
