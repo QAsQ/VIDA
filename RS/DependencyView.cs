@@ -158,7 +158,7 @@ namespace RS
                 fontbush = new SolidBrush(Color.Black);
             Point fontSize = (Point)getNameSize(curr_skill.name);
             Point DrawStringPoint = center;
-            Scale(ref fontSize, 1, 2);
+            Geometric.scale(ref fontSize, 1, 2);
             DrawStringPoint -= (Size)fontSize;
             g.DrawString(curr_skill.name, font_name, fontbush, DrawStringPoint);
         }
@@ -193,48 +193,50 @@ namespace RS
             }
             return ret;
         }
-        private void Scale(ref Point poi,int Zoomin,int Zoomout){
-            if (Zoomout == 0)
-                return;
-            poi.X *= Zoomin ; poi.Y *= Zoomin;
-            poi.X /= Zoomout; poi.Y /= Zoomout;
-        }
         private void DrawArrow(Point st, Point ed, SkillDrawMode startMode, SkillDrawMode endMode)
         {
             int length = distance(st, ed);
             if (length <= size_circle * 2)
                 return;
+            Pen edPen = getDrawModePen(startMode);
+            Point[] pointList = getArrowHead(st,ed);
+            scaleLine(ref st,ref ed);
+            g.DrawLine(edPen, st, pointList[0]);
+            DrawArrow(pointList, startMode);
+        }
+        private void scaleLine(ref Point st,ref Point ed){
             Point vR = ed - (Size)st;  // 从圆心到圆周的向量
-            Scale(ref vR, size_circle, length);
+            int length = distance(st,ed);
+            Geometric.scale(ref vR, size_circle, length);
             st += (Size)vR;
-            ed -= (Size)vR; 
+            ed -= (Size)vR;
+        }
+        private Point[] getArrowHead(Point st,Point ed)
+        {
+            scaleLine(ref st,ref ed);
             Point Vst_ed = ed - (Size)st; // 向量 
             int LengthV = distance(new Point(0, 0), Vst_ed);
-            Scale(ref Vst_ed,5,8);
-            if (LengthV * 5> size_circle * 16 )
+            Geometric.scale(ref Vst_ed, 5, 8);
+            if (LengthV * 5 > size_circle * 16)
             {
-                Scale(ref Vst_ed, size_circle * 16, LengthV * 5);
+                Geometric.scale(ref Vst_ed, size_circle * 16, LengthV * 5);
             }
-            Point nst = ed - (Size)Vst_ed;   // new start
+            var nst = ed - (Size)Vst_ed;   // new start
             Point mid = ed - (Size)nst;
-            Scale(ref mid, 5,8);
+            Geometric.scale(ref mid, 5, 8);
             mid = ed - (Size)mid;
-            Scale(ref Vst_ed,5,8);
-            Point perp = new Point(Vst_ed.Y, -Vst_ed.X);
-            Scale(ref perp, 3, 8);
+            Geometric.scale(ref Vst_ed, 5, 8);
+            var perp = new Point(Vst_ed.Y, -Vst_ed.X);
+            Geometric.scale(ref perp, 3, 8);
             int LengthPerp = distance(new Point(0, 0), perp);
             LengthPerp = LengthPerp * 8 / 5;
             if (LengthPerp * 8 < size_circle * 5 && LengthPerp * 5 > size_circle * 8)
-            { 
-                Scale(ref perp, size_circle, LengthPerp);
+            {
+                Geometric.scale(ref perp, size_circle, LengthPerp);
             }
-            Pen edPen = getDrawModePen(startMode);
-            g.DrawLine(edPen, st, nst);
-            Point top = mid + (Size)perp;
-            Point button = mid - (Size)perp;
-
-            Point[] pointList = new Point[] { nst, top, ed, button };
-            DrawArrow(pointList, startMode);
+            var top = mid + (Size)perp;
+            var button = mid - (Size)perp;
+            return new Point[]{nst,top,ed,button};
         }
         private void DrawArrow(Point[] PointList, SkillDrawMode currMode)
         {
@@ -364,12 +366,18 @@ namespace RS
                 Point deviaion;
                 deviaion = locate_mouse - (Size)e.Location;
                 locate_mouse = e.Location;
-                for (int i = 0; i < skillList.Count; i++)
-                {
-                    circleCenter[i] = circleCenter[i] - (Size)deviaion;
-                }
+                deviaion = moveAllSkill(deviaion);
                 redraw_all();
             }
+        }
+
+        private Point moveAllSkill(Point deviaion)
+        {
+            for (int i = 0; i < skillList.Count; i++)
+            {
+                circleCenter[i] = circleCenter[i] - (Size)deviaion;
+            }
+            return deviaion;
         }
         private void RelationView_MouseUp(object sender, MouseEventArgs e)
         {
@@ -405,7 +413,7 @@ namespace RS
             string oldName = skillList[selectedId].name;
             Point sizeOfName = (Point)getNameSize(oldName);
             reNameBox.Size = (Size)sizeOfName;
-            Scale(ref sizeOfName, 1, 2);
+            Geometric.scale(ref sizeOfName, 1, 2);
             reNameBox.Location = circleCenter[selectedId] - (Size)sizeOfName;
             reNameBox.Text = oldName;
             reNameBox.Show();
@@ -624,6 +632,29 @@ namespace RS
             {
                 startRename();
             }
+        }
+        int getArrowPioner(Point locate)
+        {
+            for (int i = 0; i < skillList.Count; i++)
+            {
+                var currTail = skillList[i].getTail;
+                foreach (int ed in currTail)
+                {
+                    if (Geometric.pointInArrowHand(locate, getArrowHead(circleCenter[i], circleCenter[ed])))
+                        return i;
+                }
+            }
+            return selectedId_None;
+        }
+        private void DependencyView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedId_ArrowPoiner = getArrowPioner(e.Location);
+            if (selectedId_ArrowPoiner != selectedId_None)
+            {
+                Point dis = circleCenter[selectedId_ArrowPoiner]-(Size)e.Location;
+                moveAllSkill(dis);
+            }
+            Flash();
         }
     }
 }

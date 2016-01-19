@@ -69,6 +69,7 @@
     <Compile Include="edgeGetForm.Designer.cs">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Geometric.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

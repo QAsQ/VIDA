@@ -113,3 +113,16 @@ F:\code\GitHub\VIDA\RS\obj\Debug\VIDA.pdb
 F:\code\GitHub\VIDA\RS\obj\Debug\RS.Properties.Resources.resources
 F:\code\GitHub\VIDA\RS\obj\Debug\RS.PasswordForm.resources
 F:\code\GitHub\VIDA\RS\obj\Debug\RS.tailGetForm.resources
+E:\GitHub\VIDA\RS\bin\Debug\VIDA.exe.config
+E:\GitHub\VIDA\RS\obj\Debug\VIDA.exe
+E:\GitHub\VIDA\RS\obj\Debug\VIDA.pdb
+E:\GitHub\VIDA\RS\bin\Debug\VIDA.exe
+E:\GitHub\VIDA\RS\bin\Debug\VIDA.pdb
+E:\GitHub\VIDA\RS\obj\Debug\RS.csprojResolveAssemblyReference.cache
+E:\GitHub\VIDA\RS\obj\Debug\RS.edgeGetForm.resources
+E:\GitHub\VIDA\RS\obj\Debug\RS.mainForm.resources
+E:\GitHub\VIDA\RS\obj\Debug\RS.PasswordForm.resources
+E:\GitHub\VIDA\RS\obj\Debug\RS.Properties.Resources.resources
+E:\GitHub\VIDA\RS\obj\Debug\RS.DependencyView.resources
+E:\GitHub\VIDA\RS\obj\Debug\RS.tailGetForm.resources
+E:\GitHub\VIDA\RS\obj\Debug\RS.csproj.GenerateResource.Cache
