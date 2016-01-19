@@ -1,6 +1,6 @@
 explain:
 Finished work: + 
-working: (+)
+half worked: (+)
 want:  
 gave up: (_)
 
@@ -16,14 +16,15 @@ Client
 	Teacher
 		+delete Skill (and delete all relation with this skill)
 		+add skill
+		+short key to add skill(ctrl + a)
 		+delete relation
 		+add relation
 		+check relation
 		+save dependency in file
 		+save skill location in file
 		+rename
+		+right click to add succ // ºó¼Ì
 		right click to add tail
-		right click to add succ // ºó¼Ì
 
 UI
 	+drag skill
@@ -34,6 +35,7 @@ UI
 	+raname use moveable textBox not new Form
 	+double click arrow to move to skill
 	+no flicker
+	+change the way draw arrow
 	change arrow again
 	scale map
 	spin
@@ -42,3 +44,5 @@ UI
 network
 	temporary none
 
+file encode
+	temporary none

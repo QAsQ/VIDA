@@ -591,12 +591,13 @@ namespace RS
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {
             changeKeyState(e.KeyCode,true);
+            Point mouseLocate = Control.MousePosition - (Size)FormLocate - (Size)Location;
             if (e.Control)
             {
                 switch (e.KeyCode)
                 {
                     case Keys.A:
-                        addOneSkill(Control.MousePosition - (Size)FormLocate - (Size)Location); //posi
+                        addOneSkill(mouseLocate); //posi
                         redraw_all();
                         break;
                 }
