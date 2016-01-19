@@ -99,6 +99,7 @@ namespace RS
             redraw_all();
         }
         Graphics formGraphis;
+        public Color color_bound = Color.AliceBlue;
         public Color color_canLearnr = Color.SkyBlue;
         public Color color_cantLearn = Color.Red;
         public Color color_Learned = Color.SkyBlue;
@@ -139,7 +140,9 @@ namespace RS
             {
                 case SkillDrawMode.Learned:
                     Brush bush = new SolidBrush(color_Learned);
+                    p = new Pen(color_bound);
                     buffer.FillEllipse(bush, rect);
+                    buffer.DrawEllipse(p, rect);
                     break;
                 case SkillDrawMode.cantLearn:
                     p = new Pen(color_cantLearn);
@@ -243,8 +246,10 @@ namespace RS
         {
             if (currMode == SkillDrawMode.Learned)
             {
+                Pen pen = new Pen(color_bound);
                 Brush bush = new SolidBrush(color_Learned);
                 buffer.FillPolygon(bush, PointList);
+                buffer.DrawPolygon(pen, PointList);
             }
             else
             {
@@ -258,11 +263,12 @@ namespace RS
             buffer = Graphics.FromImage(BUF);
             buffer.Clear(color_background);
             Pen p = new Pen(color_line);
-            for (int i = 0; i < skillList.Count; i++)
+            for (int i = skillList.Count-1; i >=0 ; i--)
             {
                 List<int> currTail = skillList[i].getTail;
-                foreach (int end in currTail)
+                for(int j = currTail.Count-1;j>=0;j--)
                 {
+                    int end = currTail[j];
                     switch (Usermode)
                     {
                         case userMode.student:
@@ -274,7 +280,7 @@ namespace RS
                     }
                 }
             }
-            for (int i = 0; i < skillList.Count; i++)
+            for (int i = skillList.Count-1; i >= 0; i--)
             {
                 switch (Usermode)
                 {
