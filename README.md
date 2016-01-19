@@ -12,8 +12,6 @@ it can tall what skill you can learn,what skill you can't learn yet and waht you
 You can delete/add a dependency,delete/add a skill,rename skill,change a skill's name.
 And all of them can save in file(which mean you needn't to do it again and again)
 
-###What's Vida look like?
-?
 
 
 
