@@ -23,12 +23,12 @@ namespace RS
         private userMode initUsermode = userMode.teacher;
         private int count = 1;
         const int Menusize = 10;
-        string defaultSkillName = "新技能_";
+        string defaultSkillName = "新技能";
         //刷新;重命名;添加技能;删除技能;学习技能,添加依赖关系,删除依赖关系,检查依赖关系,添加后继,删除后继;
         bool[,] MenuVisible = {{true, true, false, false, true,false,false,false,false,false},       //student
                                {true, true, true, true, false,true,true,true,true,true}};       //teacher
         bool[,] AfterSelectVisible = {{true, true, true, true, true,false,false,false,true,true},  // 有选择一个skill
-                                      {true, false, true, false, false,true,true,true,false,false}};  // 没有选择一个skill
+                                      {true, false, true, false, false,false,false,true,false,false}};  // 没有选择一个skill
         public void StudentMode()
         {
             Usermode = userMode.student;
@@ -88,15 +88,19 @@ namespace RS
         }
         private void 添加技能_Click(object sender, EventArgs e)
         {
-            Skill adder = new Skill(defaultSkillName+count.ToString());
+            addOneSkill(afterMenuMouseLocation);
+            redraw_all();
+        }
+        private void addOneSkill(Point centerPoint)
+        {
+            Skill adder = new Skill(defaultSkillName +"("+ count.ToString()+")");
             count++;
             skillList.Add(adder);
-            circleCenter.Add(afterMenuMouseLocation);
+            circleCenter.Add(centerPoint);
             drawModeList.Add(SkillDrawMode.cantLearn);
             isLearnList.Add(false);
             setAllDrawmode();
-            reName(skillList.Count - 1);
-            redraw_all();
+            reName(skillList.Count- 1);
         }
         Graphics formGraphis;
         public Color color_bound = Color.AliceBlue;
@@ -157,7 +161,7 @@ namespace RS
             }   
             Brush fontbush;
             if (curr_mode == SkillDrawMode.Learned)
-                fontbush = new SolidBrush(Color.Gray);
+                fontbush = new SolidBrush(Color.DeepSkyBlue);
             else
                 fontbush = new SolidBrush(Color.Black);
             Point fontSize = (Point)getNameSize(curr_skill.name);
@@ -168,7 +172,7 @@ namespace RS
         }
         private Size getNameSize(string name)
         {
-            return buffer.MeasureString(name, font_name).ToSize();
+            return formGraphis.MeasureString(name, font_name).ToSize();
         }
         int distance(Point st, Point ed)
         {
@@ -401,14 +405,19 @@ namespace RS
         }
         private void RelationView_Load(object sender, EventArgs e)
         {
-            MouseLeftButtonIsDown = false;
-            BackspaceIsDown = false;
+            ButtonStateInit();
             selectedId_drag = selectedId_None;
             selectedId_menu = selectedId_None;
             selectedId_renameBox = selectedId_None;
             Usermode = initUsermode;
             reNameBox.Font = font_name;
             formGraphis = CreateGraphics();
+        }
+
+        private void ButtonStateInit()
+        {
+            MouseLeftButtonIsDown = false;
+            BackspaceIsDown = false;
         }
         private edgeGetForm getedge = new edgeGetForm();
         tailGetForm tailGet = new tailGetForm();
@@ -576,17 +585,32 @@ namespace RS
         }
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
+            changeKeyState(e.KeyCode,true);
+            if (e.Control)
             {
-                BackspaceIsDown = true;
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        addOneSkill(Control.MousePosition - (Size)FormLocate - (Size)Location); //posi
+                        redraw_all();
+                        break;
+                }
+
+            }
+        }
+
+        private void changeKeyState(Keys k,bool isDown)
+        {
+            switch (k)
+            {
+                case Keys.Space:
+                    BackspaceIsDown = isDown;
+                    break;
             }
         }
         private void RelationView_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
-            {
-                BackspaceIsDown = false;
-            }
+            changeKeyState(e.KeyCode, false);
         }
         public void Flash()
         {
@@ -661,6 +685,12 @@ namespace RS
                 moveAllSkill(dis);
             }
             Flash();
+        }
+
+        private void DependencyView_SizeChanged(object sender, EventArgs e)
+        {
+            formGraphis = this.CreateGraphics();
+            redraw_all();
         }
     }
 }

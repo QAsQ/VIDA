@@ -58,7 +58,7 @@
             this.添加后继,
             this.删除后继});
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(170, 224);
+            this.MenuStrip.Size = new System.Drawing.Size(170, 246);
             // 
             // 刷新
             // 
@@ -78,7 +78,7 @@
             // 
             this.添加技能.Name = "添加技能";
             this.添加技能.Size = new System.Drawing.Size(169, 22);
-            this.添加技能.Text = "添加技能(&New)";
+            this.添加技能.Text = "添加技能(&Add)";
             this.添加技能.Click += new System.EventHandler(this.添加技能_Click);
             // 
             // 删除技能
@@ -152,6 +152,7 @@
             this.Name = "DependencyView";
             this.Size = new System.Drawing.Size(698, 472);
             this.Load += new System.EventHandler(this.RelationView_Load);
+            this.SizeChanged += new System.EventHandler(this.DependencyView_SizeChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RelationView_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RelationView_KeyUp);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DependencyView_MouseDoubleClick);
