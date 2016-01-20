@@ -301,8 +301,16 @@ namespace RS
                         break;
                 }
             }
+          //  drawAncher(new Point(Width/2,Height/2),5);
             formGraphis.DrawImage(BUF, 0, 0);
             GC.Collect();
+        }
+        private void drawAncher(Point center, int r ,Graphics aimer)
+        {
+            Rectangle rect = new Rectangle(center.X - r, center.Y - r, r * 2, r * 2);
+            aimer.DrawLine(new Pen(color_cantLearn), center.X - r * 3 / 2, center.Y, center.X + r * 3 / 2, center.Y);
+            aimer.DrawLine(new Pen(color_cantLearn), center.X, center.Y - r * 3 / 2, center.X, center.Y + r * 3 / 2);
+            aimer.DrawEllipse(new Pen(color_line), rect);
         }
         private int get_circleID(Point lotated)
         {
@@ -679,18 +687,28 @@ namespace RS
                     if (Geometric.pointInArrowHand(locate, getArrowHead(circleCenter[i], circleCenter[ed])))
                         return i;
                 }
-            }
+            }                                                 
             return selectedId_None;
         }
         private void DependencyView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int selectedId_ArrowPoiner = getArrowPioner(e.Location);
+            Point aim = new Point(Width / 2, Height / 2);
             if (selectedId_ArrowPoiner != selectedId_None)
             {
-                Point dis = circleCenter[selectedId_ArrowPoiner]-(Size)e.Location;
+                Point dis = circleCenter[selectedId_ArrowPoiner]-(Size)aim;
+                if (dis.X == 0 && dis.Y == 0)
+                {
+                    dis.X = 2;
+                    dis.Y = 2;
+                }
                 moveAllSkill(dis);
             }
             Flash();
+            if (selectedId_ArrowPoiner == selectedId_None)
+                drawAncher(e.Location, 9, formGraphis);
+            else
+                drawAncher(aim, 9, formGraphis);
         }
 
         private void DependencyView_SizeChanged(object sender, EventArgs e)

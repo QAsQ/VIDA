@@ -37,6 +37,8 @@ UI
 	+double click arrow to move to skill
 	+no flicker
 	+change the way draw arrow
+	add new DrawMode(selected)
+	select a list of skill to move them or someothers
 	change arrow again
 	scale map
 	spin
