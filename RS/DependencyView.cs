@@ -22,13 +22,13 @@ namespace RS
         private userMode Usermode;
         private userMode initUsermode = userMode.teacher;
         private int count = 1;
-        const int Menusize = 10;
+        const int Menusize = 11;
         string defaultSkillName = "新技能";
-        //刷新;重命名;添加技能;删除技能;学习技能,添加依赖关系,删除依赖关系,检查依赖关系,添加后继,删除后继;
-        bool[,] MenuVisible = {{true, true, false, false, true,false,false,false,false,false},       //student
-                               {true, true, true, true, false,true,true,true,true,true}};       //teacher
-        bool[,] AfterSelectVisible = {{true, true, true, true, true,false,false,false,true,true},  // 有选择一个skill
-                                      {true, false, true, false, false,false,false,true,false,false}};  // 没有选择一个skill
+        //刷新;重命名;添加技能;删除技能;学习技能,添加依赖关系,删除依赖关系,检查依赖关系,添加后继,删除后继,重置所有技能;
+        bool[,] MenuVisible = {{true, true, false, false, true,false,false,false,false,false,true},       //student
+                               {true, true, true, true, false,true,true,true,true,true,false}};       //teacher
+        bool[,] AfterSelectVisible = {{true, true, true, true, true,false,false,false,true,true,false},  // 有选择一个skill
+                                      {true, false, true, false, false,false,false,true,false,false,true}};  // 没有选择一个skill
         public void StudentMode()
         {
             Usermode = userMode.student;
@@ -697,6 +697,20 @@ namespace RS
         {
             formGraphis = this.CreateGraphics();
             redraw_all();
+        }
+
+        private void 重置所有进度ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("你确定要清空所有学习进度吗?", "重置进度", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                for (int i = 0; i < isLearnList.Count; i++)
+                {
+                    isLearnList[i] = false;
+                    drawModeList[i] = SkillDrawMode.cantLearn;
+                }
+                setAllDrawmode();
+                redraw_all();
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ Client
 	Student
 		+learn Skill
 		+list Skill what can learn(by color mode)
+		+remove all progress
 		(+)save progress in VCode
 		forget Skill
 		whan can't learn,list what need to learn
@@ -46,3 +47,7 @@ network
 
 file encode
 	temporary none
+
+example
+	ACM added
+	MCT added

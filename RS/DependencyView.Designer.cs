@@ -41,6 +41,7 @@
             this.添加后继 = new System.Windows.Forms.ToolStripMenuItem();
             this.删除后继 = new System.Windows.Forms.ToolStripMenuItem();
             this.reNameBox = new System.Windows.Forms.TextBox();
+            this.重置所有进度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,9 +57,10 @@
             this.删除依赖关系,
             this.检查依赖关系,
             this.添加后继,
-            this.删除后继});
+            this.删除后继,
+            this.重置所有进度ToolStripMenuItem});
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(170, 246);
+            this.MenuStrip.Size = new System.Drawing.Size(170, 268);
             // 
             // 刷新
             // 
@@ -143,6 +145,13 @@
             this.reNameBox.Visible = false;
             this.reNameBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.reNameBox_KeyDown);
             // 
+            // 重置所有进度ToolStripMenuItem
+            // 
+            this.重置所有进度ToolStripMenuItem.Name = "重置所有进度ToolStripMenuItem";
+            this.重置所有进度ToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.重置所有进度ToolStripMenuItem.Text = "重置所有进度";
+            this.重置所有进度ToolStripMenuItem.Click += new System.EventHandler(this.重置所有进度ToolStripMenuItem_Click);
+            // 
             // DependencyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -179,6 +188,7 @@
         private System.Windows.Forms.TextBox reNameBox;
         private System.Windows.Forms.ToolStripMenuItem 添加后继;
         private System.Windows.Forms.ToolStripMenuItem 删除后继;
+        private System.Windows.Forms.ToolStripMenuItem 重置所有进度ToolStripMenuItem;
 
     }
 }
