@@ -32,7 +32,7 @@ namespace RS
         {
             get
             {
-                return tail;
+                return new List<int>(tail);
             }
         }
         public string name;

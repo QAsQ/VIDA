@@ -25,14 +25,14 @@ namespace RS
                 return selectId;
             }
         }
-        public void getTail(int selectedID,List<Skill> skillList,bool isAdd)
+        public void getTail(int selectedID,List<Skill> skiller,bool isAdd)
         {
             selectId = -1;
             To.Items.Clear();
             To.Text = "";
             this.Text = "";
-            var tail = skillList[selectedID].getTail;
-            this.Text += "为" + skillList[selectedID].name + " ";
+            List<int> tail = skiller[selectedID].getTail;
+            this.Text += "为" + skiller[selectedID].name + " ";
             if (isAdd)
                 this.Text += "添加";
             else
@@ -45,7 +45,7 @@ namespace RS
             }
             else
             {
-                for (int i = 0; i < skillList.Count; i++)
+                for (int i = 0; i < skiller.Count; i++)
                 {
                     if (tail.Exists(id => id == i) == false && i != selectedID)
                         showId.Add(i);
@@ -53,7 +53,7 @@ namespace RS
             }
             foreach (int id in showId)
             {
-                To.Items.Add(skillList[id].name);
+                To.Items.Add(skiller[id].name);
             }
             ShowDialog();
         }
