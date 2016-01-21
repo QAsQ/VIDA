@@ -110,13 +110,12 @@ namespace RS
         public Color color_font = Color.Black;
         public Color color_line = Color.Black;
         public Color color_background = Control.DefaultBackColor;
-        Point default_StartCenter = new Point(size_circle, size_circle);
-        const int size_circle = 50;
+        int size_circle = 50;
         const int selectedId_None = -1;
-        const int size_font = size_circle * 5 / 8;
+        int size_font = 30;
         int selectedId_drag; 
         int selectedId_menu; 
-        Font font_name = new Font("Arial", size_font);
+        Font font_name ;
         private Graphics buffer;
         private Point locate_mouse;
         private List<Point> circleCenter = new List<Point>();
@@ -305,7 +304,7 @@ namespace RS
             formGraphis.DrawImage(BUF, 0, 0);
             GC.Collect();
         }
-        private void drawAncher(Point center, int r ,Graphics aimer)
+        private void drawAnchor(Point center, int r ,Graphics aimer)
         {
             Rectangle rect = new Rectangle(center.X - r, center.Y - r, r * 2, r * 2);
             aimer.DrawLine(new Pen(color_cantLearn), center.X - r * 3 / 2, center.Y, center.X + r * 3 / 2, center.Y);
@@ -346,7 +345,20 @@ namespace RS
                 MenuStrip.Show(currMouseLocation);   
             }
         }
-
+        void scaleFrom(Point anchor,int Zoomin,int Zoomout){
+            Point dis = anchor;
+            for(int i=0;i<circleCenter.Count;i++)
+                circleCenter[i] = Geometric.scale(circleCenter[i],Zoomin,Zoomout);
+            Geometric.scale(ref dis, Zoomin, Zoomout);
+            dis -= (Size)anchor;
+            moveAllSkill(dis);
+            size_circle = size_circle * Zoomin / Zoomout;
+            size_font = size_circle * 5 / 8;
+            if (size_font == 0)
+                size_font = 1;
+            font_name = new Font ("Arial", size_font);
+            Flash();
+        }
         private void startRename()
         {
             skillList[selectedId_renameBox].name = reNameBox.Text;
@@ -418,6 +430,7 @@ namespace RS
         }
         private void RelationView_Load(object sender, EventArgs e)
         {
+            font_name = new Font("Arial", size_font);
             ButtonStateInit();
             selectedId_drag = selectedId_None;
             selectedId_menu = selectedId_None;
@@ -611,6 +624,10 @@ namespace RS
                 }
 
             }
+            if(e.KeyCode == Keys.Oemplus)
+                scaleFrom(mouseLocate, 5, 8);
+            if (e.KeyCode == Keys.OemMinus)
+                scaleFrom(mouseLocate, 8, 5);
         }
 
         private void changeKeyState(Keys k,bool isDown)
@@ -706,9 +723,9 @@ namespace RS
             }
             Flash();
             if (selectedId_ArrowPoiner == selectedId_None)
-                drawAncher(e.Location, 9, formGraphis);
+                drawAnchor(e.Location, 9, formGraphis);
             else
-                drawAncher(aim, 9, formGraphis);
+                drawAnchor(aim, 9, formGraphis);
         }
 
         private void DependencyView_SizeChanged(object sender, EventArgs e)

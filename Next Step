@@ -37,10 +37,12 @@ UI
 	+double click arrow to move to skill
 	+no flicker
 	+change the way draw arrow
+	+scale map
+	scale map use more natural way
+	muti-tab page
 	add new DrawMode(selected)
 	select a list of skill to move them or someothers
 	change arrow again
-	scale map
 	spin
 	change Skill color like iMessage 
 

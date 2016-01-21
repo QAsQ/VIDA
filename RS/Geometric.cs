@@ -22,6 +22,14 @@ namespace RS
             poi.X *= Zoomin; poi.Y *= Zoomin;
             poi.X /= Zoomout; poi.Y /= Zoomout;
         }
+        static public Point scale(Point poi, int Zoomin, int Zoomout)
+        {
+            if (Zoomout == 0)
+                return poi;
+            poi.X *= Zoomin; poi.Y *= Zoomin;
+            poi.X /= Zoomout; poi.Y /= Zoomout;
+            return poi;
+        }
         public static bool pointInArrowHand(Point locate, Point[] pointList)
         {
             Point center = pointList[1] + (Size)pointList[3];
