@@ -9,7 +9,8 @@ Client
 		+learn Skill
 		+list Skill what can learn(by color mode)
 		+remove all progress
-		(+)save progress in VCode
+		+save progress in VCode
+		+read progress in VCode
 		forget Skill
 		whan can't learn,list what need to learn
 		add nickname
@@ -39,11 +40,11 @@ UI
 	+change the way draw arrow
 	+scale map
 	scale map use more natural way
+	spin map
 	muti-tab page
 	add new DrawMode(selected)
 	select a list of skill to move them or someothers
 	change arrow again
-	spin
 	change Skill color like iMessage 
 
 network
@@ -53,5 +54,7 @@ file encode
 	temporary none
 
 example
-	ACM added
-	MCT added
+	+ACM 
+	+MCT
+	NumberTheory
+
