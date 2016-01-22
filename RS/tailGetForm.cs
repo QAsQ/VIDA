@@ -32,12 +32,7 @@ namespace RS
             To.Text = "";
             this.Text = "";
             List<int> tail = skiller[selectedID].getTail;
-            this.Text += "为" + skiller[selectedID].name + " ";
-            if (isAdd)
-                this.Text += "添加";
-            else
-                this.Text += "删除";
-            this.Text += "后继";
+            this.Text += "请选择" + skiller[selectedID].name + "的后继";
             showId.Clear();
             if (isAdd == false)
             {

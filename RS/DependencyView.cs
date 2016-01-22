@@ -37,7 +37,7 @@ namespace RS
         {
             Usermode = userMode.teacher;
         }
-        List<bool> isLearnState
+        public List<bool> isLearnState
         {
             get
             {
@@ -57,10 +57,10 @@ namespace RS
                 drawModeList.Add(SkillDrawMode.cantLearn);
                 isLearnList.Add(false);
             }
-            setAllDrawmode();
+            resetAllDrawmode();
             redraw_all();
         }     
-        private void setAllDrawmode()
+        private void resetAllDrawmode()
         {
             bool[] vis = new bool[skillList.Count];
             for (int i = 0; i < skillList.Count; i++)
@@ -99,7 +99,7 @@ namespace RS
             circleCenter.Add(centerPoint);
             drawModeList.Add(SkillDrawMode.cantLearn);
             isLearnList.Add(false);
-            setAllDrawmode();
+            resetAllDrawmode();
             reName(skillList.Count- 1);
         }
         Graphics formGraphis;
@@ -130,6 +130,9 @@ namespace RS
             {
                 isLearnList[i] = biter[i] == '1';
             }
+            for (int i = 0; i < drawModeList.Count; i++)
+                drawModeList[i] = isLearnState[i] ? SkillDrawMode.Learned : SkillDrawMode.cantLearn;
+            resetAllDrawmode();
             return true;
         }
         private void drawSkill(Point center, Skill curr_skill, SkillDrawMode curr_mode)
@@ -497,7 +500,7 @@ namespace RS
             }
             isLearnList[selectedId_menu] = true;
             drawModeList[selectedId_menu] = SkillDrawMode.Learned;
-            setAllDrawmode();
+            resetAllDrawmode();
             redraw_all();
             selectedId_menu = selectedId_None;
         }
@@ -743,7 +746,7 @@ namespace RS
                     isLearnList[i] = false;
                     drawModeList[i] = SkillDrawMode.cantLearn;
                 }
-                setAllDrawmode();
+                resetAllDrawmode();
                 redraw_all();
             }
         }

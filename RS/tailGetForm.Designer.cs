@@ -35,9 +35,9 @@
             // 
             // cancel
             // 
-            this.cancel.Location = new System.Drawing.Point(135, 56);
+            this.cancel.Location = new System.Drawing.Point(172, 38);
             this.cancel.Name = "cancel";
-            this.cancel.Size = new System.Drawing.Size(87, 24);
+            this.cancel.Size = new System.Drawing.Size(75, 25);
             this.cancel.TabIndex = 4;
             this.cancel.Text = "取消";
             this.cancel.UseVisualStyleBackColor = true;
@@ -45,9 +45,9 @@
             // 
             // OK
             // 
-            this.OK.Location = new System.Drawing.Point(39, 56);
+            this.OK.Location = new System.Drawing.Point(91, 38);
             this.OK.Name = "OK";
-            this.OK.Size = new System.Drawing.Size(80, 24);
+            this.OK.Size = new System.Drawing.Size(75, 25);
             this.OK.TabIndex = 3;
             this.OK.Text = "确定";
             this.OK.UseVisualStyleBackColor = true;
@@ -58,18 +58,19 @@
             this.To.FormattingEnabled = true;
             this.To.Location = new System.Drawing.Point(12, 12);
             this.To.Name = "To";
-            this.To.Size = new System.Drawing.Size(170, 20);
+            this.To.Size = new System.Drawing.Size(235, 20);
             this.To.TabIndex = 6;
             // 
             // tailGetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(234, 92);
+            this.ClientSize = new System.Drawing.Size(259, 70);
             this.Controls.Add(this.To);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.OK);
             this.Name = "tailGetForm";
+            this.Text = "请选择后继";
             this.ResumeLayout(false);
 
         }

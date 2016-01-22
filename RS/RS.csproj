@@ -62,6 +62,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="codeGet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="codeGet.Designer.cs">
+      <DependentUpon>codeGet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="codeShow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="codeShow.Designer.cs">
+      <DependentUpon>codeShow.cs</DependentUpon>
+    </Compile>
     <Compile Include="denCode.cs" />
     <Compile Include="edgeGetForm.cs">
       <SubType>Form</SubType>
@@ -97,6 +109,12 @@
     <Compile Include="tailGetForm.Designer.cs">
       <DependentUpon>tailGetForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="codeGet.resx">
+      <DependentUpon>codeGet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="codeShow.resx">
+      <DependentUpon>codeShow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="edgeGetForm.resx">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </EmbeddedResource>

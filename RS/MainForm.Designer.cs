@@ -39,6 +39,9 @@
             this.模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.管理模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.学习模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.状态修改 = new System.Windows.Forms.ToolStripMenuItem();
+            this.获取状态码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.修改状态ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainDV = new RS.DependencyView();
             this.menu.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +58,8 @@
             // 
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
-            this.模式ToolStripMenuItem});
+            this.模式ToolStripMenuItem,
+            this.状态修改});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(810, 25);
@@ -115,14 +119,39 @@
             this.学习模式ToolStripMenuItem.Text = "学习模式";
             this.学习模式ToolStripMenuItem.Click += new System.EventHandler(this.学习模式ToolStripMenuItem_Click);
             // 
+            // 状态修改
+            // 
+            this.状态修改.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.获取状态码ToolStripMenuItem,
+            this.修改状态ToolStripMenuItem});
+            this.状态修改.Name = "状态修改";
+            this.状态修改.Size = new System.Drawing.Size(44, 21);
+            this.状态修改.Text = "进度";
+            // 
+            // 获取状态码ToolStripMenuItem
+            // 
+            this.获取状态码ToolStripMenuItem.Name = "获取状态码ToolStripMenuItem";
+            this.获取状态码ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.获取状态码ToolStripMenuItem.Text = "获取进度码";
+            this.获取状态码ToolStripMenuItem.Click += new System.EventHandler(this.获取状态码ToolStripMenuItem_Click);
+            // 
+            // 修改状态ToolStripMenuItem
+            // 
+            this.修改状态ToolStripMenuItem.Name = "修改状态ToolStripMenuItem";
+            this.修改状态ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.修改状态ToolStripMenuItem.Text = "修改进度";
+            this.修改状态ToolStripMenuItem.Click += new System.EventHandler(this.修改状态ToolStripMenuItem_Click);
+            // 
             // MainDV
             // 
             this.MainDV.AutoSize = true;
+            this.MainDV.BackColor = System.Drawing.SystemColors.Control;
             this.MainDV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainDV.Location = new System.Drawing.Point(0, 25);
             this.MainDV.Name = "MainDV";
             this.MainDV.Size = new System.Drawing.Size(810, 464);
             this.MainDV.TabIndex = 3;
+            this.MainDV.Load += new System.EventHandler(this.MainDV_Load);
             // 
             // mainForm
             // 
@@ -160,6 +189,9 @@
         private System.Windows.Forms.ToolStripMenuItem 模式ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 管理模式ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 学习模式ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 状态修改;
+        private System.Windows.Forms.ToolStripMenuItem 获取状态码ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 修改状态ToolStripMenuItem;
     }
 }
 

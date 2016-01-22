@@ -85,5 +85,10 @@ namespace RS
                }
            }
         }
+
+        private void edgeGetForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

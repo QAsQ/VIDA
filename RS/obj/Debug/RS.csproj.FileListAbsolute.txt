@@ -11,3 +11,5 @@ E:\GitHub\VIDA\RS\obj\Debug\RS.csproj.GenerateResource.Cache
 E:\GitHub\VIDA\RS\obj\Debug\VIDA.exe
 E:\GitHub\VIDA\RS\obj\Debug\VIDA.pdb
 E:\GitHub\VIDA\RS\obj\Debug\RS.csprojResolveAssemblyReference.cache
+E:\GitHub\VIDA\RS\obj\Debug\RS.ShowCode.resources
+E:\GitHub\VIDA\RS\obj\Debug\RS.codeGet.resources

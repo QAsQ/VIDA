@@ -61,7 +61,7 @@ namespace RS
         static int BitToInt(string bit)
         {
             int ret = 0;
-            for (int i = 5; i >= 0; i++)
+            for (int i = 5; i >= 0; i--)
             {
                 ret = ret * 2 + (bit[i] - '0');
             }

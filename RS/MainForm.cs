@@ -18,6 +18,7 @@ namespace RS
             InitializeComponent();
             UpdateMinRVFormLocate();
         }
+        bool haveInAdmin;
         Point FrameOffset = new Point(9,30);
         private void mainForm_LocationChanged(object sender, EventArgs e)
         {
@@ -48,15 +49,23 @@ namespace RS
         PasswordForm checkPassword = new PasswordForm();
         private void 管理模式ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            checkPassword.checkPassword();
-            if(checkPassword.passwordRight)
-                MainDV.TeacherMode();
+            //if (haveInAdmin == false)
+            //{
+            //    checkPassword.checkPassword();
+            //    if (checkPassword.passwordRight)
+            //    {
+            //        MainDV.TeacherMode();
+            //        haveInAdmin = true;
+            //    }
+            //}
+            menu.Items[2].Visible = false; //教师端没有进度定义
             MainDV.Flash();
         }
         private void 学习模式ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MainDV.StudentMode();
             MainDV.Flash();
+            menu.Items[2].Visible = true; //学生端有进度管理
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -109,6 +118,37 @@ namespace RS
                 }
                 writer.Flush();
                 writer.Close();
+            }
+        }
+
+        private void MainDV_Load(object sender, EventArgs e)
+        {
+            haveInAdmin = false;
+        }
+
+        private void 获取状态码ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<bool> state = MainDV.isLearnState;
+            string bit="";
+            for (int i = 0; i < state.Count; i++)
+            {
+                bit += state[i] ? '1' : '0';
+            }
+            string vcode = VCode.BitToVCode(bit);
+            ShowCode codeform = new ShowCode();
+            codeform.ShowMeCode(vcode);
+        }
+
+        private void 修改状态ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeGet codeform = new codeGet();
+            codeform.getCode();
+            string code = codeform.getcode;
+            if(MainDV.changeLearnState(VCode.VCodetobit(code))==false){
+                MessageBox.Show("该进度代码与当前依赖不匹配，请输入正确的进度代码");
+            }
+            else{
+                MainDV.Flash();
             }
         }
     }
