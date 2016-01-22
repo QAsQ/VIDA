@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-
 namespace RS
 {
     public partial class DependencyView : UserControl
@@ -110,7 +109,16 @@ namespace RS
         public Color color_font = Color.Black;
         public Color color_line = Color.Black;
         public Color color_background = Control.DefaultBackColor;
-        int size_circle = 50;
+        int size_circle
+        {
+            get
+            {
+                int r = (int) (circle_RI / circle_RO);
+                if(r==0)
+                    r = 1;
+                return r;
+            }
+        }
         const int selectedId_None = -1;
         int size_font = 30;
         int selectedId_drag; 
@@ -179,13 +187,6 @@ namespace RS
         {
             return formGraphis.MeasureString(name, font_name).ToSize();
         }
-        int distance(Point st, Point ed)
-        {
-            int dx = st.X - ed.X;
-            int dy = st.Y - ed.Y;
-            int ans = dx * dx + dy * dy;
-            return (int)Math.Sqrt((double)ans);
-        }
         private Pen getDrawModePen(SkillDrawMode currDrawMode)
         {
             Pen ret;
@@ -208,7 +209,7 @@ namespace RS
         }
         private void DrawArrow(Point st, Point ed, SkillDrawMode startMode, SkillDrawMode endMode)
         {
-            int length = distance(st, ed);
+            int length = Geometric.Distance(st, ed);
             if (length <= size_circle * 2)
                 return;
             Pen edPen = getDrawModePen(startMode);
@@ -219,7 +220,7 @@ namespace RS
         }
         private void scaleLine(ref Point st,ref Point ed){
             Point vR = ed - (Size)st;  // 从圆心到圆周的向量
-            int length = distance(st,ed);
+            int length = Geometric.Distance(st, ed);
             Geometric.scale(ref vR, size_circle, length);
             st += (Size)vR;
             ed -= (Size)vR;
@@ -228,7 +229,7 @@ namespace RS
         {
             scaleLine(ref st,ref ed);
             Point Vst_ed = ed - (Size)st; // 向量 
-            int LengthV = distance(new Point(0, 0), Vst_ed);
+            int LengthV = Geometric.Distance(new Point(0, 0), Vst_ed);
             Geometric.scale(ref Vst_ed, 5, 8);
             if (LengthV * 5 > size_circle * 16)
             {
@@ -241,7 +242,7 @@ namespace RS
             Geometric.scale(ref Vst_ed, 5, 8);
             var perp = new Point(Vst_ed.Y, -Vst_ed.X);
             Geometric.scale(ref perp, 3, 8);
-            int LengthPerp = distance(new Point(0, 0), perp);
+            int LengthPerp = Geometric.Distance(new Point(0, 0), perp);
             LengthPerp = LengthPerp * 8 / 5;
             if (LengthPerp * 8 < size_circle * 5 && LengthPerp * 5 > size_circle * 8)
             {
@@ -304,6 +305,10 @@ namespace RS
                 }
             }
           //  drawAncher(new Point(Width/2,Height/2),5);
+            if (anchorExist)
+            {
+                drawAnchor(Anchor, 5, buffer);
+            }
             formGraphis.DrawImage(BUF, 0, 0);
             GC.Collect();
         }
@@ -318,7 +323,7 @@ namespace RS
         {
             for (int i = 0; i < skillList.Count; i++)
             {
-                if (distance(lotated, circleCenter[i]) <= size_circle )
+                if (Geometric.Distance(lotated, circleCenter[i]) <= size_circle)
                 {
                     return i;
                 }
@@ -331,6 +336,20 @@ namespace RS
             if (selectedId_renameBox != selectedId_None)
             {
                 startRename();
+            }
+            if (e.Button == MouseButtons.Middle)
+            {
+                if (anchorExist == false)
+                {
+                    anchorExist = true;
+                    Anchor = e.Location;
+                    drawAnchor(Anchor, 5, formGraphis);
+                }
+                else
+                {
+                    anchorExist = false;
+                    redraw_all();
+                }
             }
             if (e.Button == MouseButtons.Left)
             {
@@ -347,20 +366,33 @@ namespace RS
                 afterMenuMouseLocation = e.Location + (Size)Location;
                 MenuStrip.Show(currMouseLocation);   
             }
+            if (anchorExist)
+                rotateMouseLocate = e.Location;
         }
-        void scaleFrom(Point anchor,int Zoomin,int Zoomout){
-            Point dis = anchor;
-            for(int i=0;i<circleCenter.Count;i++)
-                circleCenter[i] = Geometric.scale(circleCenter[i],Zoomin,Zoomout);
-            Geometric.scale(ref dis, Zoomin, Zoomout);
-            dis -= (Size)anchor;
-            moveAllSkill(dis);
-            size_circle = size_circle * Zoomin / Zoomout;
+        int circle_RI;
+        int circle_RO;
+        void scaleOther(int Zoomin,int Zoomout){
+            circle_RI *= Zoomin;
+            circle_RO *= Zoomout;
+            relase();
             size_font = size_circle * 5 / 8;
-            if (size_font == 0)
+            if (size_font <= 0)
                 size_font = 1;
             font_name = new Font ("Arial", size_font);
             Flash();
+        }
+
+        private void relase()
+        {
+            int gcd = gcds(circle_RI, circle_RO);
+            if (gcd == 0)
+                return;
+            circle_RI /= gcd;
+            circle_RO /= gcd;
+        }
+        int gcds(int a, int b)
+        {
+            return b == 0 ? a : gcds(b, a % b);
         }
         private void startRename()
         {
@@ -394,8 +426,15 @@ namespace RS
             }
         }
         Point spaceMouseLocate;
+        Point rotateMouseLocate;
         private void RelationView_MouseMove(object sender, MouseEventArgs e)
         {
+            if (anchorExist == true && selectedId_drag == selectedId_None && MouseLeftButtonIsDown)
+            {
+                rotateAllCenter(Anchor, rotateMouseLocate, e.Location);
+                rotateMouseLocate = e.Location;
+                Flash();
+            }
             if (selectedId_drag != selectedId_None && MouseLeftButtonIsDown)
             {
                 Point offset = e.Location - (Size)locate_mouse;
@@ -441,6 +480,9 @@ namespace RS
             Usermode = initUsermode;
             reNameBox.Font = font_name;
             formGraphis = CreateGraphics();
+            circle_RI = 50;
+            circle_RO = 1;
+            anchorExist = false;
         }
 
         private void ButtonStateInit()
@@ -612,6 +654,8 @@ namespace RS
                 return skillList;
             }
         }
+        Point Anchor;
+        bool anchorExist;
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {
             changeKeyState(e.KeyCode,true);
@@ -627,10 +671,6 @@ namespace RS
                 }
 
             }
-            if(e.KeyCode == Keys.Oemplus)
-                scaleFrom(mouseLocate, 5, 8);
-            if (e.KeyCode == Keys.OemMinus)
-                scaleFrom(mouseLocate, 8, 5);
         }
 
         private void changeKeyState(Keys k,bool isDown)
@@ -725,10 +765,6 @@ namespace RS
                 moveAllSkill(dis);
             }
             Flash();
-            if (selectedId_ArrowPoiner == selectedId_None)
-                drawAnchor(e.Location, 9, formGraphis);
-            else
-                drawAnchor(aim, 9, formGraphis);
         }
 
         private void DependencyView_SizeChanged(object sender, EventArgs e)
@@ -749,6 +785,16 @@ namespace RS
                 resetAllDrawmode();
                 redraw_all();
             }
+        }
+        private void rotateAllCenter(Point anchor, Point from, Point to)
+        {
+            int zi, zo;
+            zi = zo = 1;
+            for (int i = 0; i < circleCenter.Count; i++)
+            {
+                circleCenter[i] = Geometric.Rotate(anchor, from, to, circleCenter[i],out zi,out zo);
+            }
+            scaleOther(zi, zo);
         }
     }
 }
