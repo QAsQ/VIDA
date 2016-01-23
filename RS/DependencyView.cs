@@ -109,14 +109,12 @@ namespace RS
         public Color color_font = Color.Black;
         public Color color_line = Color.Black;
         public Color color_background = Control.DefaultBackColor;
+        double circleR;
         int size_circle
         {
             get
             {
-                int r = (int) (circle_RI / circle_RO);
-                if(r==0)
-                    r = 1;
-                return r;
+                return (int)circleR;
             }
         }
         const int selectedId_None = -1;
@@ -307,7 +305,7 @@ namespace RS
           //  drawAncher(new Point(Width/2,Height/2),5);
             if (anchorExist)
             {
-                drawAnchor(Anchor, 5, buffer);
+                drawAnchor(Anchors, 5, buffer);
             }
             formGraphis.DrawImage(BUF, 0, 0);
             GC.Collect();
@@ -342,8 +340,8 @@ namespace RS
                 if (anchorExist == false)
                 {
                     anchorExist = true;
-                    Anchor = e.Location;
-                    drawAnchor(Anchor, 5, formGraphis);
+                    Anchors = e.Location;
+                    drawAnchor(Anchors, 5, formGraphis);
                 }
                 else
                 {
@@ -369,26 +367,13 @@ namespace RS
             if (anchorExist)
                 rotateMouseLocate = e.Location;
         }
-        int circle_RI;
-        int circle_RO;
         void scaleOther(int Zoomin,int Zoomout){
-            circle_RI *= Zoomin;
-            circle_RO *= Zoomout;
-            relase();
+            circleR *= Zoomin;
+            circleR /= Zoomout;
             size_font = size_circle * 5 / 8;
             if (size_font <= 0)
                 size_font = 1;
             font_name = new Font ("Arial", size_font);
-            Flash();
-        }
-
-        private void relase()
-        {
-            int gcd = gcds(circle_RI, circle_RO);
-            if (gcd == 0)
-                return;
-            circle_RI /= gcd;
-            circle_RO /= gcd;
         }
         int gcds(int a, int b)
         {
@@ -431,7 +416,7 @@ namespace RS
         {
             if (anchorExist == true && selectedId_drag == selectedId_None && MouseLeftButtonIsDown)
             {
-                rotateAllCenter(Anchor, rotateMouseLocate, e.Location);
+                moveAllCenter(Anchors, rotateMouseLocate, e.Location);
                 rotateMouseLocate = e.Location;
                 Flash();
             }
@@ -453,6 +438,37 @@ namespace RS
             }
         }
 
+        private void moveAllCenter(Point Anchor, Point before, Point after)
+        {
+            int zo = Geometric.Length(before - (Size)Anchor);
+            int zi = Geometric.Length(after - (Size)Anchor);
+          //  spinAllCenter(Anchor, before, after);
+            if (size_circle > minCircleSize || zo < zi)
+            {
+                scaleAllCenter(Anchor, before, after);
+            }
+        }
+
+        private void scaleAllCenter(Point Anchor, Point before, Point after)
+        {
+            Point anc = Anchor;
+            int zo = Geometric.Length(before - (Size)Anchor);
+            int zi = Geometric.Length(after - (Size)Anchor);
+            scaleOther(zi,zo);
+            for (int i = 0; i < circleCenter.Count; i++)
+            {
+                circleCenter[i] = Geometric.scale(circleCenter[i], zi, zo);
+            }
+            anc = Geometric.scale(anc, zi, zo);
+            anc -= (Size)Anchor;
+            panAllCircle(anc);
+        }
+
+        private void panAllCircle(Point anc)
+        {
+            for (int i = 0; i < circleCenter.Count; i++)
+                circleCenter[i] -= (Size)anc;
+        }
         private Point moveAllSkill(Point deviaion)
         {
             for (int i = 0; i < skillList.Count; i++)
@@ -480,8 +496,7 @@ namespace RS
             Usermode = initUsermode;
             reNameBox.Font = font_name;
             formGraphis = CreateGraphics();
-            circle_RI = 50;
-            circle_RO = 1;
+            circleR = 50;
             anchorExist = false;
         }
 
@@ -654,8 +669,9 @@ namespace RS
                 return skillList;
             }
         }
-        Point Anchor;
+        Point Anchors;
         bool anchorExist;
+        const int minCircleSize = 10;
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {
             changeKeyState(e.KeyCode,true);
@@ -759,8 +775,7 @@ namespace RS
                 Point dis = circleCenter[selectedId_ArrowPoiner]-(Size)aim;
                 if (dis.X == 0 && dis.Y == 0)
                 {
-                    dis.X = 2;
-                    dis.Y = 2;
+                    dis.X = dis.Y = 2;
                 }
                 moveAllSkill(dis);
             }
@@ -785,16 +800,6 @@ namespace RS
                 resetAllDrawmode();
                 redraw_all();
             }
-        }
-        private void rotateAllCenter(Point anchor, Point from, Point to)
-        {
-            int zi, zo;
-            zi = zo = 1;
-            for (int i = 0; i < circleCenter.Count; i++)
-            {
-                circleCenter[i] = Geometric.Rotate(anchor, from, to, circleCenter[i],out zi,out zo);
-            }
-            scaleOther(zi, zo);
         }
     }
 }

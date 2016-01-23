@@ -53,31 +53,10 @@ namespace RS
             }
             return true;
         }
-        public static Point Rotate(Point anchor, Point before, Point after, Point old,out int zoomin,out int zoomout)
+        public static Point Rotate(Point anchor, Point before, Point after, Point old)
         {
-            zoomout = Distance(anchor, before);
-            zoomin = Distance(anchor, after);
-            before -= (Size)anchor;
-            scale(ref before, zoomin, zoomout);
-            after -= (Size)anchor;
-            Point v = old - (Size)anchor;
-            scale(ref v, zoomin, zoomout);
-            //Point v = after - (Size)before;
-            //int a = Length(after);
-            //int b = Length(before);
-            //int ci = after.X * before.X + after.Y * before.Y;
-            //int zot = a * b;
-            //int si = zot * zot - ci * ci;
-            //old -= (Size)anchor;
-            //scale(ref old, zoomin, zoomout);
-            //Point ret = anchor;
-            //v -= (Size)anchor;
-            //anchor.X *= ci;
-            //anchor.Y *= si;
-            //scale(ref anchor, 1, zot);
-            //ret.X += v.X * anchor.X - v.Y * anchor.Y;
-            //ret.Y += v.X * anchor.Y + v.Y * anchor.X;
-            return anchor + (Size)v;
+            //wait updat;
+            return after;
         }
     }
 }
