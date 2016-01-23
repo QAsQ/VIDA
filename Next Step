@@ -39,7 +39,7 @@ UI
 	+no flicker
 	+change the way draw arrow
 	+scale map
-	scale map use more natural way
+	+scale map use more natural way
 	spin map
 	muti-tab page
 	add new DrawMode(selected)
