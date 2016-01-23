@@ -53,10 +53,18 @@ namespace RS
             }
             return true;
         }
+        
         public static Point Rotate(Point anchor, Point before, Point after, Point old)
         {
-            //wait updat;
-            return after;
+            before -= (Size)anchor;
+            after -= (Size)anchor;
+            old -= (Size)anchor;
+            int zou = -(before.X*before.X+before.Y*before.Y);
+            int sin = before.Y*after.X-before.X*after.Y;
+            int cin = -after.Y*before.Y-before.X*after.X;
+            Point ret = new Point ( (old.X*cin - old.Y*sin)/zou,(old.X*cin - old.Y*sin)/zou);
+            ret += (Size)anchor;
+            return ret;
         }
     }
 }

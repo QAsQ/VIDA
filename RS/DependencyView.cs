@@ -442,11 +442,17 @@ namespace RS
         {
             int zo = Geometric.Length(before - (Size)Anchor);
             int zi = Geometric.Length(after - (Size)Anchor);
-          //  spinAllCenter(Anchor, before, after);
+            spinAllCenter(Anchor, before, after);
             if (size_circle > minCircleSize || zo < zi)
             {
                 scaleAllCenter(Anchor, before, after);
             }
+        }
+
+        private void spinAllCenter(Point Anchor, Point before, Point after)
+        {
+            for (int i = 0; i < circleCenter.Count; i++)
+                circleCenter[i] = Geometric.Rotate(Anchor, before, after, circleCenter[i]);
         }
 
         private void scaleAllCenter(Point Anchor, Point before, Point after)
