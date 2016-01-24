@@ -305,7 +305,7 @@ namespace RS
           //  drawAncher(new Point(Width/2,Height/2),5);
             if (anchorExist)
             {
-                drawAnchor(Anchors, 5, buffer);
+                drawAnchor(Anchors, size_anchor, buffer);
             }
             formGraphis.DrawImage(BUF, 0, 0);
             GC.Collect();
@@ -355,6 +355,7 @@ namespace RS
                 locate_mouse = e.Location;
                 selectedId_drag = get_circleID(e.Location);
                 spaceMouseLocate = e.Location;
+                rotateMouseLocate = e.Location;
             }
             if( e.Button == MouseButtons.Right)
             {
@@ -416,7 +417,8 @@ namespace RS
         {
             if (anchorExist == true && selectedId_drag == selectedId_None && MouseLeftButtonIsDown)
             {
-                moveAllCenter(Anchors, rotateMouseLocate, e.Location);
+                if(Geometric.Distance(e.Location,Anchors) > size_anchor)
+                   moveAllCenter(Anchors, rotateMouseLocate, e.Location);
                 rotateMouseLocate = e.Location;
                 Flash();
             }
@@ -678,6 +680,7 @@ namespace RS
         Point Anchors;
         bool anchorExist;
         const int minCircleSize = 10;
+        int size_anchor = 5;
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {
             changeKeyState(e.KeyCode,true);

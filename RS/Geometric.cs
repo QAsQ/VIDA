@@ -26,6 +26,10 @@ namespace RS
         {
             return Distance(new Point(0, 0), p);
         }
+        static public float LengthF(PointF p)
+        {
+            return (float)Math.Sqrt(p.X * p.X + p.Y * p.Y);
+        }
         static public void scale(ref Point poi, int Zoomin, int Zoomout)
         {
             if (Zoomout == 0)
@@ -41,6 +45,13 @@ namespace RS
             poi.X /= Zoomout; poi.Y /= Zoomout;
             return poi;
         }
+        static public void scale(ref PointF poi, float Zoomin, float Zoomout)
+        {
+            if (Zoomout == 0)
+                return ;
+            poi.X *= Zoomin; poi.Y *= Zoomin;
+            poi.X /= Zoomout; poi.Y /= Zoomout;
+        }
         public static bool pointInArrowHand(Point locate, Point[] pointList)
         {
             Point center = pointList[1] + (Size)pointList[3];
@@ -54,17 +65,33 @@ namespace RS
             return true;
         }
         
-        public static Point Rotate(Point anchor, Point before, Point after, Point old)
+        public static Point Rotate(Point anchor, PointF b, PointF a, PointF old)
         {
-            before -= (Size)anchor;
-            after -= (Size)anchor;
+            // b:before a:after
+            b -= (Size)anchor;
             old -= (Size)anchor;
-            int zou = -(before.X*before.X+before.Y*before.Y);
-            int sin = before.Y*after.X-before.X*after.Y;
-            int cin = -after.Y*before.Y-before.X*after.X;
-            Point ret = new Point ( (old.X*cin - old.Y*sin)/zou,(old.X*cin - old.Y*sin)/zou);
-            ret += (Size)anchor;
-            return ret;
+            a -= (Size)anchor;
+            float zou = -(b.X * b.X + b.Y * b.Y);
+            float cos = -b.Y * old.Y - old.X * b.X;
+            float sin = b.Y * old.X - old.Y * b.X;
+            cos /= zou;
+            sin /= zou;
+            float rx = cos * a.X - sin * a.Y;
+            float ry = cos * a.X + sin * a.Y;
+            PointF ret = new PointF(rx,ry);
+            float ro = LengthF(ret);
+            float ri = LengthF(old);
+            scale(ref ret, ri, ro);
+            ret += (Size)anchor; 
+            return new Point((int)ret.X,(int)ret.Y);
+        }
+
+        private static void scale(ref Point Poi, double zi, double zo)
+        {
+            double x = Poi.X * zi / zo;
+            double y = Poi.Y * zi / zo;
+            Poi.X = (int)x;
+            Poi.Y = (int)y;
         }
     }
 }
