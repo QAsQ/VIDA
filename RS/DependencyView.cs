@@ -110,11 +110,19 @@ namespace RS
         public Color color_line = Color.Black;
         public Color color_background = Control.DefaultBackColor;
         double circleR;
-        int size_circle
+        public int size_circle
         {
             get
             {
                 return (int)circleR;
+            }
+            set
+            {
+                if (value < minCircleSize)
+                    circleR = minCircleSize;
+                circleR = value;
+                size_font = size_circle * 5 / 8;
+                font_name = new Font("Arial", size_font);
             }
         }
         const int selectedId_None = -1;

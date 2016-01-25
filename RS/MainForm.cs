@@ -77,20 +77,22 @@ namespace RS
                 StreamReader reader = new StreamReader(openfile.FileName, Encoding.Default);
                 try
                 {
+                    MainDV.size_circle = Convert.ToInt32(reader.ReadLine());
                     int n = Convert.ToInt32(reader.ReadLine());
                     for (int i = 0; i < n; i++)
                     {
                         Skill curr = (Skill)reader.ReadLine();
                         skillList.Add(curr);
                     }
-                    for(int i=0;i<n;i++){
+                    for (int i = 0; i < n; i++)
+                    {
                         string[] coordinate = reader.ReadLine().Split(',');
                         int x = Convert.ToInt32(coordinate[0]);
                         int y = Convert.ToInt32(coordinate[1]);
                         pointList.Add(new Point(x, y));
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("该文件损坏");
                     return;
@@ -106,6 +108,7 @@ namespace RS
             {
                 var writer = new StreamWriter(savefile.FileName,false,Encoding.Default);
                 var skillList = MainDV.getAllSkill;
+                writer.WriteLine(MainDV.size_circle.ToString());
                 writer.WriteLine(skillList.Count.ToString());
                 foreach (Skill curr in skillList)
                 {
