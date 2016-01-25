@@ -71,27 +71,26 @@ namespace RS
             b -= (Size)anchor;
             old -= (Size)anchor;
             a -= (Size)anchor;
-            float zou = -(b.X * b.X + b.Y * b.Y);
-            float cos = -b.Y * old.Y - old.X * b.X;
-            float sin = b.Y * old.X - old.Y * b.X;
-            cos /= zou;
-            sin /= zou;
-            float rx = cos * a.X - sin * a.Y;
-            float ry = cos * a.X + sin * a.Y;
-            PointF ret = new PointF(rx,ry);
-            float ro = LengthF(ret);
-            float ri = LengthF(old);
-            scale(ref ret, ri, ro);
-            ret += (Size)anchor; 
-            return new Point((int)ret.X,(int)ret.Y);
-        }
 
-        private static void scale(ref Point Poi, double zi, double zo)
-        {
-            double x = Poi.X * zi / zo;
-            double y = Poi.Y * zi / zo;
-            Poi.X = (int)x;
-            Poi.Y = (int)y;
+            float zi = LengthF(a);
+            float zo = LengthF(b);
+            scale(ref b, zi, zo);
+            zi = LengthF(a);
+            zo = LengthF(b);
+
+            float zou = -b.Y * b.Y - b.X * b.X;
+            float sin = a.X * b.Y - b.X * a.Y;
+            float cos = -b.Y * a.Y - b.X * a.X;
+            sin /= zou;
+            cos /= zou;
+            float x = -old.Y * sin + old.X * cos;
+            float y = old.X * sin + old.Y * cos;
+            PointF re = new PointF(x,y);
+            zo = LengthF(re);
+            zi = LengthF(old);
+            scale(ref re, zi, zo);
+            Point ret = new Point((int)Math.Ceiling(re.X), (int)Math.Ceiling(re.Y));
+            return  ret+(Size)anchor;
         }
     }
 }
