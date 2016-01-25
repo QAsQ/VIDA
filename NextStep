@@ -41,6 +41,9 @@ UI
 	+scale map
 	+scale map use more natural way
 	+spin map
+	+change font style
+	self-adaptation font size
+	change color style
 	muti-tab page
 	add new DrawMode(selected)
 	select a list of skill to move them or someothers
