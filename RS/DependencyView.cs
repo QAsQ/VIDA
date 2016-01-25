@@ -23,6 +23,7 @@ namespace RS
         private int count = 1;
         const int Menusize = 11;
         string defaultSkillName = "新技能";
+        string fontName = "微软雅黑";
         //刷新;重命名;添加技能;删除技能;学习技能,添加依赖关系,删除依赖关系,检查依赖关系,添加后继,删除后继,重置所有技能;
         bool[,] MenuVisible = {{true, true, false, false, true,false,false,false,false,false,true},       //student
                                {true, true, true, true, false,true,true,true,true,true,false}};       //teacher
@@ -122,7 +123,7 @@ namespace RS
                     circleR = minCircleSize;
                 circleR = value;
                 size_font = size_circle * 5 / 8;
-                font_name = new Font("Arial", size_font);
+                font_name = new Font(fontName, size_font);
                 reNameBox.Font = font_name;
             }
         }
@@ -383,7 +384,7 @@ namespace RS
             size_font = size_circle * 5 / 8;
             if (size_font <= 0)
                 size_font = 1;
-            font_name = new Font ("Arial", size_font);
+            font_name = new Font (fontName, size_font);
             reNameBox.Font = font_name;
         }
         int gcds(int a, int b)
@@ -506,7 +507,7 @@ namespace RS
         }
         private void RelationView_Load(object sender, EventArgs e)
         {
-            font_name = new Font("Arial", size_font);
+            font_name = new Font(fontName, size_font);
             ButtonStateInit();
             selectedId_drag = selectedId_None;
             selectedId_menu = selectedId_None;
