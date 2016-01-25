@@ -19,7 +19,7 @@ namespace RS
         enum userMode { student, teacher};
         enum SkillDrawMode { Learned, canLearn, cantLearn };//已经学过的，可以学的，还不能学的
         private userMode Usermode;
-        private userMode initUsermode = userMode.teacher;
+        private userMode initUsermode = userMode.student;
         private int count = 1;
         const int Menusize = 11;
         string defaultSkillName = "新技能";

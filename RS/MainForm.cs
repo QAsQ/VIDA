@@ -59,6 +59,7 @@ namespace RS
             //    }
             //}
             menu.Items[2].Visible = false; //教师端没有进度定义
+            MainDV.TeacherMode();
             MainDV.Flash();
         }
         private void 学习模式ToolStripMenuItem_Click(object sender, EventArgs e)
