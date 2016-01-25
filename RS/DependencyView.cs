@@ -123,6 +123,7 @@ namespace RS
                 circleR = value;
                 size_font = size_circle * 5 / 8;
                 font_name = new Font("Arial", size_font);
+                reNameBox.Font = font_name;
             }
         }
         const int selectedId_None = -1;
@@ -383,6 +384,7 @@ namespace RS
             if (size_font <= 0)
                 size_font = 1;
             font_name = new Font ("Arial", size_font);
+            reNameBox.Font = font_name;
         }
         int gcds(int a, int b)
         {
