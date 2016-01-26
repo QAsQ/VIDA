@@ -117,8 +117,9 @@ namespace RS
         FillStyle Us = new FillStyle(ColorTranslator.FromHtml("#894a60")
                                     , ColorTranslator.FromHtml("#c66a8a")
                                     , ColorTranslator.FromHtml("#552334"));
-        public Color color_background = ColorTranslator.FromHtml("#e9dde1");
+        public Color color_background = ColorTranslator.FromHtml("#1e7a92");
         public Color color_anchor = Color.DarkGray;
+        const int lineW = 3;
         double circleR;
         public int size_circle
         {
@@ -171,6 +172,7 @@ namespace RS
             {
                 Pen edgePen;
                 edgePen = new Pen(curr_style.edgeColor);
+                edgePen.Width = lineW;
                 buffer.DrawEllipse(edgePen,rect);
             }
             if (curr_style.fill)
@@ -213,6 +215,7 @@ namespace RS
             if (length <= size_circle * 2)
                 return;
             Pen edPen = new Pen(end.fillColor);
+            edPen.Width = lineW;
             Point[] pointList = getArrowHead(st,ed);
             scaleLine(ref st,ref ed);
             buffer.DrawLine(edPen, st, pointList[0]);
@@ -264,6 +267,7 @@ namespace RS
             if (currStyle.edge)
             {
                 Pen edgePen = new Pen(currStyle.edgeColor);
+                edgePen.Width = lineW;
                 buffer.DrawPolygon(edgePen, PointList);
             }
         }
@@ -487,6 +491,9 @@ namespace RS
             formGraphis = CreateGraphics();
             circleR = 50;
             anchorExist = false;
+            Hs.EdgeClear();
+            Us.FillClear();
+            Cs.EdgeClear();
         }
 
         private void ButtonStateInit()
