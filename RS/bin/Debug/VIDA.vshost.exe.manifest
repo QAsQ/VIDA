@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VIDA.exe" size="59904">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VIDA.exe" size="60416">
       <assemblyIdentity name="VIDA" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>STCfb7+C0Clumwd5XxWLN+gDpZnd+efxae2WNnSjLl0=</dsig:DigestValue>
+        <dsig:DigestValue>t0EzKzBfVcps7d7CZloEG7JOvT1BXBlu0UulWp6pFJU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

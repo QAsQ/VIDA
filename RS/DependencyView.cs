@@ -17,7 +17,13 @@ namespace RS
         bool MouseLeftButtonIsDown;
         public Point FormLocate;
         enum userMode { student, teacher};
-        enum SkillDrawMode { Learned, canLearn, cantLearn };//已经学过的，可以学的，还不能学的
+        enum SkillDrawMode
+        {
+            Hs, /// Had study
+            Cs, ///Can sdudy
+            Us  ///Unable study
+        };
+
         private userMode Usermode;
         private userMode initUsermode = userMode.student;
         private int count = 1;
@@ -54,7 +60,7 @@ namespace RS
             circleCenter = _pointList;
             for(int i = 0; i < _skillList.Count; i++)
             {
-                drawModeList.Add(SkillDrawMode.cantLearn);
+                drawModeList.Add(SkillDrawMode.Us);
                 isLearnList.Add(false);
             }
             resetAllDrawmode();
@@ -82,7 +88,7 @@ namespace RS
             {
                 if (vis[i] == false && isLearnList[i]==false)
                 {
-                    drawModeList[i] = SkillDrawMode.canLearn;
+                    drawModeList[i] = SkillDrawMode.Cs;
                 }
             }
         }
@@ -97,7 +103,7 @@ namespace RS
             count++;
             skillList.Add(adder);
             circleCenter.Add(centerPoint);
-            drawModeList.Add(SkillDrawMode.cantLearn);
+            drawModeList.Add(SkillDrawMode.Us);
             isLearnList.Add(false);
             resetAllDrawmode();
             reName(skillList.Count- 1);
@@ -147,7 +153,7 @@ namespace RS
                 isLearnList[i] = biter[i] == '1';
             }
             for (int i = 0; i < drawModeList.Count; i++)
-                drawModeList[i] = isLearnState[i] ? SkillDrawMode.Learned : SkillDrawMode.cantLearn;
+                drawModeList[i] = isLearnState[i] ? SkillDrawMode.Hs : SkillDrawMode.Us;
             resetAllDrawmode();
             return true;
         }
@@ -162,15 +168,15 @@ namespace RS
             Brush bush;
             switch (curr_mode)
             {
-                case SkillDrawMode.Learned:
+                case SkillDrawMode.Hs:
                     bush = new SolidBrush(color_Learned);
                     p = new Pen(color_bound);
                     break;
-                case SkillDrawMode.cantLearn:
+                case SkillDrawMode.Us:
                     bush = new SolidBrush(color_background);
                     p = new Pen(color_cantLearn);
                     break;
-                case SkillDrawMode.canLearn:
+                case SkillDrawMode.Cs:
                     bush = new SolidBrush(color_background);
                     p = new Pen(color_canLearnr);
                     break;
@@ -182,7 +188,7 @@ namespace RS
             buffer.FillEllipse(bush, rect);
             buffer.DrawEllipse(p, rect);
             Brush fontbush;
-            if (curr_mode == SkillDrawMode.Learned)
+            if (curr_mode == SkillDrawMode.Hs)
                 fontbush = new SolidBrush(Color.DeepSkyBlue);
             else
                 fontbush = new SolidBrush(Color.Black);
@@ -201,13 +207,13 @@ namespace RS
             Pen ret;
             switch (currDrawMode)
             {
-                case SkillDrawMode.canLearn:
+                case SkillDrawMode.Cs:
                     ret = new Pen(color_canLearnr);
                     break;
-                case SkillDrawMode.cantLearn:
+                case SkillDrawMode.Us:
                     ret = new Pen(color_cantLearn);
                     break;
-                case SkillDrawMode.Learned:
+                case SkillDrawMode.Hs:
                     ret = new Pen(color_Learned);
                     break;
                 default:
@@ -269,7 +275,7 @@ namespace RS
         {
             Pen pen;
             Brush bush;
-            if (currMode == SkillDrawMode.Learned)
+            if (currMode == SkillDrawMode.Hs)
             {
                 pen = new Pen(color_bound);
                 bush = new SolidBrush(color_Learned);
@@ -300,7 +306,7 @@ namespace RS
                             DrawArrow(circleCenter[i],circleCenter[end], drawModeList[i], drawModeList[end]);
                             break;
                         case userMode.teacher:
-                            DrawArrow(circleCenter[i], circleCenter[end], SkillDrawMode.Learned, SkillDrawMode.Learned);
+                            DrawArrow(circleCenter[i], circleCenter[end], SkillDrawMode.Hs, SkillDrawMode.Hs);
                             break;
                     }
                 }
@@ -313,7 +319,7 @@ namespace RS
                         drawSkill(circleCenter[i], skillList[i], drawModeList[i]);
                         break;
                     case userMode.teacher:
-                        drawSkill(circleCenter[i], skillList[i], SkillDrawMode.Learned);
+                        drawSkill(circleCenter[i], skillList[i], SkillDrawMode.Hs);
                         break;
                 }
             }
@@ -570,13 +576,13 @@ namespace RS
         
         private void 学习技能_Click(object sender, EventArgs e)
         {
-             if (drawModeList[selectedId_menu] == SkillDrawMode.cantLearn)
+             if (drawModeList[selectedId_menu] == SkillDrawMode.Us)
             {
                 MessageBox.Show("该技能现在不可学习，请先学习该技能的前置技能");
                 return;
             }
             isLearnList[selectedId_menu] = true;
-            drawModeList[selectedId_menu] = SkillDrawMode.Learned;
+            drawModeList[selectedId_menu] = SkillDrawMode.Hs;
             resetAllDrawmode();
             redraw_all();
             selectedId_menu = selectedId_None;
@@ -587,7 +593,7 @@ namespace RS
             if (selectedId_menu != selectedId_None)
             {
                 isLearnList[selectedId_menu] = false;
-                drawModeList[selectedId_menu] = SkillDrawMode.canLearn;
+                drawModeList[selectedId_menu] = SkillDrawMode.Cs;
                 redraw_all();
             }
             selectedId_menu = selectedId_None;
@@ -816,7 +822,7 @@ namespace RS
                 for (int i = 0; i < isLearnList.Count; i++)
                 {
                     isLearnList[i] = false;
-                    drawModeList[i] = SkillDrawMode.cantLearn;
+                    drawModeList[i] = SkillDrawMode.Us;
                 }
                 resetAllDrawmode();
                 redraw_all();
