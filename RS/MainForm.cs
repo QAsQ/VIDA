@@ -74,7 +74,7 @@ namespace RS
             if (openfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var skillList = new List<Skill>();
-                var pointList = new List<Point>();
+                var pointList = new List<PointF>();
                 StreamReader reader = new StreamReader(openfile.FileName, Encoding.Default);
                 try
                 {
@@ -88,9 +88,9 @@ namespace RS
                     for (int i = 0; i < n; i++)
                     {
                         string[] coordinate = reader.ReadLine().Split(',');
-                        int x = Convert.ToInt32(coordinate[0]);
-                        int y = Convert.ToInt32(coordinate[1]);
-                        pointList.Add(new Point(x, y));
+                        float x = (float)Convert.ToDouble(coordinate[0]);
+                        float y = (float)Convert.ToDouble(coordinate[1]);
+                        pointList.Add(new PointF(x, y));
                     }
                 }
                 catch (Exception ex)
@@ -116,7 +116,7 @@ namespace RS
                     writer.WriteLine(curr.ToString());
                 }
                 var pointList = MainDV.PointList;
-                foreach (Point poi in pointList)
+                foreach (PointF poi in pointList)
                 {
                     writer.WriteLine(poi.X.ToString() + "," + poi.Y.ToString());
                 }

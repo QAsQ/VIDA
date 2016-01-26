@@ -48,7 +48,7 @@ namespace RS
         {
             InitializeComponent();
         }
-        public void ShowRelation(List<Skill> _skillList,List<Point> _pointList)
+        public void ShowRelation(List<Skill> _skillList,List<PointF> _pointList)
         {
             skillList = _skillList;
             circleCenter = _pointList;
@@ -91,7 +91,7 @@ namespace RS
             addOneSkill(afterMenuMouseLocation);
             redraw_all();
         }
-        private void addOneSkill(Point centerPoint)
+        private void addOneSkill(PointF centerPoint)
         {
             Skill adder = new Skill(defaultSkillName +"("+ count.ToString()+")");
             count++;
@@ -134,7 +134,7 @@ namespace RS
         Font font_name ;
         private Graphics buffer;
         private Point locate_mouse;
-        private List<Point> circleCenter = new List<Point>();
+        private List<PointF> circleCenter = new List<PointF>();
         private List<Skill> skillList = new List<Skill>();
         private List<bool> isLearnList = new List<bool>();
         private List<SkillDrawMode> drawModeList = new List<SkillDrawMode>();
@@ -151,8 +151,9 @@ namespace RS
             resetAllDrawmode();
             return true;
         }
-        private void drawSkill(Point center, Skill curr_skill, SkillDrawMode curr_mode)
+        private void drawSkill(PointF _center, Skill curr_skill, SkillDrawMode curr_mode)
         {
+            Point center = Point.Round(_center);
             int r = size_circle;
             int stx = center.X - r,sty = center.Y - r;
             int d = r * 2;
@@ -215,8 +216,10 @@ namespace RS
             }
             return ret;
         }
-        private void DrawArrow(Point st, Point ed, SkillDrawMode startMode, SkillDrawMode endMode)
+        private void DrawArrow(PointF _st, PointF _ed, SkillDrawMode startMode, SkillDrawMode endMode)
         {
+            Point st = Point.Round(_st);
+            Point ed = Point.Round(_ed);
             int length = Geometric.Distance(st, ed);
             if (length <= size_circle * 2)
                 return;
@@ -233,8 +236,10 @@ namespace RS
             st += (Size)vR;
             ed -= (Size)vR;
         }
-        private Point[] getArrowHead(Point st,Point ed)
+        private Point[] getArrowHead(PointF _st,PointF _ed)
         {
+            Point st = Point.Round(_st);
+            Point ed = Point.Round(_ed);
             scaleLine(ref st,ref ed);
             Point Vst_ed = ed - (Size)st; // 向量 
             int LengthV = Geometric.Distance(new Point(0, 0), Vst_ed);
@@ -292,7 +297,7 @@ namespace RS
                     switch (Usermode)
                     {
                         case userMode.student:
-                            DrawArrow(circleCenter[i], circleCenter[end], drawModeList[i], drawModeList[end]);
+                            DrawArrow(circleCenter[i],circleCenter[end], drawModeList[i], drawModeList[end]);
                             break;
                         case userMode.teacher:
                             DrawArrow(circleCenter[i], circleCenter[end], SkillDrawMode.Learned, SkillDrawMode.Learned);
@@ -331,7 +336,7 @@ namespace RS
         {
             for (int i = 0; i < skillList.Count; i++)
             {
-                if (Geometric.Distance(lotated, circleCenter[i]) <= size_circle)
+                if (Geometric.DistanceF(lotated, circleCenter[i]) <= size_circle)
                 {
                     return i;
                 }
@@ -387,10 +392,6 @@ namespace RS
             font_name = new Font (fontName, size_font);
             reNameBox.Font = font_name;
         }
-        int gcds(int a, int b)
-        {
-            return b == 0 ? a : gcds(b, a % b);
-        }
         private void startRename()
         {
             skillList[selectedId_renameBox].name = reNameBox.Text;
@@ -435,10 +436,9 @@ namespace RS
             }
             if (selectedId_drag != selectedId_None && MouseLeftButtonIsDown)
             {
-                Point offset = e.Location - (Size)locate_mouse;
+                Point offset = locate_mouse - (Size)e.Location;
                 locate_mouse = e.Location;
-                offset.Offset(circleCenter[selectedId_drag]);
-                circleCenter[selectedId_drag] = offset;
+                circleCenter[selectedId_drag] += (Size)offset;
                 redraw_all();
             }
             if (BackspaceIsDown == true && MouseLeftButtonIsDown)
@@ -453,8 +453,8 @@ namespace RS
 
         private void moveAllCenter(Point Anchor, Point before, Point after)
         {
-            int zo = Geometric.Length(before - (Size)Anchor);
-            int zi = Geometric.Length(after - (Size)Anchor);
+            float zo = Geometric.LengthF(before - (Size)Anchor);
+            float zi = Geometric.LengthF(after - (Size)Anchor);
             spinAllCenter(Anchor, before, after);
             if (size_circle > minCircleSize || zo < zi)
             {
@@ -539,7 +539,7 @@ namespace RS
             Point sizeOfName = (Point)getNameSize(oldName);
             reNameBox.Size = (Size)sizeOfName;
             Geometric.scale(ref sizeOfName, 1, 2);
-            reNameBox.Location = circleCenter[selectedId] - (Size)sizeOfName;
+            reNameBox.Location = Point.Round(circleCenter[selectedId]) - (Size)sizeOfName;
             reNameBox.Text = oldName;
             reNameBox.Show();
             reNameBox.Focus();
@@ -727,7 +727,7 @@ namespace RS
         {
             redraw_all();
         }
-        public List<Point> PointList
+        public List<PointF> PointList
         {
             get
             {
@@ -793,7 +793,7 @@ namespace RS
             Point aim = new Point(Width / 2, Height / 2);
             if (selectedId_ArrowPoiner != selectedId_None)
             {
-                Point dis = circleCenter[selectedId_ArrowPoiner]-(Size)aim;
+                Point dis = Point.Round(circleCenter[selectedId_ArrowPoiner])-(Size)aim;
                 if (dis.X == 0 && dis.Y == 0)
                 {
                     dis.X = dis.Y = 2;

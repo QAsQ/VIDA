@@ -16,6 +16,13 @@ namespace RS
             int ans = dx * dx + dy * dy;
             return (int)Math.Sqrt((double)ans);
         }
+        static public float DistanceF(PointF st, PointF ed)
+        {
+            float dx = st.X - ed.X;
+            float dy = st.Y - ed.Y;
+            float ans = dx * dx + dy * dy;
+            return (float)Math.Sqrt((double)ans);
+        }
         static int xmult(Point p1, Point p2, Point p)
         {
             p1 -= (Size)p;
@@ -48,9 +55,17 @@ namespace RS
         static public void scale(ref PointF poi, float Zoomin, float Zoomout)
         {
             if (Zoomout == 0)
-                return ;
+                return;
             poi.X *= Zoomin; poi.Y *= Zoomin;
             poi.X /= Zoomout; poi.Y /= Zoomout;
+        }
+        static public PointF scale(PointF poi, float Zoomin, float Zoomout)
+        {
+            if (Zoomout == 0)
+                return poi;
+            poi.X *= Zoomin; poi.Y *= Zoomin;
+            poi.X /= Zoomout; poi.Y /= Zoomout;
+            return poi;
         }
         public static bool pointInArrowHand(Point locate, Point[] pointList)
         {
