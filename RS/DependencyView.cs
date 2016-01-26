@@ -17,13 +17,6 @@ namespace RS
         bool MouseLeftButtonIsDown;
         public Point FormLocate;
         enum userMode { student, teacher};
-        enum SkillDrawMode
-        {
-            Hs, /// Had study
-            Cs, ///Can sdudy
-            Us  ///Unable study
-        };
-
         private userMode Usermode;
         private userMode initUsermode = userMode.student;
         private int count = 1;
@@ -109,13 +102,18 @@ namespace RS
             reName(skillList.Count- 1);
         }
         Graphics formGraphis;
-        public Color color_bound = Color.AliceBlue;
-        public Color color_canLearnr = Color.SkyBlue;
-        public Color color_cantLearn = Color.Red;
-        public Color color_Learned = Color.SkyBlue;
+        enum SkillDrawMode
+        {
+            Hs, // Had study
+            Cs, //Can sdudy
+            Us  //Unable study
+        };
+        FillStyle Hs = new FillStyle(Color.Red, Color.Red,Color.Black);
+        FillStyle Cs = new FillStyle(Color.SkyBlue, Color.AliceBlue,Color.Black);
+        FillStyle Us = new FillStyle(Color.Red,Color.Red,Color.Black);
         public Color color_font = Color.Black;
-        public Color color_line = Color.Black;
         public Color color_background = Control.DefaultBackColor;
+        public Color color_anchor = Color.DarkGray;
         double circleR;
         public int size_circle
         {
@@ -157,41 +155,27 @@ namespace RS
             resetAllDrawmode();
             return true;
         }
-        private void drawSkill(PointF _center, Skill curr_skill, SkillDrawMode curr_mode)
+        private void drawSkill(PointF _center, Skill curr_skill, FillStyle curr_style)
         {
             Point center = Point.Round(_center);
             int r = size_circle;
             int stx = center.X - r,sty = center.Y - r;
             int d = r * 2;
             Rectangle rect = new Rectangle(stx, sty, d, d);
-            Pen p;
-            Brush bush;
-            switch (curr_mode)
+            if (curr_style.edge)
             {
-                case SkillDrawMode.Hs:
-                    bush = new SolidBrush(color_Learned);
-                    p = new Pen(color_bound);
-                    break;
-                case SkillDrawMode.Us:
-                    bush = new SolidBrush(color_background);
-                    p = new Pen(color_cantLearn);
-                    break;
-                case SkillDrawMode.Cs:
-                    bush = new SolidBrush(color_background);
-                    p = new Pen(color_canLearnr);
-                    break;
-                default:
-                    bush = new SolidBrush(color_bound);
-                    p = new Pen(color_bound);
-                    break;
+                Pen edgePen;
+                edgePen = new Pen(curr_style.edgeColor);
+                buffer.DrawEllipse(edgePen,rect);
             }
-            buffer.FillEllipse(bush, rect);
-            buffer.DrawEllipse(p, rect);
+            if (curr_style.fill)
+            {
+                Brush fillBush = new SolidBrush(curr_style.fillColor);
+                buffer.FillEllipse(fillBush, rect);
+            }
             Brush fontbush;
-            if (curr_mode == SkillDrawMode.Hs)
-                fontbush = new SolidBrush(Color.DeepSkyBlue);
-            else
-                fontbush = new SolidBrush(Color.Black);
+            fontbush = new SolidBrush(curr_style.fontColor);
+
             Point fontSize = (Point)getNameSize(curr_skill.name);
             Point DrawStringPoint = center;
             Geometric.scale(ref fontSize, 1, 2);
@@ -202,38 +186,32 @@ namespace RS
         {
             return formGraphis.MeasureString(name, font_name).ToSize();
         }
-        private Pen getDrawModePen(SkillDrawMode currDrawMode)
+        FillStyle getFillSytle(SkillDrawMode curr)
         {
-            Pen ret;
-            switch (currDrawMode)
+            switch (curr)
             {
                 case SkillDrawMode.Cs:
-                    ret = new Pen(color_canLearnr);
-                    break;
-                case SkillDrawMode.Us:
-                    ret = new Pen(color_cantLearn);
-                    break;
+                    return Cs;
                 case SkillDrawMode.Hs:
-                    ret = new Pen(color_Learned);
-                    break;
+                    return Hs;
+                case SkillDrawMode.Us:
+                    return Us;
                 default:
-                    ret = new Pen(color_line);
-                    break;
+                    return Cs;
             }
-            return ret;
         }
-        private void DrawArrow(PointF _st, PointF _ed, SkillDrawMode startMode, SkillDrawMode endMode)
+        private void DrawArrow(PointF _st, PointF _ed, FillStyle start,FillStyle end)
         {
             Point st = Point.Round(_st);
             Point ed = Point.Round(_ed);
             int length = Geometric.Distance(st, ed);
             if (length <= size_circle * 2)
                 return;
-            Pen edPen = getDrawModePen(startMode);
+            Pen edPen = new Pen(end.fillColor);
             Point[] pointList = getArrowHead(st,ed);
             scaleLine(ref st,ref ed);
             buffer.DrawLine(edPen, st, pointList[0]);
-            DrawArrow(pointList, startMode);
+            DrawArrow(pointList, start);
         }
         private void scaleLine(ref Point st,ref Point ed){
             Point vR = ed - (Size)st;  // 从圆心到圆周的向量
@@ -271,57 +249,38 @@ namespace RS
             var button = mid - (Size)perp;
             return new Point[]{nst,top,ed,button};
         }
-        private void DrawArrow(Point[] PointList, SkillDrawMode currMode)
+        private void DrawArrow(Point[] PointList, FillStyle currStyle)
         {
-            Pen pen;
-            Brush bush;
-            if (currMode == SkillDrawMode.Hs)
+            if (currStyle.fill)
             {
-                pen = new Pen(color_bound);
-                bush = new SolidBrush(color_Learned);
+                Brush fillBush = new SolidBrush(currStyle.fillColor);
+                buffer.FillPolygon(fillBush, PointList);
             }
-            else
+            if (currStyle.edge)
             {
-                pen = getDrawModePen(currMode);
-                bush = new SolidBrush(color_background);
+                Pen edgePen = new Pen(currStyle.edgeColor);
+                buffer.DrawPolygon(edgePen, PointList);
             }
-            buffer.FillPolygon(bush, PointList);
-            buffer.DrawPolygon(pen, PointList);
         }
         private void redraw_all()
         {
             Bitmap BUF = new Bitmap(this.Width, this.Height);
             buffer = Graphics.FromImage(BUF);
             buffer.Clear(color_background);
-            Pen p = new Pen(color_line);
-            for (int i = skillList.Count-1; i >=0 ; i--)
+            for (int i = skillList.Count - 1; i >= 0; i--)
             {
                 List<int> currTail = skillList[i].getTail;
-                for(int j = currTail.Count-1;j>=0;j--)
+                for (int j = currTail.Count - 1; j >= 0; j--)
                 {
                     int end = currTail[j];
-                    switch (Usermode)
-                    {
-                        case userMode.student:
-                            DrawArrow(circleCenter[i],circleCenter[end], drawModeList[i], drawModeList[end]);
-                            break;
-                        case userMode.teacher:
-                            DrawArrow(circleCenter[i], circleCenter[end], SkillDrawMode.Hs, SkillDrawMode.Hs);
-                            break;
-                    }
+                    DrawArrow(circleCenter[i], circleCenter[end],
+                              getFillSytle(drawModeList[i]), 
+                              getFillSytle(drawModeList[end]));
                 }
             }
-            for (int i = skillList.Count-1; i >= 0; i--)
+            for (int i = skillList.Count - 1; i >= 0; i--)
             {
-                switch (Usermode)
-                {
-                    case userMode.student:
-                        drawSkill(circleCenter[i], skillList[i], drawModeList[i]);
-                        break;
-                    case userMode.teacher:
-                        drawSkill(circleCenter[i], skillList[i], SkillDrawMode.Hs);
-                        break;
-                }
+                drawSkill(circleCenter[i], skillList[i], getFillSytle(drawModeList[i]));
             }
           //  drawAncher(new Point(Width/2,Height/2),5);
             if (anchorExist)
@@ -334,9 +293,9 @@ namespace RS
         private void drawAnchor(Point center, int r ,Graphics aimer)
         {
             Rectangle rect = new Rectangle(center.X - r, center.Y - r, r * 2, r * 2);
-            aimer.DrawLine(new Pen(color_cantLearn), center.X - r * 3 / 2, center.Y, center.X + r * 3 / 2, center.Y);
-            aimer.DrawLine(new Pen(color_cantLearn), center.X, center.Y - r * 3 / 2, center.X, center.Y + r * 3 / 2);
-            aimer.DrawEllipse(new Pen(color_line), rect);
+            aimer.DrawLine(new Pen(color_anchor), center.X - r * 3 / 2, center.Y, center.X + r * 3 / 2, center.Y);
+            aimer.DrawLine(new Pen(color_anchor), center.X, center.Y - r * 3 / 2, center.X, center.Y + r * 3 / 2);
+            aimer.DrawEllipse(new Pen(color_anchor), rect);
         }
         private int get_circleID(Point lotated)
         {

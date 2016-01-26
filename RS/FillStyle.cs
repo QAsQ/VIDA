@@ -9,8 +9,13 @@ namespace RS
 {
     class FillStyle
     {
+        public FillStyle(Color Edge, Color Fill,Color Font)
+        {
+            init(Edge, Fill,Font);
+        }
         public bool edge;
         public bool fill;
+        public Color fontColor;
         public Color edgeColor;
         public Color fillColor;
         public void EdgeClear()
@@ -30,10 +35,15 @@ namespace RS
             fill = true;
             fillColor = color;
         }
-        public void init(Color Edge, Color Fill)
+        public void FontInit(Color color)
+        {
+            fontColor = color;
+        }
+        public void init(Color Edge, Color Fill,Color Font)
         {
             EdgeInit(Edge);
             FillInit(Fill);
+            FontInit(Font);
         }
     }
 }
