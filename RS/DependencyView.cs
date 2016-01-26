@@ -108,11 +108,16 @@ namespace RS
             Cs, //Can sdudy
             Us  //Unable study
         };
-        FillStyle Hs = new FillStyle(Color.Red, Color.Red,Color.Black);
-        FillStyle Cs = new FillStyle(Color.SkyBlue, Color.AliceBlue,Color.Black);
-        FillStyle Us = new FillStyle(Color.Red,Color.Red,Color.Black);
-        public Color color_font = Color.Black;
-        public Color color_background = Control.DefaultBackColor;
+        FillStyle Hs = new FillStyle(ColorTranslator.FromHtml("#aba5a2")
+                                    , ColorTranslator.FromHtml("#aaaaa2")
+                                    , ColorTranslator.FromHtml("#7d7d64"));
+        FillStyle Cs = new FillStyle(ColorTranslator.FromHtml("#43c1ca")
+                                    , ColorTranslator.FromHtml("#c7d2d3")
+                                    , ColorTranslator.FromHtml("#90bbbe"));
+        FillStyle Us = new FillStyle(ColorTranslator.FromHtml("#894a60")
+                                    , ColorTranslator.FromHtml("#c66a8a")
+                                    , ColorTranslator.FromHtml("#552334"));
+        public Color color_background = ColorTranslator.FromHtml("#e9dde1");
         public Color color_anchor = Color.DarkGray;
         double circleR;
         public int size_circle
