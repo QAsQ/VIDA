@@ -559,6 +559,7 @@ namespace RS
             skillList.RemoveAt(selectedId_menu);
             drawModeList.RemoveAt(selectedId_menu);
             circleCenter.RemoveAt(selectedId_menu);
+            isLearnList.RemoveAt(selectedId_menu);
             foreach (Skill currSkill in skillList)
             {
                 currSkill.removeIDAndSub(selectedId_menu);
