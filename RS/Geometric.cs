@@ -80,7 +80,7 @@ namespace RS
             return true;
         }
         
-        public static Point Rotate(Point anchor, PointF b, PointF a, PointF old)
+        public static PointF Rotate(Point anchor, PointF b, PointF a, PointF old)
         {
             // b:before a:after
             b -= (Size)anchor;
@@ -100,11 +100,10 @@ namespace RS
             cos /= zou;
             float x = -old.Y * sin + old.X * cos;
             float y = old.X * sin + old.Y * cos;
-            PointF re = new PointF(x,y);
-            zo = LengthF(re);
+            PointF ret = new PointF(x,y);
+            zo = LengthF(ret);
             zi = LengthF(old);
-            scale(ref re, zi, zo);
-            Point ret = new Point((int)Math.Ceiling(re.X), (int)Math.Ceiling(re.Y));
+            scale(ref ret, zi, zo);
             return  ret+(Size)anchor;
         }
     }

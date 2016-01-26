@@ -438,7 +438,7 @@ namespace RS
             {
                 Point offset = locate_mouse - (Size)e.Location;
                 locate_mouse = e.Location;
-                circleCenter[selectedId_drag] += (Size)offset;
+                circleCenter[selectedId_drag] -= (Size)offset;
                 redraw_all();
             }
             if (BackspaceIsDown == true && MouseLeftButtonIsDown)
