@@ -44,7 +44,7 @@
             this.修改状态ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置 = new System.Windows.Forms.ToolStripMenuItem();
             this.配色方案 = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainDV = new RS.MiniDependencyView();
+            this.MainDV = new RS.DependencyView();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,6 +164,7 @@
             // 
             this.MainDV.AutoSize = true;
             this.MainDV.BackColor = System.Drawing.SystemColors.Control;
+            this.MainDV.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(122)))), ((int)(((byte)(146)))));
             this.MainDV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainDV.Location = new System.Drawing.Point(0, 25);
             this.MainDV.Name = "MainDV";
@@ -197,7 +198,7 @@
 
         #endregion
 
-        private MiniDependencyView MainDV;
+        private DependencyView MainDV;
         private System.Windows.Forms.OpenFileDialog openfile;
         private System.Windows.Forms.SaveFileDialog savefile;
         private System.Windows.Forms.MenuStrip menu;

@@ -1,4 +1,4 @@
-﻿namespace MiniRS
+﻿namespace RS
 {
     partial class MiniDependencyView
     {
@@ -34,22 +34,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.Name = "MiniDependencyView";
-            this.Size = new System.Drawing.Size(381, 253);
-            this.Load += new System.EventHandler(this.RelationView_Load);
-            this.SizeChanged += new System.EventHandler(this.MiniDependencyView_SizeChanged);
+            this.Size = new System.Drawing.Size(349, 303);
+            this.Load += new System.EventHandler(this.MiniDependencyView_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MiniDependencyView_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MiniDependencyView_KeyUp);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseUp);
+            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MiniDependencyView_MouseDoubleClick);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MiniDependencyView_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MiniDependencyView_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MiniDependencyView_MouseUp);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-
     }
 }

@@ -36,7 +36,7 @@ namespace RS
             }
         }
         public string name;
-        List<int> succ;  //前驱
+       // List<int> succ;  //前驱
         private List<int> tail; //后继 
         private string taiString()
         {

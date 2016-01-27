@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace RS
 {
-    public partial class MiniDependencyView : UserControl
+    public partial class DependencyView : UserControl
     {
         bool BackspaceIsDown;
         bool MouseLeftButtonIsDown;
@@ -43,7 +43,7 @@ namespace RS
                 return isLearnList;
             }
         }
-        public MiniDependencyView()
+        public DependencyView()
         {
             InitializeComponent();
         }
@@ -109,6 +109,28 @@ namespace RS
             Us  //Unable study
         };
         FillStyle []fs = new FillStyle[3];
+        public FillStyle[] Fs
+        {
+            get
+            {
+                return fs;
+            }
+            set
+            {
+                fs = value;
+            }
+        }
+        public Color BackgroundColor
+        {
+            get
+            {
+                return color_background;
+            }
+            set
+            {
+                color_background = value;
+            }
+        }
         void initScheme()
         {
             fs[0] = new FillStyle(ColorTranslator.FromHtml("#aba5a2")

@@ -8,40 +8,40 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using RS;
 
-namespace MiniRS
+namespace RS
 {
     public partial class MiniDependencyView : UserControl
     {
         bool BackspaceIsDown;
         bool MouseLeftButtonIsDown;
+        public Point FormLocate;
         string fontName = "微软雅黑";
         public MiniDependencyView()
         {
             InitializeComponent();
-            initSkill();
         }
-
-        private void initSkill()
+        public void exampleInit()
         {
-            skillList.Clear();
-            skillList.Add(new Skill("V"));
-            skillList.Add(new Skill("I"));
-            skillList.Add(new Skill("D"));
-            skillList.Add(new Skill("A"));
+            string[] name = new string[4]{ "V", "I", "D", "A" };
+            PointF[] local = new PointF[4] {new PointF(63,118),
+                                            new PointF(158,57),
+                                            new PointF(320,106),
+                                            new PointF(225,16)};
+            for (int i = 0; i < 4; i++)
+            {
+                skillList.Add(new Skill(name[i]));
+                circleCenter.Add(local[i]);
+            }
             skillList[0].addTail(1);
             skillList[1].addTail(2);
+            skillList[1].addTail(3);
             skillList[2].addTail(3);
-            circleCenter.Add(new PointF(115, 254));
-            circleCenter.Add(new PointF(312, 97));
-            circleCenter.Add(new PointF(684, 171));
-            circleCenter.Add(new PointF(485, 328));
             drawModeList.Add(SkillDrawMode.Hs);
             drawModeList.Add(SkillDrawMode.Cs);
             drawModeList.Add(SkillDrawMode.Us);
             drawModeList.Add(SkillDrawMode.Us);
-        }  
+        }
         Graphics formGraphis;
         enum SkillDrawMode
         {
@@ -49,18 +49,33 @@ namespace MiniRS
             Cs, //Can sdudy
             Us  //Unable study
         };
-        FillStyle Hs = new FillStyle(ColorTranslator.FromHtml("#aba5a2")
-                                    , ColorTranslator.FromHtml("#aaaaa2")
-                                    , ColorTranslator.FromHtml("#7d7d64"));
-        FillStyle Cs = new FillStyle(ColorTranslator.FromHtml("#43c1ca")
-                                    , ColorTranslator.FromHtml("#c7d2d3")
-                                    , ColorTranslator.FromHtml("#90bbbe"));
-        FillStyle Us = new FillStyle(ColorTranslator.FromHtml("#894a60")
-                                    , ColorTranslator.FromHtml("#c66a8a")
-                                    , ColorTranslator.FromHtml("#552334"));
-        public Color color_background = ColorTranslator.FromHtml("#1e7a92");
+        FillStyle[] fs = new FillStyle[3];
+        public FillStyle[] Fs
+        {
+            get
+            {
+                return fs;
+            }
+            set
+            {
+                fs = value;
+            }
+        }
+        public Color BackgroundColor
+        {
+            get
+            {
+                return color_background;
+            }
+            set
+            {
+                color_background = value;
+            }
+        }
+        public Color color_background;
         public Color color_anchor = Color.DarkGray;
         const int lineW = 3;
+        const int startR = 22;
         double circleR;
         public int size_circle
         {
@@ -78,19 +93,20 @@ namespace MiniRS
             }
         }
         const int selectedId_None = -1;
-        int size_font = 30;
-        int selectedId_drag; 
-        Font font_name ;
+        int size_font = startR * 5 / 8;
+        int selectedId_drag;
+        Font font_name;
         private Graphics buffer;
         private Point locate_mouse;
         private List<PointF> circleCenter = new List<PointF>();
         private List<Skill> skillList = new List<Skill>();
+        private List<bool> isLearnList = new List<bool>();
         private List<SkillDrawMode> drawModeList = new List<SkillDrawMode>();
         private void drawSkill(PointF _center, Skill curr_skill, FillStyle curr_style)
         {
             Point center = Point.Round(_center);
             int r = size_circle;
-            int stx = center.X - r,sty = center.Y - r;
+            int stx = center.X - r, sty = center.Y - r;
             int d = r * 2;
             Rectangle rect = new Rectangle(stx, sty, d, d);
             if (curr_style.edge.IsEmpty == false)
@@ -98,7 +114,7 @@ namespace MiniRS
                 Pen edgePen;
                 edgePen = new Pen(curr_style.edge);
                 edgePen.Width = lineW;
-                buffer.DrawEllipse(edgePen,rect);
+                buffer.DrawEllipse(edgePen, rect);
             }
             if (curr_style.fill.IsEmpty == false)
             {
@@ -122,17 +138,17 @@ namespace MiniRS
         {
             switch (curr)
             {
-                case SkillDrawMode.Cs:
-                    return Cs;
                 case SkillDrawMode.Hs:
-                    return Hs;
+                    return fs[0];
+                case SkillDrawMode.Cs:
+                    return fs[1];
                 case SkillDrawMode.Us:
-                    return Us;
+                    return fs[2];
                 default:
-                    return Cs;
+                    return fs[2];
             }
         }
-        private void DrawArrow(PointF _st, PointF _ed, FillStyle start,FillStyle end)
+        private void DrawArrow(PointF _st, PointF _ed, FillStyle start, FillStyle end)
         {
             Point st = Point.Round(_st);
             Point ed = Point.Round(_ed);
@@ -141,23 +157,24 @@ namespace MiniRS
                 return;
             Pen edPen = new Pen(end.fill);
             edPen.Width = lineW;
-            Point[] pointList = getArrowHead(st,ed);
-            scaleLine(ref st,ref ed);
+            Point[] pointList = getArrowHead(st, ed);
+            scaleLine(ref st, ref ed);
             buffer.DrawLine(edPen, st, pointList[0]);
             DrawArrow(pointList, start);
         }
-        private void scaleLine(ref Point st,ref Point ed){
+        private void scaleLine(ref Point st, ref Point ed)
+        {
             Point vR = ed - (Size)st;  // 从圆心到圆周的向量
             int length = Geometric.Distance(st, ed);
             Geometric.scale(ref vR, size_circle, length);
             st += (Size)vR;
             ed -= (Size)vR;
         }
-        private Point[] getArrowHead(PointF _st,PointF _ed)
+        private Point[] getArrowHead(PointF _st, PointF _ed)
         {
             Point st = Point.Round(_st);
             Point ed = Point.Round(_ed);
-            scaleLine(ref st,ref ed);
+            scaleLine(ref st, ref ed);
             Point Vst_ed = ed - (Size)st; // 向量 
             int LengthV = Geometric.Distance(new Point(0, 0), Vst_ed);
             Geometric.scale(ref Vst_ed, 5, 8);
@@ -180,16 +197,16 @@ namespace MiniRS
             }
             var top = mid + (Size)perp;
             var button = mid - (Size)perp;
-            return new Point[]{nst,top,ed,button};
+            return new Point[] { nst, top, ed, button };
         }
         private void DrawArrow(Point[] PointList, FillStyle currStyle)
         {
-            if (currStyle.fill.IsEmpty==false)
+            if (currStyle.fill.IsEmpty == false)
             {
                 Brush fillBush = new SolidBrush(currStyle.fill);
                 buffer.FillPolygon(fillBush, PointList);
             }
-            if (currStyle.edge.IsEmpty==false)
+            if (currStyle.edge.IsEmpty == false)
             {
                 Pen edgePen = new Pen(currStyle.edge);
                 edgePen.Width = lineW;
@@ -208,7 +225,7 @@ namespace MiniRS
                 {
                     int end = currTail[j];
                     DrawArrow(circleCenter[i], circleCenter[end],
-                              getFillSytle(drawModeList[i]), 
+                              getFillSytle(drawModeList[i]),
                               getFillSytle(drawModeList[end]));
                 }
             }
@@ -216,7 +233,7 @@ namespace MiniRS
             {
                 drawSkill(circleCenter[i], skillList[i], getFillSytle(drawModeList[i]));
             }
-          //  drawAncher(new Point(Width/2,Height/2),5);
+            //  drawAncher(new Point(Width/2,Height/2),5);
             if (anchorExist)
             {
                 drawAnchor(Anchors, size_anchor, buffer);
@@ -224,7 +241,7 @@ namespace MiniRS
             formGraphis.DrawImage(BUF, 0, 0);
             GC.Collect();
         }
-        private void drawAnchor(Point center, int r ,Graphics aimer)
+        private void drawAnchor(Point center, int r, Graphics aimer)
         {
             Rectangle rect = new Rectangle(center.X - r, center.Y - r, r * 2, r * 2);
             aimer.DrawLine(new Pen(color_anchor), center.X - r * 3 / 2, center.Y, center.X + r * 3 / 2, center.Y);
@@ -242,68 +259,17 @@ namespace MiniRS
             }
             return selectedId_None;
         }
-        private void RelationView_MouseDown(object sender, MouseEventArgs e)
+        void scaleOther(int Zoomin, int Zoomout)
         {
-            if (e.Button == MouseButtons.Middle)
-            {
-                if (anchorExist == false)
-                {
-                    anchorExist = true;
-                    Anchors = e.Location;
-                    drawAnchor(Anchors, 5, formGraphis);
-                }
-                else
-                {
-                    anchorExist = false;
-                    redraw_all();
-                }
-            }
-            if (e.Button == MouseButtons.Left)
-            {
-                MouseLeftButtonIsDown = true;
-                locate_mouse = e.Location;
-                selectedId_drag = get_circleID(e.Location);
-                spaceMouseLocate = e.Location;
-                rotateMouseLocate = e.Location;
-            }
-            if (anchorExist)
-                rotateMouseLocate = e.Location;
-        }
-        void scaleOther(int Zoomin,int Zoomout){
             circleR *= Zoomin;
             circleR /= Zoomout;
             size_font = size_circle * 5 / 8;
             if (size_font <= 0)
                 size_font = 1;
-            font_name = new Font (fontName, size_font);
+            font_name = new Font(fontName, size_font);
         }
         Point spaceMouseLocate;
         Point rotateMouseLocate;
-        private void RelationView_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (anchorExist == true && selectedId_drag == selectedId_None && MouseLeftButtonIsDown)
-            {
-                if(Geometric.Distance(e.Location,Anchors) > size_anchor)
-                   moveAllCenter(Anchors, rotateMouseLocate, e.Location);
-                rotateMouseLocate = e.Location;
-                Flash();
-            }
-            if (selectedId_drag != selectedId_None && MouseLeftButtonIsDown)
-            {
-                Point offset = locate_mouse - (Size)e.Location;
-                locate_mouse = e.Location;
-                circleCenter[selectedId_drag] -= (Size)offset;
-                redraw_all();
-            }
-            if (BackspaceIsDown == true && MouseLeftButtonIsDown)
-            {
-                Point deviaion;
-                deviaion = locate_mouse - (Size)e.Location;
-                locate_mouse = e.Location;
-                deviaion = moveAllSkill(deviaion);
-                redraw_all();
-            }
-        }
 
         private void moveAllCenter(Point Anchor, Point before, Point after)
         {
@@ -327,7 +293,7 @@ namespace MiniRS
             Point anc = Anchor;
             int zo = Geometric.Length(before - (Size)Anchor);
             int zi = Geometric.Length(after - (Size)Anchor);
-            scaleOther(zi,zo);
+            scaleOther(zi, zo);
             for (int i = 0; i < circleCenter.Count; i++)
             {
                 circleCenter[i] = Geometric.scale(circleCenter[i], zi, zo);
@@ -350,22 +316,14 @@ namespace MiniRS
             }
             return deviaion;
         }
-        private void RelationView_MouseUp(object sender, MouseEventArgs e)
+        private void MiniDependencyView_Load(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                MouseLeftButtonIsDown = false;
-                selectedId_drag = selectedId_None;
-                spaceMouseLocate.X = spaceMouseLocate.Y = 0;
-            }
-        }
-        private void RelationView_Load(object sender, EventArgs e)
-        {
+            exampleInit();
             font_name = new Font(fontName, size_font);
             ButtonStateInit();
             selectedId_drag = selectedId_None;
             formGraphis = CreateGraphics();
-            circleR = 50;
+            circleR = startR;
             anchorExist = false;
         }
 
@@ -374,27 +332,24 @@ namespace MiniRS
             MouseLeftButtonIsDown = false;
             BackspaceIsDown = false;
         }
-        public List<Skill> getAllSkill
-        {
-            get
-            {
-                return skillList;
-            }
-        }
+     
         Point Anchors;
         bool anchorExist;
         const int minCircleSize = 10;
         int size_anchor = 5;
+
+        private void changeKeyState(Keys k, bool isDown)
+        {
+            switch (k)
+            {
+                case Keys.Space:
+                    BackspaceIsDown = isDown;
+                    break;
+            }
+        }
         public void Flash()
         {
             redraw_all();
-        }
-        public List<PointF> PointList
-        {
-            get
-            {
-                return circleCenter;
-            }
         }
         int getArrowPioner(Point locate)
         {
@@ -406,26 +361,103 @@ namespace MiniRS
                     if (Geometric.pointInArrowHand(locate, getArrowHead(circleCenter[i], circleCenter[ed])))
                         return i;
                 }
-            }                                                 
+            }
             return selectedId_None;
+        }
+        private void MiniDependencyView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedId_ArrowPoiner = getArrowPioner(e.Location);
+            Point aim = new Point(Width / 2, Height / 2);
+            if (selectedId_ArrowPoiner != selectedId_None)
+            {
+                Point dis = Point.Round(circleCenter[selectedId_ArrowPoiner]) - (Size)aim;
+                if (dis.X == 0 && dis.Y == 0)
+                {
+                    dis.X = dis.Y = 2;
+                }
+                moveAllSkill(dis);
+            }
+            Flash();
         }
 
         private void MiniDependencyView_SizeChanged(object sender, EventArgs e)
         {
-            formGraphis = CreateGraphics();
-            Flash();
+            formGraphis = this.CreateGraphics();
+            redraw_all();
+        }
+
+        private void MiniDependencyView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                if (anchorExist == false)
+                {
+                    anchorExist = true;
+                    Anchors = e.Location;
+                    drawAnchor(Anchors, 5, formGraphis);
+                }
+                else
+                {
+                    anchorExist = false;
+                    redraw_all();
+                }
+            }
+            if (e.Button == MouseButtons.Left)
+            {
+                MouseLeftButtonIsDown = true;
+                locate_mouse = e.Location;
+                selectedId_drag = get_circleID(e.Location);
+                spaceMouseLocate = e.Location;
+                rotateMouseLocate = e.Location;
+            } 
+            if (anchorExist)
+                rotateMouseLocate = e.Location;
+        }
+
+        private void MiniDependencyView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (anchorExist == true && selectedId_drag == selectedId_None && MouseLeftButtonIsDown)
+            {
+                if (Geometric.Distance(e.Location, Anchors) > size_anchor)
+                    moveAllCenter(Anchors, rotateMouseLocate, e.Location);
+                rotateMouseLocate = e.Location;
+                Flash();
+            }
+            if (selectedId_drag != selectedId_None && MouseLeftButtonIsDown)
+            {
+                Point offset = locate_mouse - (Size)e.Location;
+                locate_mouse = e.Location;
+                circleCenter[selectedId_drag] -= (Size)offset;
+                redraw_all();
+            }
+            if (BackspaceIsDown == true && MouseLeftButtonIsDown)
+            {
+                Point deviaion;
+                deviaion = locate_mouse - (Size)e.Location;
+                locate_mouse = e.Location;
+                deviaion = moveAllSkill(deviaion);
+                redraw_all();
+            }
+        }
+
+        private void MiniDependencyView_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MouseLeftButtonIsDown = false;
+                selectedId_drag = selectedId_None;
+                spaceMouseLocate.X = spaceMouseLocate.Y = 0;
+            }
         }
 
         private void MiniDependencyView_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
-                BackspaceIsDown = true;
+            changeKeyState(e.KeyCode, true);
         }
 
         private void MiniDependencyView_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
-                BackspaceIsDown = false;
+            changeKeyState(e.KeyCode, false);
         }
     }
 }

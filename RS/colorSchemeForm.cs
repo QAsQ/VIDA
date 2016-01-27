@@ -7,21 +7,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MiniRS;
+using RS;
 
 namespace RS
 {
     public partial class colorSchemeForm : Form
     {
+        public void getColor(FillStyle[] _fs, Color bg)
+        {
+            back_ground.color = bg;
+            fs = _fs;
+            UpdateColorScheme();
+            this.ShowDialog();
+        }
+
+        private void UpdateColorScheme()
+        {
+            MiniDV.BackColor = back_ground.color;
+            MiniDV.Fs = fs;
+        }
+        public FillStyle[] Fs
+        {
+            get
+            {
+                return fs;
+            }
+        }
+        public Color backgroundColor
+        {
+            get
+            {
+                return backgroundColor;
+            }
+        }
         List<Skill> sample = new List<Skill>();
         public colorSchemeForm()
         {
             InitializeComponent();
             curr_index = -1;
-            Font.none = true;
+            Fonts.none = true;
             back_ground.none = true;
             changeVisable(false);
-            debug();
         }
         FillStyle []fs = new FillStyle[3];
         private void Status_SelectedIndexChanged(object sender, EventArgs e)
@@ -33,7 +59,7 @@ namespace RS
         }
         private void loadStyle(FillStyle fs)
         {
-            Font.color = fs.font;
+            Fonts.color = fs.font;
             Edge.color = fs.edge;
             Fill.color = fs.fill;
             changeVisable(true);
@@ -48,12 +74,12 @@ namespace RS
             }
             fs[index].edge = Edge.color;
             fs[index].fill = Fill.color;
-            fs[index].font = Font.color;
+            fs[index].font = Fonts.color;
             changeVisable(true);
         }
         void changeVisable(bool value)
         {
-            Font.Visible = Edge.Visible = Fill.Visible = value;
+            Fonts.Visible = Edge.Visible = Fill.Visible = value;
             字色.Visible = 填充.Visible = 描边.Visible = value;
         }
         private void colorSchemeForm_Load(object sender, EventArgs e)
@@ -64,24 +90,9 @@ namespace RS
         {
             fs = _fs;
         }
-        public void debug()
-        {
-            FillStyle Hs = new FillStyle(ColorTranslator.FromHtml("#aba5a2")
-                                    , ColorTranslator.FromHtml("#aaaaa2")
-                                    , ColorTranslator.FromHtml("#7d7d64"));
-            FillStyle Cs = new FillStyle(ColorTranslator.FromHtml("#43c1ca")
-                                        , ColorTranslator.FromHtml("#c7d2d3")
-                                        , ColorTranslator.FromHtml("#90bbbe"));
-            FillStyle Us = new FillStyle(ColorTranslator.FromHtml("#894a60")
-                                        , ColorTranslator.FromHtml("#c66a8a")
-                                        , ColorTranslator.FromHtml("#000000"));
-            fs[0] = Hs;
-            fs[1] = Cs;
-            fs[2] = Us;
-        }
-
         private void Flash_Click(object sender, EventArgs e)
         {
+            UpdateColorScheme();
             MiniDV.Flash();
         }
     }

@@ -32,14 +32,14 @@
             this.填充 = new System.Windows.Forms.Label();
             this.SkillColor = new System.Windows.Forms.GroupBox();
             this.Status = new System.Windows.Forms.ComboBox();
+            this.Fonts = new RS.ColorView();
+            this.Edge = new RS.ColorView();
+            this.Fill = new RS.ColorView();
             this.字色 = new System.Windows.Forms.Label();
             this.背景 = new System.Windows.Forms.Label();
             this.Flash = new System.Windows.Forms.Button();
             this.back_ground = new RS.ColorView();
-            this.MiniDV = new MiniRS.MiniDependencyView();
-            this.Font = new RS.ColorView();
-            this.Edge = new RS.ColorView();
-            this.Fill = new RS.ColorView();
+            this.MiniDV = new RS.MiniDependencyView();
             this.SkillColor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +66,7 @@
             // SkillColor
             // 
             this.SkillColor.Controls.Add(this.Status);
-            this.SkillColor.Controls.Add(this.Font);
+            this.SkillColor.Controls.Add(this.Fonts);
             this.SkillColor.Controls.Add(this.Edge);
             this.SkillColor.Controls.Add(this.Fill);
             this.SkillColor.Controls.Add(this.填充);
@@ -91,6 +91,30 @@
             this.Status.Size = new System.Drawing.Size(96, 20);
             this.Status.TabIndex = 10;
             this.Status.SelectedIndexChanged += new System.EventHandler(this.Status_SelectedIndexChanged);
+            // 
+            // Fonts
+            // 
+            this.Fonts.color = System.Drawing.SystemColors.Control;
+            this.Fonts.Location = new System.Drawing.Point(153, 17);
+            this.Fonts.Name = "Fonts";
+            this.Fonts.Size = new System.Drawing.Size(65, 14);
+            this.Fonts.TabIndex = 9;
+            // 
+            // Edge
+            // 
+            this.Edge.color = System.Drawing.SystemColors.Control;
+            this.Edge.Location = new System.Drawing.Point(380, 17);
+            this.Edge.Name = "Edge";
+            this.Edge.Size = new System.Drawing.Size(65, 14);
+            this.Edge.TabIndex = 7;
+            // 
+            // Fill
+            // 
+            this.Fill.color = System.Drawing.SystemColors.Control;
+            this.Fill.Location = new System.Drawing.Point(267, 17);
+            this.Fill.Name = "Fill";
+            this.Fill.Size = new System.Drawing.Size(65, 14);
+            this.Fill.TabIndex = 6;
             // 
             // 字色
             // 
@@ -133,47 +157,20 @@
             // 
             // MiniDV
             // 
-            this.MiniDV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MiniDV.BackColor = System.Drawing.SystemColors.Control;
-            this.MiniDV.Location = new System.Drawing.Point(16, 49);
+            this.MiniDV.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(122)))), ((int)(((byte)(146)))));
+            this.MiniDV.Location = new System.Drawing.Point(12, 49);
             this.MiniDV.Name = "MiniDV";
-            this.MiniDV.Size = new System.Drawing.Size(562, 330);
+            this.MiniDV.Size = new System.Drawing.Size(564, 308);
             this.MiniDV.size_circle = 50;
-            this.MiniDV.TabIndex = 7;
-            // 
-            // Font
-            // 
-            this.Font.color = System.Drawing.SystemColors.Control;
-            this.Font.Location = new System.Drawing.Point(153, 17);
-            this.Font.Name = "Font";
-            this.Font.Size = new System.Drawing.Size(65, 14);
-            this.Font.TabIndex = 9;
-            // 
-            // Edge
-            // 
-            this.Edge.color = System.Drawing.SystemColors.Control;
-            this.Edge.Location = new System.Drawing.Point(380, 17);
-            this.Edge.Name = "Edge";
-            this.Edge.Size = new System.Drawing.Size(65, 14);
-            this.Edge.TabIndex = 7;
-            // 
-            // Fill
-            // 
-            this.Fill.color = System.Drawing.SystemColors.Control;
-            this.Fill.Location = new System.Drawing.Point(267, 17);
-            this.Fill.Name = "Fill";
-            this.Fill.Size = new System.Drawing.Size(65, 14);
-            this.Fill.TabIndex = 6;
+            this.MiniDV.TabIndex = 11;
             // 
             // colorSchemeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(586, 429);
-            this.Controls.Add(this.back_ground);
             this.Controls.Add(this.MiniDV);
+            this.Controls.Add(this.back_ground);
             this.Controls.Add(this.Flash);
             this.Controls.Add(this.SkillColor);
             this.Controls.Add(this.背景);
@@ -194,13 +191,13 @@
         private System.Windows.Forms.GroupBox SkillColor;
         private ColorView Edge;
         private ColorView Fill;
-        private ColorView Font;
+        private ColorView Fonts;
         private System.Windows.Forms.Label 字色;
         private System.Windows.Forms.Label 背景;
         private ColorView back_ground;
-        private MiniRS.MiniDependencyView MiniDV;
         private System.Windows.Forms.Button Flash;
         private System.Windows.Forms.ComboBox Status;
+        private MiniDependencyView MiniDV;
 
     }
 }
