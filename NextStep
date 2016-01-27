@@ -42,13 +42,15 @@ UI
 	+scale map use more natural way
 	+spin map
 	+change font style
+	+change color style
 	self-adaptation font size
-	change color style
 	muti-tab page
+	user defined colorscheme
 	add new DrawMode(selected)
-	select a list of skill to move them or someothers
+	select a list of skill to move them or do other thing
 	change arrow again
 	change Skill color like iMessage 
+	in high resolution will flicker
 
 network
 	temporary none
