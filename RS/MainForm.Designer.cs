@@ -42,7 +42,9 @@
             this.状态修改 = new System.Windows.Forms.ToolStripMenuItem();
             this.获取状态码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改状态ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainDV = new RS.DependencyView();
+            this.设置 = new System.Windows.Forms.ToolStripMenuItem();
+            this.配色方案 = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainDV = new RS.MiniDependencyView();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +61,8 @@
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
             this.模式ToolStripMenuItem,
-            this.状态修改});
+            this.状态修改,
+            this.设置});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(810, 25);
@@ -142,6 +145,21 @@
             this.修改状态ToolStripMenuItem.Text = "修改进度";
             this.修改状态ToolStripMenuItem.Click += new System.EventHandler(this.修改状态ToolStripMenuItem_Click);
             // 
+            // 设置
+            // 
+            this.设置.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.配色方案});
+            this.设置.Name = "设置";
+            this.设置.Size = new System.Drawing.Size(44, 21);
+            this.设置.Text = "设置";
+            // 
+            // 配色方案
+            // 
+            this.配色方案.Name = "配色方案";
+            this.配色方案.Size = new System.Drawing.Size(124, 22);
+            this.配色方案.Text = "配色方案";
+            this.配色方案.Click += new System.EventHandler(this.配色方案_Click);
+            // 
             // MainDV
             // 
             this.MainDV.AutoSize = true;
@@ -150,6 +168,7 @@
             this.MainDV.Location = new System.Drawing.Point(0, 25);
             this.MainDV.Name = "MainDV";
             this.MainDV.Size = new System.Drawing.Size(810, 464);
+            this.MainDV.size_circle = 50;
             this.MainDV.TabIndex = 3;
             this.MainDV.Load += new System.EventHandler(this.MainDV_Load);
             // 
@@ -178,7 +197,7 @@
 
         #endregion
 
-        private DependencyView MainDV;
+        private MiniDependencyView MainDV;
         private System.Windows.Forms.OpenFileDialog openfile;
         private System.Windows.Forms.SaveFileDialog savefile;
         private System.Windows.Forms.MenuStrip menu;
@@ -192,6 +211,8 @@
         private System.Windows.Forms.ToolStripMenuItem 状态修改;
         private System.Windows.Forms.ToolStripMenuItem 获取状态码ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 修改状态ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 设置;
+        private System.Windows.Forms.ToolStripMenuItem 配色方案;
     }
 }
 

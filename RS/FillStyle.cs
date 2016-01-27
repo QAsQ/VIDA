@@ -7,37 +7,33 @@ using System.Threading.Tasks;
 
 namespace RS
 {
-    class FillStyle
+    public class FillStyle
     {
         public FillStyle(Color Edge, Color Fill,Color Font)
         {
             init(Edge, Fill,Font);
         }
-        public bool edge;
-        public bool fill;
-        public Color fontColor;
-        public Color edgeColor;
-        public Color fillColor;
+        public Color font;
+        public Color edge;
+        public Color fill;
         public void EdgeClear()
         {
-            edge = false;
+            edge = Color.Empty;
         }
         public void EdgeInit(Color color)
         {
-            edge = true;
-            edgeColor = color;
+            edge = color;
         }
         public void FillClear(){
-            fill = false;
+            fill = Color.Empty;
         }
         public void FillInit(Color color)
         {
-            fill = true;
-            fillColor = color;
+            fill = color;
         }
         public void FontInit(Color color)
         {
-            fontColor = color;
+            font = color;
         }
         public void init(Color Edge, Color Fill,Color Font)
         {

@@ -77,6 +77,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="colorGet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="colorGet.Designer.cs">
+      <DependentUpon>colorGet.cs</DependentUpon>
+    </Compile>
     <Compile Include="codeGet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,12 @@
     </Compile>
     <Compile Include="codeShow.Designer.cs">
       <DependentUpon>codeShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="colorSchemeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="colorSchemeForm.Designer.cs">
+      <DependentUpon>colorSchemeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="denCode.cs" />
     <Compile Include="edgeGetForm.cs">
@@ -125,11 +137,23 @@
     <Compile Include="tailGetForm.Designer.cs">
       <DependentUpon>tailGetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MiniDependencyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MiniDependencyView.Designer.cs">
+      <DependentUpon>MiniDependencyView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="colorGet.resx">
+      <DependentUpon>colorGet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="codeGet.resx">
       <DependentUpon>codeGet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="codeShow.resx">
       <DependentUpon>codeShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="colorSchemeForm.resx">
+      <DependentUpon>colorSchemeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="edgeGetForm.resx">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
@@ -155,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="tailGetForm.resx">
       <DependentUpon>tailGetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniDependencyView.resx">
+      <DependentUpon>MiniDependencyView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">

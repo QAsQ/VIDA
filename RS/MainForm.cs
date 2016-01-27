@@ -155,5 +155,11 @@ namespace RS
                 MainDV.Flash();
             }
         }
+
+        private void 配色方案_Click(object sender, EventArgs e)
+        {
+
+
+        }
     }
 }

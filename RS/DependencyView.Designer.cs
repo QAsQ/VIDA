@@ -1,6 +1,6 @@
 ﻿namespace RS
 {
-    partial class DependencyView
+    partial class MiniDependencyView
     {
         /// <summary> 
         /// 必需的设计器变量。

@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace RS
 {
-    public partial class DependencyView : UserControl
+    public partial class MiniDependencyView : UserControl
     {
         bool BackspaceIsDown;
         bool MouseLeftButtonIsDown;
@@ -43,7 +43,7 @@ namespace RS
                 return isLearnList;
             }
         }
-        public DependencyView()
+        public MiniDependencyView()
         {
             InitializeComponent();
         }
@@ -108,15 +108,19 @@ namespace RS
             Cs, //Can sdudy
             Us  //Unable study
         };
-        FillStyle Hs = new FillStyle(ColorTranslator.FromHtml("#aba5a2")
-                                    , ColorTranslator.FromHtml("#aaaaa2")
-                                    , ColorTranslator.FromHtml("#7d7d64"));
-        FillStyle Cs = new FillStyle(ColorTranslator.FromHtml("#43c1ca")
-                                    , ColorTranslator.FromHtml("#c7d2d3")
-                                    , ColorTranslator.FromHtml("#90bbbe"));
-        FillStyle Us = new FillStyle(ColorTranslator.FromHtml("#894a60")
-                                    , ColorTranslator.FromHtml("#c66a8a")
-                                    , ColorTranslator.FromHtml("#552334"));
+        FillStyle []fs = new FillStyle[3];
+        void initScheme()
+        {
+            fs[0] = new FillStyle(ColorTranslator.FromHtml("#aba5a2")
+                               , ColorTranslator.FromHtml("#aaaaa2")
+                               , ColorTranslator.FromHtml("#7d7d64"));
+            fs[1] = new FillStyle(ColorTranslator.FromHtml("#43c1ca")
+                                , ColorTranslator.FromHtml("#c7d2d3")
+                                , ColorTranslator.FromHtml("#90bbbe"));
+            fs[2] = new FillStyle(ColorTranslator.FromHtml("#894a60")
+                                , ColorTranslator.FromHtml("#c66a8a")
+                                , ColorTranslator.FromHtml("#552334"));
+        }
         public Color color_background = ColorTranslator.FromHtml("#1e7a92");
         public Color color_anchor = Color.DarkGray;
         const int lineW = 3;
@@ -168,20 +172,20 @@ namespace RS
             int stx = center.X - r,sty = center.Y - r;
             int d = r * 2;
             Rectangle rect = new Rectangle(stx, sty, d, d);
-            if (curr_style.edge)
+            if (curr_style.edge.IsEmpty == false)
             {
                 Pen edgePen;
-                edgePen = new Pen(curr_style.edgeColor);
+                edgePen = new Pen(curr_style.edge);
                 edgePen.Width = lineW;
                 buffer.DrawEllipse(edgePen,rect);
             }
-            if (curr_style.fill)
+            if (curr_style.fill.IsEmpty == false)
             {
-                Brush fillBush = new SolidBrush(curr_style.fillColor);
+                Brush fillBush = new SolidBrush(curr_style.fill);
                 buffer.FillEllipse(fillBush, rect);
             }
             Brush fontbush;
-            fontbush = new SolidBrush(curr_style.fontColor);
+            fontbush = new SolidBrush(curr_style.font);
 
             Point fontSize = (Point)getNameSize(curr_skill.name);
             Point DrawStringPoint = center;
@@ -197,14 +201,14 @@ namespace RS
         {
             switch (curr)
             {
-                case SkillDrawMode.Cs:
-                    return Cs;
                 case SkillDrawMode.Hs:
-                    return Hs;
+                    return fs[0];
+                case SkillDrawMode.Cs:
+                    return fs[1];
                 case SkillDrawMode.Us:
-                    return Us;
+                    return fs[2];
                 default:
-                    return Cs;
+                    return fs[2];
             }
         }
         private void DrawArrow(PointF _st, PointF _ed, FillStyle start,FillStyle end)
@@ -214,7 +218,7 @@ namespace RS
             int length = Geometric.Distance(st, ed);
             if (length <= size_circle * 2)
                 return;
-            Pen edPen = new Pen(end.fillColor);
+            Pen edPen = new Pen(end.fill);
             edPen.Width = lineW;
             Point[] pointList = getArrowHead(st,ed);
             scaleLine(ref st,ref ed);
@@ -259,14 +263,14 @@ namespace RS
         }
         private void DrawArrow(Point[] PointList, FillStyle currStyle)
         {
-            if (currStyle.fill)
+            if (currStyle.fill.IsEmpty==false)
             {
-                Brush fillBush = new SolidBrush(currStyle.fillColor);
+                Brush fillBush = new SolidBrush(currStyle.fill);
                 buffer.FillPolygon(fillBush, PointList);
             }
-            if (currStyle.edge)
+            if (currStyle.edge.IsEmpty==false)
             {
-                Pen edgePen = new Pen(currStyle.edgeColor);
+                Pen edgePen = new Pen(currStyle.edge);
                 edgePen.Width = lineW;
                 buffer.DrawPolygon(edgePen, PointList);
             }
@@ -481,6 +485,7 @@ namespace RS
         }
         private void RelationView_Load(object sender, EventArgs e)
         {
+            initScheme();
             font_name = new Font(fontName, size_font);
             ButtonStateInit();
             selectedId_drag = selectedId_None;
@@ -491,9 +496,6 @@ namespace RS
             formGraphis = CreateGraphics();
             circleR = 50;
             anchorExist = false;
-            Hs.EdgeClear();
-            Us.FillClear();
-            Cs.EdgeClear();
         }
 
         private void ButtonStateInit()
@@ -743,7 +745,6 @@ namespace RS
                 redraw_all();
             }
         }
-
         private void reNameBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
