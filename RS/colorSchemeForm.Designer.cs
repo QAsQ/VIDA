@@ -38,8 +38,10 @@
             this.字色 = new System.Windows.Forms.Label();
             this.背景 = new System.Windows.Forms.Label();
             this.Flash = new System.Windows.Forms.Button();
-            this.back_ground = new RS.ColorView();
             this.MiniDV = new RS.MiniDependencyView();
+            this.back_ground = new RS.ColorView();
+            this.OK = new System.Windows.Forms.Button();
+            this.Cancel = new System.Windows.Forms.Button();
             this.SkillColor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,13 +141,26 @@
             // Flash
             // 
             this.Flash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Flash.Location = new System.Drawing.Point(12, 394);
+            this.Flash.Location = new System.Drawing.Point(12, 363);
             this.Flash.Name = "Flash";
             this.Flash.Size = new System.Drawing.Size(75, 23);
             this.Flash.TabIndex = 8;
             this.Flash.Text = "刷新";
             this.Flash.UseVisualStyleBackColor = true;
             this.Flash.Click += new System.EventHandler(this.Flash_Click);
+            // 
+            // MiniDV
+            // 
+            this.MiniDV.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(122)))), ((int)(((byte)(146)))));
+            this.MiniDV.Fs = new RS.FillStyle[] {
+        null,
+        null,
+        null};
+            this.MiniDV.Location = new System.Drawing.Point(12, 49);
+            this.MiniDV.Name = "MiniDV";
+            this.MiniDV.Size = new System.Drawing.Size(564, 308);
+            this.MiniDV.size_circle = 22;
+            this.MiniDV.TabIndex = 11;
             // 
             // back_ground
             // 
@@ -155,20 +170,33 @@
             this.back_ground.Size = new System.Drawing.Size(65, 14);
             this.back_ground.TabIndex = 10;
             // 
-            // MiniDV
+            // OK
             // 
-            this.MiniDV.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(122)))), ((int)(((byte)(146)))));
-            this.MiniDV.Location = new System.Drawing.Point(12, 49);
-            this.MiniDV.Name = "MiniDV";
-            this.MiniDV.Size = new System.Drawing.Size(564, 308);
-            this.MiniDV.size_circle = 50;
-            this.MiniDV.TabIndex = 11;
+            this.OK.Location = new System.Drawing.Point(415, 363);
+            this.OK.Name = "OK";
+            this.OK.Size = new System.Drawing.Size(75, 23);
+            this.OK.TabIndex = 12;
+            this.OK.Text = "确定";
+            this.OK.UseVisualStyleBackColor = true;
+            this.OK.Click += new System.EventHandler(this.OK_Click);
+            // 
+            // Cancel
+            // 
+            this.Cancel.Location = new System.Drawing.Point(496, 363);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 13;
+            this.Cancel.Text = "取消";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // colorSchemeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 429);
+            this.ClientSize = new System.Drawing.Size(576, 400);
+            this.Controls.Add(this.Cancel);
+            this.Controls.Add(this.OK);
             this.Controls.Add(this.MiniDV);
             this.Controls.Add(this.back_ground);
             this.Controls.Add(this.Flash);
@@ -198,6 +226,8 @@
         private System.Windows.Forms.Button Flash;
         private System.Windows.Forms.ComboBox Status;
         private MiniDependencyView MiniDV;
+        private System.Windows.Forms.Button OK;
+        private System.Windows.Forms.Button Cancel;
 
     }
 }

@@ -145,7 +145,7 @@ namespace RS
         }
         public Color color_background = ColorTranslator.FromHtml("#1e7a92");
         public Color color_anchor = Color.DarkGray;
-        const int lineW = 3;
+        const int lineW = 2;
         double circleR;
         public int size_circle
         {

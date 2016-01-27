@@ -44,7 +44,12 @@
             this.修改状态ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置 = new System.Windows.Forms.ToolStripMenuItem();
             this.配色方案 = new System.Windows.Forms.ToolStripMenuItem();
+            this.编辑颜色 = new System.Windows.Forms.ToolStripMenuItem();
+            this.从文件读取 = new System.Windows.Forms.ToolStripMenuItem();
+            this.保存到文件 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainDV = new RS.DependencyView();
+            this.openScheme = new System.Windows.Forms.OpenFileDialog();
+            this.saveScheme = new System.Windows.Forms.SaveFileDialog();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,10 +160,34 @@
             // 
             // 配色方案
             // 
+            this.配色方案.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.编辑颜色,
+            this.从文件读取,
+            this.保存到文件});
             this.配色方案.Name = "配色方案";
-            this.配色方案.Size = new System.Drawing.Size(124, 22);
+            this.配色方案.Size = new System.Drawing.Size(152, 22);
             this.配色方案.Text = "配色方案";
-            this.配色方案.Click += new System.EventHandler(this.配色方案_Click);
+            // 
+            // 编辑颜色
+            // 
+            this.编辑颜色.Name = "编辑颜色";
+            this.编辑颜色.Size = new System.Drawing.Size(152, 22);
+            this.编辑颜色.Text = "编辑颜色";
+            this.编辑颜色.Click += new System.EventHandler(this.编辑颜色_Click);
+            // 
+            // 从文件读取
+            // 
+            this.从文件读取.Name = "从文件读取";
+            this.从文件读取.Size = new System.Drawing.Size(152, 22);
+            this.从文件读取.Text = "从文件读取";
+            this.从文件读取.Click += new System.EventHandler(this.从文件读取_Click);
+            // 
+            // 保存到文件
+            // 
+            this.保存到文件.Name = "保存到文件";
+            this.保存到文件.Size = new System.Drawing.Size(152, 22);
+            this.保存到文件.Text = "保存到文件";
+            this.保存到文件.Click += new System.EventHandler(this.保存到文件_Click);
             // 
             // MainDV
             // 
@@ -172,6 +201,14 @@
             this.MainDV.size_circle = 50;
             this.MainDV.TabIndex = 3;
             this.MainDV.Load += new System.EventHandler(this.MainDV_Load);
+            // 
+            // openScheme
+            // 
+            this.openScheme.Filter = "VDAS文件(*.vdas)|*.vdas";
+            // 
+            // saveScheme
+            // 
+            this.saveScheme.Filter = "VDAS文件(*.vdas)|*.vdas";
             // 
             // mainForm
             // 
@@ -214,6 +251,11 @@
         private System.Windows.Forms.ToolStripMenuItem 修改状态ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 设置;
         private System.Windows.Forms.ToolStripMenuItem 配色方案;
+        private System.Windows.Forms.ToolStripMenuItem 编辑颜色;
+        private System.Windows.Forms.ToolStripMenuItem 从文件读取;
+        private System.Windows.Forms.ToolStripMenuItem 保存到文件;
+        private System.Windows.Forms.OpenFileDialog openScheme;
+        private System.Windows.Forms.SaveFileDialog saveScheme;
     }
 }
 

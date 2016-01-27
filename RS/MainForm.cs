@@ -155,11 +155,77 @@ namespace RS
                 MainDV.Flash();
             }
         }
-        private void 配色方案_Click(object sender, EventArgs e)
-        {
 
+        private void 编辑颜色_Click(object sender, EventArgs e)
+        {
             colorSchemeForm colorForm = new colorSchemeForm();
             colorForm.getColor(MainDV.Fs, MainDV.BackgroundColor);
+            if (colorForm.ChangeColor)
+            {
+                MainDV.Fs = colorForm.Fs;
+                MainDV.BackgroundColor = colorForm.BackgroundColor;
+                MainDV.Flash();
+            }
         }
+
+        private void 保存到文件_Click(object sender, EventArgs e)
+        {
+            if (saveScheme.ShowDialog() == DialogResult.OK)
+            {
+                var writer = new StreamWriter(saveScheme.FileName, false, Encoding.Default);
+                writer.WriteLine(colorToString(MainDV.BackgroundColor));
+                for (int i = 0; i < 3; i++)
+                {
+                    writer.WriteLine(colorToString(MainDV.Fs[i].edge));
+                    writer.WriteLine(colorToString(MainDV.Fs[i].fill));
+                    writer.WriteLine(colorToString(MainDV.Fs[i].font));
+                }
+                writer.Flush();
+                writer.Close();
+            }
+        }
+        string colorToString(Color color)
+        {
+            if (color.IsEmpty)
+                return "*";
+            else
+                return ColorTranslator.ToHtml(color);
+        }
+        Color StringToColor(string s)
+        {
+            if (s == "*")
+                return Color.Empty;
+            else
+                return ColorTranslator.FromHtml(s);
+        }
+        private void 从文件读取_Click(object sender, EventArgs e)
+        {
+            if (openScheme.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Color backgroundColor;
+                FillStyle[] fs = new FillStyle[3];
+                StreamReader reader = new StreamReader(openScheme.FileName, Encoding.Default);
+                try
+                {
+                    backgroundColor = StringToColor(reader.ReadLine());
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Color Edge = StringToColor(reader.ReadLine());
+                        Color Fill = StringToColor(reader.ReadLine());
+                        Color Font = StringToColor(reader.ReadLine());
+                        fs[i] = new FillStyle(Edge, Fill, Font);
+                    }
+                    MainDV.Fs = fs;
+                    MainDV.BackgroundColor = backgroundColor;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("该文件损坏");
+                    return;
+                }
+                MainDV.Flash();
+            }
+        }
+
     }
 }

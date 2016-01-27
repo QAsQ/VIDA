@@ -15,6 +15,7 @@ namespace RS
     {
         public void getColor(FillStyle[] _fs, Color bg)
         {
+            changeColor = false;
             back_ground.color = bg;
             fs = _fs;
             UpdateColorScheme();
@@ -23,7 +24,7 @@ namespace RS
 
         private void UpdateColorScheme()
         {
-            MiniDV.BackColor = back_ground.color;
+            MiniDV.BackgroundColor = back_ground.color;
             MiniDV.Fs = fs;
         }
         public FillStyle[] Fs
@@ -33,11 +34,18 @@ namespace RS
                 return fs;
             }
         }
-        public Color backgroundColor
+        public Color BackgroundColor
         {
             get
             {
-                return backgroundColor;
+                return back_ground.color;
+            }
+        }
+        public bool ChangeColor
+        {
+            get
+            {
+                return changeColor;
             }
         }
         List<Skill> sample = new List<Skill>();
@@ -92,8 +100,21 @@ namespace RS
         }
         private void Flash_Click(object sender, EventArgs e)
         {
+            saveColor(Status.SelectedIndex);
             UpdateColorScheme();
             MiniDV.Flash();
+        }
+        bool changeColor;
+        private void OK_Click(object sender, EventArgs e)
+        {
+            changeColor = true;
+            Hide();
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            changeColor = false;
+            Hide();
         }
     }
 }

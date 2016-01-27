@@ -213,9 +213,9 @@ namespace RS
                 buffer.DrawPolygon(edgePen, PointList);
             }
         }
+        Bitmap BUF;
         private void redraw_all()
         {
-            Bitmap BUF = new Bitmap(this.Width, this.Height);
             buffer = Graphics.FromImage(BUF);
             buffer.Clear(color_background);
             for (int i = skillList.Count - 1; i >= 0; i--)
@@ -239,7 +239,6 @@ namespace RS
                 drawAnchor(Anchors, size_anchor, buffer);
             }
             formGraphis.DrawImage(BUF, 0, 0);
-            GC.Collect();
         }
         private void drawAnchor(Point center, int r, Graphics aimer)
         {
@@ -318,6 +317,7 @@ namespace RS
         }
         private void MiniDependencyView_Load(object sender, EventArgs e)
         {
+            BUF = new Bitmap(this.Width, this.Height);
             exampleInit();
             font_name = new Font(fontName, size_font);
             ButtonStateInit();
@@ -383,6 +383,7 @@ namespace RS
         private void MiniDependencyView_SizeChanged(object sender, EventArgs e)
         {
             formGraphis = this.CreateGraphics();
+            BUF = new Bitmap(this.Width, this.Height);
             redraw_all();
         }
 
