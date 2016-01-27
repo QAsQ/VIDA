@@ -43,6 +43,9 @@ UI
 	+spin map
 	+change font style
 	+change color style
+	+save color scheme in file
+	+read color scheme in file
+	+user design color scheme
 	self-adaptation font size
 	muti-tab page
 	user defined colorscheme
