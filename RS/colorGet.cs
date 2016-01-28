@@ -15,7 +15,8 @@ namespace RS
         public ColorView()
         {
             InitializeComponent();
-            colorCheck.CheckState = CheckState.Indeterminate;
+            colorCheck.CheckState = CheckState.Checked;
+
         }
         Color colors;
         public Color color
