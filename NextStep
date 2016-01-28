@@ -46,14 +46,17 @@ UI
 	+save color scheme in file
 	+read color scheme in file
 	+user design color scheme
+	+user defined colorscheme
+	short key to flash
 	self-adaptation font size
 	muti-tab page
-	user defined colorscheme
 	add new DrawMode(selected)
 	select a list of skill to move them or do other thing
 	change arrow again
 	change Skill color like iMessage 
 	in high resolution will flicker
+	remind save in file when close ( dam,vdas )
+	revoke some operation
 
 network
 	temporary none
