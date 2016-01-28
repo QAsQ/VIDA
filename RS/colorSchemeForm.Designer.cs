@@ -96,27 +96,30 @@
             // 
             // Fonts
             // 
-            this.Fonts.color = System.Drawing.SystemColors.Control;
+            //this.Fonts.color = System.Drawing.SystemColors.Control;
             this.Fonts.Location = new System.Drawing.Point(153, 17);
             this.Fonts.Name = "Fonts";
             this.Fonts.Size = new System.Drawing.Size(65, 14);
             this.Fonts.TabIndex = 9;
+            this.Fonts.ColorChange += new ColorView.ColorChangeHandler(Color_Change);
             // 
             // Edge
             // 
-            this.Edge.color = System.Drawing.SystemColors.Control;
+           // this.Edge.color = System.Drawing.SystemColors.Control;
             this.Edge.Location = new System.Drawing.Point(380, 17);
             this.Edge.Name = "Edge";
             this.Edge.Size = new System.Drawing.Size(65, 14);
             this.Edge.TabIndex = 7;
+            this.Edge.ColorChange += new ColorView.ColorChangeHandler(Color_Change);
             // 
             // Fill
             // 
-            this.Fill.color = System.Drawing.SystemColors.Control;
+           // this.Fill.color = System.Drawing.SystemColors.Control;
             this.Fill.Location = new System.Drawing.Point(267, 17);
             this.Fill.Name = "Fill";
             this.Fill.Size = new System.Drawing.Size(65, 14);
             this.Fill.TabIndex = 6;
+            this.Fill.ColorChange += new ColorView.ColorChangeHandler(Color_Change);
             // 
             // 字色
             // 
@@ -164,11 +167,12 @@
             // 
             // back_ground
             // 
-            this.back_ground.color = System.Drawing.SystemColors.Control;
+            //this.back_ground.color = System.Drawing.SystemColors.Control;
             this.back_ground.Location = new System.Drawing.Point(55, 25);
             this.back_ground.Name = "back_ground";
             this.back_ground.Size = new System.Drawing.Size(65, 14);
             this.back_ground.TabIndex = 10;
+            this.back_ground.ColorChange += new ColorView.ColorChangeHandler(Color_Change);
             // 
             // OK
             // 
@@ -209,11 +213,10 @@
             this.SkillColor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
-
+        
         private System.Windows.Forms.Label 描边;
         private System.Windows.Forms.Label 填充;
         private System.Windows.Forms.GroupBox SkillColor;

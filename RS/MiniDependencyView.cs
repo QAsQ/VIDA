@@ -326,7 +326,6 @@ namespace RS
             circleR = startR;
             anchorExist = false;
         }
-
         private void ButtonStateInit()
         {
             MouseLeftButtonIsDown = false;

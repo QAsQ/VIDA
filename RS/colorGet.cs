@@ -12,11 +12,11 @@ namespace RS
 {
     public partial class ColorView : UserControl
     {
+        public delegate void ColorChangeHandler(object sender);
+        public event ColorChangeHandler ColorChange;
         public ColorView()
         {
             InitializeComponent();
-            colorCheck.CheckState = CheckState.Checked;
-
         }
         Color colors;
         public Color color
@@ -38,6 +38,8 @@ namespace RS
                     colorCheck.CheckState = CheckState.Checked;
                     colorButton.BackColor = value;
                 }
+                if(Visible == true)
+                    ColorChange(null);
             }
         }
         private void colorChange_Click(object sender, EventArgs e)
@@ -58,7 +60,7 @@ namespace RS
             {
                 colorButton.BackColor = DefaultBackColor;
                 colorButton.Enabled = false;
-                colors = Color.Empty;
+                color = Color.Empty;
             }
         }
         public bool none

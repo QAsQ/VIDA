@@ -57,13 +57,18 @@ namespace RS
             back_ground.none = true;
             changeVisable(false);
         }
+        bool userAct;
         FillStyle []fs = new FillStyle[3];
         private void Status_SelectedIndexChanged(object sender, EventArgs e)
         {
             saveColor(curr_index);
+            if (Status.SelectedIndex != -1)
+            {
+                userAct = false;
+                loadStyle(fs[Status.SelectedIndex]);
+                userAct = true;
+            }
             curr_index = Status.SelectedIndex;
-            if (curr_index != -1)
-                loadStyle(fs[curr_index]);
         }
         private void loadStyle(FillStyle fs)
         {
@@ -116,5 +121,15 @@ namespace RS
             changeColor = false;
             Hide();
         }
+        private void Color_Change(object sender)
+        {
+            if (MiniDV.Visible == true && userAct)
+            {
+                saveColor(curr_index);
+                UpdateColorScheme();
+                MiniDV.Flash();
+            }
+        }
+
     }
 }
