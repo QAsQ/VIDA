@@ -47,6 +47,7 @@ UI
 	+read color scheme in file
 	+user design color scheme
 	+user defined colorscheme
+	remind save in file when close ( dam,vdas )
 	self-adaptation font size
 	when scale too learge will srash
 	muti-tab page
@@ -54,9 +55,9 @@ UI
 	add new DrawMode(selected)
 	select a list of skill to move them or do other thing
 	change arrow again
+	add picture as background
 	change Skill color like iMessage 
 	in high resolution will flicker
-	remind save in file when close ( dam,vdas )
 	revoke some operation
 
 network

@@ -55,6 +55,7 @@
             // 
             // To
             // 
+            this.To.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.To.FormattingEnabled = true;
             this.To.Location = new System.Drawing.Point(12, 12);
             this.To.Name = "To";
