@@ -133,17 +133,18 @@ namespace RS
         }
         void initScheme()
         {
-            fs[0] = new FillStyle(ColorTranslator.FromHtml("#aba5a2")
-                               , ColorTranslator.FromHtml("#aaaaa2")
-                               , ColorTranslator.FromHtml("#7d7d64"));
-            fs[1] = new FillStyle(ColorTranslator.FromHtml("#43c1ca")
-                                , ColorTranslator.FromHtml("#c7d2d3")
-                                , ColorTranslator.FromHtml("#90bbbe"));
-            fs[2] = new FillStyle(ColorTranslator.FromHtml("#894a60")
-                                , ColorTranslator.FromHtml("#c66a8a")
-                                , ColorTranslator.FromHtml("#552334"));
+            color_background = ColorTranslator.FromHtml("#86CDE8");
+            fs[0] = new FillStyle(Color.Empty
+                               , ColorTranslator.FromHtml("#AAAAA2")
+                               , ColorTranslator.FromHtml("White"));
+            fs[1] = new FillStyle(Color.Empty
+                                , ColorTranslator.FromHtml("#F5F1A5")
+                                , ColorTranslator.FromHtml("#2D35D2"));
+            fs[2] = new FillStyle(Color.Empty
+                                , ColorTranslator.FromHtml("#C66A8A")
+                                , ColorTranslator.FromHtml("White"));
         }
-        public Color color_background = ColorTranslator.FromHtml("#1e7a92");
+        public Color color_background;
         public Color color_anchor = Color.DarkGray;
         const int lineW = 2;
         double circleR;
