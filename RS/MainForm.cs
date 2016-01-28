@@ -148,6 +148,8 @@ namespace RS
             codeGet codeform = new codeGet();
             codeform.getCode();
             string code = codeform.getcode;
+            if (code == null || code == "")
+                return;
             if(MainDV.changeLearnState(VCode.VCodetobit(code))==false){
                 MessageBox.Show("该进度代码与当前依赖不匹配，请输入正确的进度代码");
             }
