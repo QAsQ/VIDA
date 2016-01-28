@@ -47,9 +47,10 @@ UI
 	+read color scheme in file
 	+user design color scheme
 	+user defined colorscheme
-	short key to flash
 	self-adaptation font size
+	when scale too learge will srash
 	muti-tab page
+	short key to flash
 	add new DrawMode(selected)
 	select a list of skill to move them or do other thing
 	change arrow again
