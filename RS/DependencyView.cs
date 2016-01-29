@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace RS
 {
-    public partial class DependencyView : UserControl
+    public partial class MainDependencyView : UserControl
     {
         bool BackspaceIsDown;
         bool MouseLeftButtonIsDown;
@@ -43,7 +42,7 @@ namespace RS
                 return isLearnList;
             }
         }
-        public DependencyView()
+        public MainDependencyView()
         {
             InitializeComponent();
         }
@@ -324,7 +323,7 @@ namespace RS
                 drawAnchor(Anchors, size_anchor, buffer);
             }
             formGraphis.DrawImage(BUF, 0, 0);
-            GC.Collect();
+            BUF.Dispose();
         }
         private void drawAnchor(Point center, int r ,Graphics aimer)
         {
@@ -694,7 +693,7 @@ namespace RS
         Point Anchors;
         bool anchorExist;
         const int minCircleSize = 10;
-        const int maxCircleSize = 7000000;
+        const int maxCircleSize = 1000000;
         int size_anchor = 5;
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {

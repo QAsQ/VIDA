@@ -47,7 +47,7 @@
             this.编辑颜色 = new System.Windows.Forms.ToolStripMenuItem();
             this.从文件读取 = new System.Windows.Forms.ToolStripMenuItem();
             this.保存到文件 = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainDV = new RS.DependencyView();
+            this.MainDV = new RS.MainDependencyView();
             this.openScheme = new System.Windows.Forms.OpenFileDialog();
             this.saveScheme = new System.Windows.Forms.SaveFileDialog();
             this.menu.SuspendLayout();
@@ -235,7 +235,7 @@
 
         #endregion
 
-        private DependencyView MainDV;
+        private MainDependencyView MainDV;
         private System.Windows.Forms.OpenFileDialog openfile;
         private System.Windows.Forms.SaveFileDialog savefile;
         private System.Windows.Forms.MenuStrip menu;
