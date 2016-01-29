@@ -100,6 +100,12 @@
       <DependentUpon>colorSchemeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="denCode.cs" />
+    <Compile Include="DependencyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DependencyView.Designer.cs">
+      <DependentUpon>DependencyView.cs</DependentUpon>
+    </Compile>
     <Compile Include="edgeGetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,11 +134,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DependencyView.cs">
+    <Compile Include="MainDependencyView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DependencyView.Designer.cs">
-      <DependentUpon>DependencyView.cs</DependentUpon>
+    <Compile Include="MainDependencyView.Designer.cs">
+      <DependentUpon>MainDependencyView.cs</DependentUpon>
     </Compile>
     <Compile Include="Skill.cs" />
     <Compile Include="tailGetForm.cs">
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="colorSchemeForm.resx">
       <DependentUpon>colorSchemeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DependencyView.resx">
+      <DependentUpon>DependencyView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="edgeGetForm.resx">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
@@ -175,8 +184,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="DependencyView.resx">
-      <DependentUpon>DependencyView.cs</DependentUpon>
+    <EmbeddedResource Include="MainDependencyView.resx">
+      <DependentUpon>MainDependencyView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tailGetForm.resx">
       <DependentUpon>tailGetForm.cs</DependentUpon>

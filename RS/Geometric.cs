@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace RS
 {
-    static class Geometric
+    static class Geom
     {
         static public int Distance(Point st, Point ed)
         {
@@ -105,6 +105,43 @@ namespace RS
             zi = LengthF(old);
             scale(ref ret, zi, zo);
             return  ret+(Size)anchor;
+        }
+        public static void scaleLine(ref Point st, ref Point ed,int size_circle)
+        {
+            Point vR = ed - (Size)st;  // 从圆心到圆周的向量
+            int length = Geom.Distance(st, ed);
+            Geom.scale(ref vR, size_circle, length);
+            st += (Size)vR;
+            ed -= (Size)vR;
+        }
+        public static Point[] getArrowHead(PointF _st, PointF _ed, int size_circle)
+        {
+            Point st = Point.Round(_st);
+            Point ed = Point.Round(_ed);
+            scaleLine(ref st,ref ed,size_circle);
+            Point Vst_ed = ed - (Size)st; // 向量 
+            int LengthV = Distance(new Point(0, 0), Vst_ed);
+            scale(ref Vst_ed, 5, 8);
+            if (LengthV * 5 > size_circle * 16)
+            {
+                scale(ref Vst_ed, size_circle * 16, LengthV * 5);
+            }
+            var nst = ed - (Size)Vst_ed;   // new start
+            Point mid = ed - (Size)nst;
+            scale(ref mid, 5, 8);
+            mid = ed - (Size)mid;
+            scale(ref Vst_ed, 5, 8);
+            var perp = new Point(Vst_ed.Y, -Vst_ed.X);
+            scale(ref perp, 3, 8);
+            int LengthPerp = Geom.Distance(new Point(0, 0), perp);
+            LengthPerp = LengthPerp * 8 / 5;
+            if (LengthPerp * 8 < size_circle * 5 && LengthPerp * 5 > size_circle * 8)
+            {
+                Geom.scale(ref perp, size_circle, LengthPerp);
+            }
+            var top = mid + (Size)perp;
+            var button = mid - (Size)perp;
+            return new Point[]{nst,top,ed,button};
         }
     }
 }

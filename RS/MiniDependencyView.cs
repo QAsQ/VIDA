@@ -126,7 +126,7 @@ namespace RS
 
             Point fontSize = (Point)getNameSize(curr_skill.name);
             Point DrawStringPoint = center;
-            Geometric.scale(ref fontSize, 1, 2);
+            Geom.scale(ref fontSize, 1, 2);
             DrawStringPoint -= (Size)fontSize;
             buffer.DrawString(curr_skill.name, font_name, fontbush, DrawStringPoint);
         }
@@ -152,7 +152,7 @@ namespace RS
         {
             Point st = Point.Round(_st);
             Point ed = Point.Round(_ed);
-            int length = Geometric.Distance(st, ed);
+            int length = Geom.Distance(st, ed);
             if (length <= size_circle * 2)
                 return;
             Pen edPen = new Pen(end.fill);
@@ -165,8 +165,8 @@ namespace RS
         private void scaleLine(ref Point st, ref Point ed)
         {
             Point vR = ed - (Size)st;  // 从圆心到圆周的向量
-            int length = Geometric.Distance(st, ed);
-            Geometric.scale(ref vR, size_circle, length);
+            int length = Geom.Distance(st, ed);
+            Geom.scale(ref vR, size_circle, length);
             st += (Size)vR;
             ed -= (Size)vR;
         }
@@ -176,24 +176,24 @@ namespace RS
             Point ed = Point.Round(_ed);
             scaleLine(ref st, ref ed);
             Point Vst_ed = ed - (Size)st; // 向量 
-            int LengthV = Geometric.Distance(new Point(0, 0), Vst_ed);
-            Geometric.scale(ref Vst_ed, 5, 8);
+            int LengthV = Geom.Distance(new Point(0, 0), Vst_ed);
+            Geom.scale(ref Vst_ed, 5, 8);
             if (LengthV * 5 > size_circle * 16)
             {
-                Geometric.scale(ref Vst_ed, size_circle * 16, LengthV * 5);
+                Geom.scale(ref Vst_ed, size_circle * 16, LengthV * 5);
             }
             var nst = ed - (Size)Vst_ed;   // new start
             Point mid = ed - (Size)nst;
-            Geometric.scale(ref mid, 5, 8);
+            Geom.scale(ref mid, 5, 8);
             mid = ed - (Size)mid;
-            Geometric.scale(ref Vst_ed, 5, 8);
+            Geom.scale(ref Vst_ed, 5, 8);
             var perp = new Point(Vst_ed.Y, -Vst_ed.X);
-            Geometric.scale(ref perp, 3, 8);
-            int LengthPerp = Geometric.Distance(new Point(0, 0), perp);
+            Geom.scale(ref perp, 3, 8);
+            int LengthPerp = Geom.Distance(new Point(0, 0), perp);
             LengthPerp = LengthPerp * 8 / 5;
             if (LengthPerp * 8 < size_circle * 5 && LengthPerp * 5 > size_circle * 8)
             {
-                Geometric.scale(ref perp, size_circle, LengthPerp);
+                Geom.scale(ref perp, size_circle, LengthPerp);
             }
             var top = mid + (Size)perp;
             var button = mid - (Size)perp;
@@ -251,7 +251,7 @@ namespace RS
         {
             for (int i = 0; i < skillList.Count; i++)
             {
-                if (Geometric.DistanceF(lotated, circleCenter[i]) <= size_circle)
+                if (Geom.DistanceF(lotated, circleCenter[i]) <= size_circle)
                 {
                     return i;
                 }
@@ -272,8 +272,8 @@ namespace RS
 
         private void moveAllCenter(Point Anchor, Point before, Point after)
         {
-            float zo = Geometric.LengthF(before - (Size)Anchor);
-            float zi = Geometric.LengthF(after - (Size)Anchor);
+            float zo = Geom.LengthF(before - (Size)Anchor);
+            float zi = Geom.LengthF(after - (Size)Anchor);
             spinAllCenter(Anchor, before, after);
             if (size_circle > minCircleSize || zo < zi)
             {
@@ -284,20 +284,20 @@ namespace RS
         private void spinAllCenter(Point Anchor, Point before, Point after)
         {
             for (int i = 0; i < circleCenter.Count; i++)
-                circleCenter[i] = Geometric.Rotate(Anchor, before, after, circleCenter[i]);
+                circleCenter[i] = Geom.Rotate(Anchor, before, after, circleCenter[i]);
         }
 
         private void scaleAllCenter(Point Anchor, Point before, Point after)
         {
             Point anc = Anchor;
-            int zo = Geometric.Length(before - (Size)Anchor);
-            int zi = Geometric.Length(after - (Size)Anchor);
+            int zo = Geom.Length(before - (Size)Anchor);
+            int zi = Geom.Length(after - (Size)Anchor);
             scaleOther(zi, zo);
             for (int i = 0; i < circleCenter.Count; i++)
             {
-                circleCenter[i] = Geometric.scale(circleCenter[i], zi, zo);
+                circleCenter[i] = Geom.scale(circleCenter[i], zi, zo);
             }
-            anc = Geometric.scale(anc, zi, zo);
+            anc = Geom.scale(anc, zi, zo);
             anc -= (Size)Anchor;
             panAllCircle(anc);
         }
@@ -357,7 +357,7 @@ namespace RS
                 var currTail = skillList[i].getTail;
                 foreach (int ed in currTail)
                 {
-                    if (Geometric.pointInArrowHand(locate, getArrowHead(circleCenter[i], circleCenter[ed])))
+                    if (Geom.pointInArrowHand(locate, getArrowHead(circleCenter[i], circleCenter[ed])))
                         return i;
                 }
             }
@@ -418,7 +418,7 @@ namespace RS
         {
             if (anchorExist == true && selectedId_drag == selectedId_None && MouseLeftButtonIsDown)
             {
-                if (Geometric.Distance(e.Location, Anchors) > size_anchor)
+                if (Geom.Distance(e.Location, Anchors) > size_anchor)
                     moveAllCenter(Anchors, rotateMouseLocate, e.Location);
                 rotateMouseLocate = e.Location;
                 Flash();
