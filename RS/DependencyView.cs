@@ -15,6 +15,10 @@ namespace RS
         public DependencyView()
         {
             InitializeComponent();
+            selectedId_drag = selectedId_None;
+            anchorExist = false;
+            circleR = 50;
+            font_name = new Font(fontName, size_font);
         }
         protected bool BackspaceIsDown;
         protected bool MouseLeftButtonIsDown; 
@@ -30,7 +34,333 @@ namespace RS
         };
         protected  FillStyle[] fs = new FillStyle[3];
         protected Color color_background;
+        private double circleR;
+        public int size_circle
+        {
+            get
+            {
+                return (int)circleR;
+            }
+            set
+            {
+                if (value < minCircleSize)
+                    circleR = minCircleSize;
+                circleR = value;
+                size_font = size_circle * 5 / 8;
+                font_name = new Font(fontName, size_font);
+            }
+        }
+        Graphics formGraphis;
+        int size_font = 30;
+        const int minCircleSize = 10;
+        const int maxCircleSize = 1000000;
+        const int lineW = 2;
+        private Graphics buffer;
+        protected Size getNameSize(string name)
+        {
+            return formGraphis.MeasureString(name, font_name).ToSize();
+        }
+        protected Font font_name;
+        string fontName = "微软雅黑";
+        private void drawSkill(PointF _center, Skill curr_skill, FillStyle curr_style)
+        {
+            Point center = Point.Round(_center);
+            int r = size_circle;
+            int stx = center.X - r, sty = center.Y - r;
+            int d = r * 2;
+            Rectangle rect = new Rectangle(stx, sty, d, d);
+            if (curr_style.edge.IsEmpty == false)
+            {
+                Pen edgePen;
+                edgePen = new Pen(curr_style.edge);
+                edgePen.Width = lineW;
+                buffer.DrawEllipse(edgePen, rect);
+            }
+            if (curr_style.fill.IsEmpty == false)
+            {
+                Brush fillBush = new SolidBrush(curr_style.fill);
+                buffer.FillEllipse(fillBush, rect);
+            }
+            Brush fontbush;
+            fontbush = new SolidBrush(curr_style.font);
 
+            Point fontSize = (Point)getNameSize(curr_skill.name);
+            Point DrawStringPoint = center;
+            Geom.scale(ref fontSize, 1, 2);
+            DrawStringPoint -= (Size)fontSize;
+            buffer.DrawString(curr_skill.name, font_name, fontbush, DrawStringPoint);
+        }
 
+        private void DependencyView_Load(object sender, EventArgs e)
+        {
+            formGraphis = CreateGraphics();
+        }
+        private void DrawArrow(PointF _st, PointF _ed, FillStyle start, FillStyle end)
+        {
+            Point st = Point.Round(_st);
+            Point ed = Point.Round(_ed);
+            int length = Geom.Distance(st, ed);
+            if (length <= size_circle * 2)
+                return;
+            Pen edPen = new Pen(end.fill);
+            edPen.Width = lineW;
+            Point[] pointList = Geom.getArrowHead(st, ed, size_circle);
+            Geom.scaleLine(ref st, ref ed, size_circle);
+            buffer.DrawLine(edPen, st, pointList[0]);
+            DrawArrow(pointList, start);
+        }
+        private void DrawArrow(Point[] PointList, FillStyle currStyle)
+        {
+            if (currStyle.fill.IsEmpty == false)
+            {
+                Brush fillBush = new SolidBrush(currStyle.fill);
+                buffer.FillPolygon(fillBush, PointList);
+            }
+            if (currStyle.edge.IsEmpty == false)
+            {
+                Pen edgePen = new Pen(currStyle.edge);
+                edgePen.Width = lineW;
+                buffer.DrawPolygon(edgePen, PointList);
+            }
+        }
+        FillStyle getFillSytle(SkillDrawMode curr)
+        {
+            switch (curr)
+            {
+                case SkillDrawMode.Hs:
+                    return fs[0];
+                case SkillDrawMode.Cs:
+                    return fs[1];
+                case SkillDrawMode.Us:
+                    return fs[2];
+                default:
+                    return fs[2];
+            }
+        }
+        private void redraw_all()
+        {
+            Bitmap BUF = new Bitmap(this.Width, this.Height);
+            buffer = Graphics.FromImage(BUF);
+            buffer.Clear(color_background);
+            for (int i = skillList.Count - 1; i >= 0; i--)
+            {
+                List<int> currTail = skillList[i].getTail;
+                for (int j = currTail.Count - 1; j >= 0; j--)
+                {
+                    int end = currTail[j];
+                    DrawArrow(circleCenter[i], circleCenter[end],
+                              getFillSytle(drawModeList[i]),
+                              getFillSytle(drawModeList[end]));
+                }
+            }
+            for (int i = skillList.Count - 1; i >= 0; i--)
+            {
+                drawSkill(circleCenter[i], skillList[i], getFillSytle(drawModeList[i]));
+            }
+            //  drawAncher(new Point(Width/2,Height/2),5);
+            if (anchorExist)
+            {
+                drawAnchor(Anchors, size_anchor, buffer);
+            }
+            formGraphis.DrawImage(BUF, 0, 0);
+            BUF.Dispose();
+        }
+        int size_anchor = 5;
+        private void drawAnchor(Point center, int r, Graphics aimer)
+        {
+            Rectangle rect = new Rectangle(center.X - r, center.Y - r, r * 2, r * 2);
+            aimer.DrawLine(new Pen(color_anchor), center.X - r * 3 / 2, center.Y, center.X + r * 3 / 2, center.Y);
+            aimer.DrawLine(new Pen(color_anchor), center.X, center.Y - r * 3 / 2, center.X, center.Y + r * 3 / 2);
+            aimer.DrawEllipse(new Pen(color_anchor), rect);
+        }
+        Point Anchors;
+        bool anchorExist;
+        Color color_anchor = Color.SlateGray;
+        public void Flash()
+        {
+            redraw_all();
+        }
+        void scaleOther(int Zoomin, int Zoomout)
+        {
+            circleR *= Zoomin;
+            circleR /= Zoomout;
+            size_font = size_circle * 5 / 8;
+            if (size_font <= 0)
+                size_font = 1;
+            font_name = new Font(fontName, size_font);
+        }
+        private Point locate_mouse;
+        private void DependencyView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (anchorExist == true && selectedId_drag == selectedId_None && MouseLeftButtonIsDown)
+            {
+                if (Geom.Distance(e.Location, Anchors) > size_anchor)
+                    moveAllCenter(Anchors, rotateMouseLocate, e.Location);
+                rotateMouseLocate = e.Location;
+                Flash();
+            }
+            if (selectedId_drag != selectedId_None && MouseLeftButtonIsDown)
+            {
+                Point offset = locate_mouse - (Size)e.Location;
+                locate_mouse = e.Location;
+                circleCenter[selectedId_drag] -= (Size)offset;
+                Flash();
+            }
+            if (BackspaceIsDown == true && MouseLeftButtonIsDown)
+            {
+                Point deviaion;
+                deviaion = locate_mouse - (Size)e.Location;
+                locate_mouse = e.Location;
+                deviaion = moveAllSkill(deviaion);
+                Flash();
+            }
+        }
+        private void moveAllCenter(Point Anchor, Point before, Point after)
+        {
+            float zo = Geom.LengthF(before - (Size)Anchor);
+            float zi = Geom.LengthF(after - (Size)Anchor);
+            spinAllCenter(Anchor, before, after);
+            if ((size_circle > minCircleSize || zo < zi) && (size_circle < maxCircleSize || zo > zi))
+            {
+                scaleAllCenter(Anchor, before, after);
+            }
+        }
+        private void spinAllCenter(Point Anchor, Point before, Point after)
+        {
+            for (int i = 0; i < circleCenter.Count; i++)
+                circleCenter[i] = Geom.Rotate(Anchor, before, after, circleCenter[i]);
+        }
+        private void scaleAllCenter(Point Anchor, Point before, Point after)
+        {
+            Point anc = Anchor;
+            int zo = Geom.Length(before - (Size)Anchor);
+            int zi = Geom.Length(after - (Size)Anchor);
+            scaleOther(zi, zo);
+            for (int i = 0; i < circleCenter.Count; i++)
+            {
+                circleCenter[i] = Geom.scale(circleCenter[i], zi, zo);
+            }
+            anc = Geom.scale(anc, zi, zo);
+            anc -= (Size)Anchor;
+            panAllCircle(anc);
+        }
+        private void panAllCircle(Point anc)
+        {
+            for (int i = 0; i < circleCenter.Count; i++)
+                circleCenter[i] -= (Size)anc;
+        }
+
+        private void DependencyView_KeyDown(object sender, KeyEventArgs e)
+        {
+            changeKeyState(e.KeyCode, true);
+        }
+
+        private void DependencyView_KeyUp(object sender, KeyEventArgs e)
+        {
+            changeKeyState(e.KeyCode, false);
+        }
+        private void changeKeyState(Keys k, bool isDown)
+        {
+            switch (k)
+            {
+                case Keys.Space:
+                    BackspaceIsDown = isDown;
+                    break;
+            }
+        }
+        int getArrowPioner(Point locate)
+        {
+            for (int i = 0; i < skillList.Count; i++)
+            {
+                var currTail = skillList[i].getTail;
+                foreach (int ed in currTail)
+                {
+                    if (Geom.pointInArrowHand(locate, Geom.getArrowHead(circleCenter[i], circleCenter[ed], size_circle)))
+                        return i;
+                }
+            }
+            return selectedId_None;
+        }
+        protected const int selectedId_None = -1;
+        int selectedId_drag;
+
+        private Point moveAllSkill(Point deviaion)
+        {
+            for (int i = 0; i < skillList.Count; i++)
+            {
+                circleCenter[i] = circleCenter[i] - (Size)deviaion;
+            }
+            return deviaion;
+        }
+        private void DependencyView_DoubleClick(object sender, EventArgs e)
+        {
+
+            int selectedId_ArrowPoiner = getArrowPioner(Control.MousePosition);
+            Point aim = new Point(Width / 2, Height / 2);
+            if (selectedId_ArrowPoiner != selectedId_None)
+            {
+                Point dis = Point.Round(circleCenter[selectedId_ArrowPoiner]) - (Size)aim;
+                if (dis.X == 0 && dis.Y == 0)
+                {
+                    dis.X = dis.Y = 2;
+                }
+                moveAllSkill(dis);
+            }
+            Flash();
+            if (anchorExist == false)
+            {
+                anchorExist = true;
+                Anchors = Control.MousePosition;
+                drawAnchor(Anchors, 5, formGraphis);
+            }
+            else
+            {
+                anchorExist = false;
+                redraw_all();
+            }
+        }
+        Point spaceMouseLocate;
+        Point rotateMouseLocate;
+        private void DependencyView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MouseLeftButtonIsDown = true;
+                locate_mouse = e.Location;
+                selectedId_drag = get_circleID(e.Location);
+                spaceMouseLocate = e.Location;
+                rotateMouseLocate = e.Location;
+            }
+            if (anchorExist)
+            {
+                rotateMouseLocate = e.Location;
+            }
+        }
+        protected int get_circleID(Point lotated)
+        {
+            for (int i = 0; i < skillList.Count; i++)
+            {
+                if (Geom.DistanceF(lotated, circleCenter[i]) <= size_circle)
+                {
+                    return i;
+                }
+            }
+            return selectedId_None;
+        }
+        private void DependencyView_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MouseLeftButtonIsDown = false;
+                selectedId_drag = selectedId_None;
+                spaceMouseLocate.X = spaceMouseLocate.Y = 0;
+            }
+        }
+
+        private void DependencyView_SizeChanged(object sender, EventArgs e)
+        {
+            formGraphis = this.CreateGraphics();
+            Flash();
+        } 
     }
 }

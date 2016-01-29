@@ -161,13 +161,9 @@
             this.Name = "DependencyView";
             this.Size = new System.Drawing.Size(698, 472);
             this.Load += new System.EventHandler(this.RelationView_Load);
-            this.SizeChanged += new System.EventHandler(this.DependencyView_SizeChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RelationView_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RelationView_KeyUp);
-            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DependencyView_MouseDoubleClick);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RelationView_MouseUp);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainRelationView_MouseDown);
             this.MenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -19,7 +19,6 @@ namespace RS
         private int count = 1;
         const int Menusize = 11;
         string defaultSkillName = "新技能";
-        string fontName = "微软雅黑";
         //刷新;重命名;添加技能;删除技能;学习技能,添加依赖关系,删除依赖关系,检查依赖关系,添加后继,删除后继,重置所有技能;
         bool[,] MenuVisible = {{true, true, false, false, true,false,false,false,false,false,true},       //student
                                {true, true, true, true, false,true,true,true,true,true,false}};       //teacher
@@ -43,19 +42,25 @@ namespace RS
         public MainDependencyView()
         {
             InitializeComponent();
+            Usermode = initUsermode;
+            reNameBox.Font = font_name;
+            initScheme();
+            ButtonStateInit();
+            selectedId_menu = selectedId_None;
+            selectedId_renameBox = selectedId_None;
         }
-        public void ShowRelation(List<Skill> _skillList,List<PointF> _pointList)
+        public void ShowRelation(List<Skill> _skillList, List<PointF> _pointList)
         {
             skillList = _skillList;
             circleCenter = _pointList;
-            for(int i = 0; i < _skillList.Count; i++)
+            for (int i = 0; i < _skillList.Count; i++)
             {
                 drawModeList.Add(SkillDrawMode.Us);
                 isLearnList.Add(false);
             }
             resetAllDrawmode();
-            redraw_all();
-        }     
+            Flash();
+        }
         private void resetAllDrawmode()
         {
             bool[] vis = new bool[skillList.Count];
@@ -85,7 +90,7 @@ namespace RS
         private void 添加技能_Click(object sender, EventArgs e)
         {
             addOneSkill(afterMenuMouseLocation);
-            redraw_all();
+            Flash();
         }
         private void addOneSkill(PointF centerPoint)
         {
@@ -98,7 +103,6 @@ namespace RS
             resetAllDrawmode();
             reName(skillList.Count- 1);
         }
-        Graphics formGraphis;
         public FillStyle[] Fs
         {
             get
@@ -134,34 +138,9 @@ namespace RS
                                 , ColorTranslator.FromHtml("#C66A8A")
                                 , ColorTranslator.FromHtml("White"));
         }
-        public Color color_anchor = Color.DarkGray;
-        const int lineW = 2;
-        double circleR;
-        public int size_circle
-        {
-            get
-            {
-                return (int)circleR;
-            }
-            set
-            {
-                if (value < minCircleSize)
-                    circleR = minCircleSize;
-                circleR = value;
-                size_font = size_circle * 5 / 8;
-                font_name = new Font(fontName, size_font);
-                reNameBox.Font = font_name;
-            }
-        }
-        const int minCircleSize = 10;
-        const int maxCircleSize = 1000000;
-        const int selectedId_None = -1;
-        int size_font = 30;
-        int selectedId_drag; 
+        
+
         int selectedId_menu; 
-        Font font_name ;
-        private Graphics buffer;
-        private Point locate_mouse;
        
         public bool changeLearnState(string biter)
         {
@@ -176,155 +155,12 @@ namespace RS
             resetAllDrawmode();
             return true;
         }
-        private void drawSkill(PointF _center, Skill curr_skill, FillStyle curr_style)
-        {
-            Point center = Point.Round(_center);
-            int r = size_circle;
-            int stx = center.X - r,sty = center.Y - r;
-            int d = r * 2;
-            Rectangle rect = new Rectangle(stx, sty, d, d);
-            if (curr_style.edge.IsEmpty == false)
-            {
-                Pen edgePen;
-                edgePen = new Pen(curr_style.edge);
-                edgePen.Width = lineW;
-                buffer.DrawEllipse(edgePen,rect);
-            }
-            if (curr_style.fill.IsEmpty == false)
-            {
-                Brush fillBush = new SolidBrush(curr_style.fill);
-                buffer.FillEllipse(fillBush, rect);
-            }
-            Brush fontbush;
-            fontbush = new SolidBrush(curr_style.font);
-
-            Point fontSize = (Point)getNameSize(curr_skill.name);
-            Point DrawStringPoint = center;
-            Geom.scale(ref fontSize, 1, 2);
-            DrawStringPoint -= (Size)fontSize;
-            buffer.DrawString(curr_skill.name, font_name, fontbush, DrawStringPoint);
-        }
-        private Size getNameSize(string name)
-        {
-            return formGraphis.MeasureString(name, font_name).ToSize();
-        }
-        FillStyle getFillSytle(SkillDrawMode curr)
-        {
-            switch (curr)
-            {
-                case SkillDrawMode.Hs:
-                    return fs[0];
-                case SkillDrawMode.Cs:
-                    return fs[1];
-                case SkillDrawMode.Us:
-                    return fs[2];
-                default:
-                    return fs[2];
-            }
-        }
-        private void DrawArrow(PointF _st, PointF _ed, FillStyle start,FillStyle end)
-        {
-            Point st = Point.Round(_st);
-            Point ed = Point.Round(_ed);
-            int length = Geom.Distance(st, ed);
-            if (length <= size_circle * 2)
-                return;
-            Pen edPen = new Pen(end.fill);
-            edPen.Width = lineW;
-            Point[] pointList = Geom.getArrowHead(st,ed,size_circle);
-            Geom.scaleLine(ref st,ref ed,size_circle);
-            buffer.DrawLine(edPen, st, pointList[0]);
-            DrawArrow(pointList, start);
-        }
-        
-        private void DrawArrow(Point[] PointList, FillStyle currStyle)
-        {
-            if (currStyle.fill.IsEmpty==false)
-            {
-                Brush fillBush = new SolidBrush(currStyle.fill);
-                buffer.FillPolygon(fillBush, PointList);
-            }
-            if (currStyle.edge.IsEmpty==false)
-            {
-                Pen edgePen = new Pen(currStyle.edge);
-                edgePen.Width = lineW;
-                buffer.DrawPolygon(edgePen, PointList);
-            }
-        }
-        private void redraw_all()
-        {
-            Bitmap BUF = new Bitmap(this.Width, this.Height);
-            buffer = Graphics.FromImage(BUF);
-            buffer.Clear(color_background);
-            for (int i = skillList.Count - 1; i >= 0; i--)
-            {
-                List<int> currTail = skillList[i].getTail;
-                for (int j = currTail.Count - 1; j >= 0; j--)
-                {
-                    int end = currTail[j];
-                    DrawArrow(circleCenter[i], circleCenter[end],
-                              getFillSytle(drawModeList[i]), 
-                              getFillSytle(drawModeList[end]));
-                }
-            }
-            for (int i = skillList.Count - 1; i >= 0; i--)
-            {
-                drawSkill(circleCenter[i], skillList[i], getFillSytle(drawModeList[i]));
-            }
-          //  drawAncher(new Point(Width/2,Height/2),5);
-            if (anchorExist)
-            {
-                drawAnchor(Anchors, size_anchor, buffer);
-            }
-            formGraphis.DrawImage(BUF, 0, 0);
-            BUF.Dispose();
-        }
-        private void drawAnchor(Point center, int r ,Graphics aimer)
-        {
-            Rectangle rect = new Rectangle(center.X - r, center.Y - r, r * 2, r * 2);
-            aimer.DrawLine(new Pen(color_anchor), center.X - r * 3 / 2, center.Y, center.X + r * 3 / 2, center.Y);
-            aimer.DrawLine(new Pen(color_anchor), center.X, center.Y - r * 3 / 2, center.X, center.Y + r * 3 / 2);
-            aimer.DrawEllipse(new Pen(color_anchor), rect);
-        }
-        private int get_circleID(Point lotated)
-        {
-            for (int i = 0; i < skillList.Count; i++)
-            {
-                if (Geom.DistanceF(lotated, circleCenter[i]) <= size_circle)
-                {
-                    return i;
-                }
-            }
-            return selectedId_None;
-        }
         Point afterMenuMouseLocation;
-        private void RelationView_MouseDown(object sender, MouseEventArgs e)
+        private void MainRelationView_MouseDown(object sender, MouseEventArgs e)
         {
             if (selectedId_renameBox != selectedId_None)
             {
                 startRename();
-            }
-            if (e.Button == MouseButtons.Middle)
-            {
-                if (anchorExist == false)
-                {
-                    anchorExist = true;
-                    Anchors = e.Location;
-                    drawAnchor(Anchors, 5, formGraphis);
-                }
-                else
-                {
-                    anchorExist = false;
-                    redraw_all();
-                }
-            }
-            if (e.Button == MouseButtons.Left)
-            {
-                MouseLeftButtonIsDown = true;
-                locate_mouse = e.Location;
-                selectedId_drag = get_circleID(e.Location);
-                spaceMouseLocate = e.Location;
-                rotateMouseLocate = e.Location;
             }
             if( e.Button == MouseButtons.Right)
             {
@@ -334,20 +170,10 @@ namespace RS
                 afterMenuMouseLocation = e.Location + (Size)Location;
                 MenuStrip.Show(currMouseLocation);   
             }
-            if (anchorExist)
-                rotateMouseLocate = e.Location;
-        }
-        void scaleOther(int Zoomin,int Zoomout){
-            circleR *= Zoomin;
-            circleR /= Zoomout;
-            size_font = size_circle * 5 / 8;
-            if (size_font <= 0)
-                size_font = 1;
-            font_name = new Font (fontName, size_font);
-            reNameBox.Font = font_name;
         }
         private void startRename()
         {
+            reNameBox.Font = font_name;
             skillList[selectedId_renameBox].name = reNameBox.Text;
             reNameBox.Hide();
             this.Focus();
@@ -377,101 +203,9 @@ namespace RS
                 MenuStrip.Items[i].Visible = MenuVisible[modes, i] && AfterSelectVisible[selectable,i];
             }
         }
-        Point spaceMouseLocate;
-        Point rotateMouseLocate;
-        private void RelationView_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (anchorExist == true && selectedId_drag == selectedId_None && MouseLeftButtonIsDown)
-            {
-                if(Geom.Distance(e.Location,Anchors) > size_anchor)
-                   moveAllCenter(Anchors, rotateMouseLocate, e.Location);
-                rotateMouseLocate = e.Location;
-                Flash();
-            }
-            if (selectedId_drag != selectedId_None && MouseLeftButtonIsDown)
-            {
-                Point offset = locate_mouse - (Size)e.Location;
-                locate_mouse = e.Location;
-                circleCenter[selectedId_drag] -= (Size)offset;
-                redraw_all();
-            }
-            if (BackspaceIsDown == true && MouseLeftButtonIsDown)
-            {
-                Point deviaion;
-                deviaion = locate_mouse - (Size)e.Location;
-                locate_mouse = e.Location;
-                deviaion = moveAllSkill(deviaion);
-                redraw_all();
-            }
-        }
-
-        private void moveAllCenter(Point Anchor, Point before, Point after)
-        {
-            float zo = Geom.LengthF(before - (Size)Anchor);
-            float zi = Geom.LengthF(after - (Size)Anchor);
-            spinAllCenter(Anchor, before, after);
-            if ((size_circle > minCircleSize || zo < zi) && (size_circle < maxCircleSize || zo > zi))
-            {
-                scaleAllCenter(Anchor, before, after);
-            }
-        }
-
-        private void spinAllCenter(Point Anchor, Point before, Point after)
-        {
-            for (int i = 0; i < circleCenter.Count; i++)
-                circleCenter[i] = Geom.Rotate(Anchor, before, after, circleCenter[i]);
-        }
-
-        private void scaleAllCenter(Point Anchor, Point before, Point after)
-        {
-            Point anc = Anchor;
-            int zo = Geom.Length(before - (Size)Anchor);
-            int zi = Geom.Length(after - (Size)Anchor);
-            scaleOther(zi,zo);
-            for (int i = 0; i < circleCenter.Count; i++)
-            {
-                circleCenter[i] = Geom.scale(circleCenter[i], zi, zo);
-            }
-            anc = Geom.scale(anc, zi, zo);
-            anc -= (Size)Anchor;
-            panAllCircle(anc);
-        }
-
-        private void panAllCircle(Point anc)
-        {
-            for (int i = 0; i < circleCenter.Count; i++)
-                circleCenter[i] -= (Size)anc;
-        }
-        private Point moveAllSkill(Point deviaion)
-        {
-            for (int i = 0; i < skillList.Count; i++)
-            {
-                circleCenter[i] = circleCenter[i] - (Size)deviaion;
-            }
-            return deviaion;
-        }
-        private void RelationView_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                MouseLeftButtonIsDown = false;
-                selectedId_drag = selectedId_None;
-                spaceMouseLocate.X = spaceMouseLocate.Y = 0;
-            }
-        }
         private void RelationView_Load(object sender, EventArgs e)
         {
-            initScheme();
-            font_name = new Font(fontName, size_font);
-            ButtonStateInit();
-            selectedId_drag = selectedId_None;
-            selectedId_menu = selectedId_None;
-            selectedId_renameBox = selectedId_None;
-            Usermode = initUsermode;
-            reNameBox.Font = font_name;
-            formGraphis = CreateGraphics();
-            circleR = 50;
-            anchorExist = false;
+           
         }
 
         private void ButtonStateInit()
@@ -503,7 +237,7 @@ namespace RS
         }
         private void 刷新_Click(object sender, EventArgs e)
         {
-            redraw_all();
+            Flash();
             selectedId_menu = selectedId_None;
         }
         private void 删除技能_Click(object sender, EventArgs e)
@@ -520,7 +254,7 @@ namespace RS
                 currSkill.removeIDAndSub(selectedId_menu);
             }
             selectedId_menu = selectedId_None;
-            redraw_all();
+            Flash();
         }
         
         private void 学习技能_Click(object sender, EventArgs e)
@@ -533,7 +267,7 @@ namespace RS
             isLearnList[selectedId_menu] = true;
             drawModeList[selectedId_menu] = SkillDrawMode.Hs;
             resetAllDrawmode();
-            redraw_all();
+            Flash();
             selectedId_menu = selectedId_None;
         }
 
@@ -543,7 +277,7 @@ namespace RS
             {
                 isLearnList[selectedId_menu] = false;
                 drawModeList[selectedId_menu] = SkillDrawMode.Cs;
-                redraw_all();
+                Flash();
             }
             selectedId_menu = selectedId_None;
         }
@@ -563,7 +297,7 @@ namespace RS
                     skillList[st].removeTail(ed);
                     return;
                 }
-                redraw_all();
+                Flash();
         }
         private void 删除依赖关系_Click(object sender, EventArgs e)
         {
@@ -574,7 +308,7 @@ namespace RS
                 if (st == -1 || ed == -1)
                     return;
                 skillList[st].removeTail(ed);
-                redraw_all();
+                Flash();
         }
         private int getZero(ref bool[] vis,int[] Ind){
             for(int i=0;i<Ind.Length;i++){
@@ -644,13 +378,9 @@ namespace RS
                 return skillList;
             }
         }
-        Point Anchors;
-        bool anchorExist;
 
-        int size_anchor = 5;
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {
-            changeKeyState(e.KeyCode,true);
             Point mouseLocate = Control.MousePosition - (Size)FormLocate - (Size)Location;
             if (e.Control)
             {
@@ -658,29 +388,15 @@ namespace RS
                 {
                     case Keys.A:
                         addOneSkill(mouseLocate); //posi
-                        redraw_all();
+                        Flash();
                         break;
                 }
 
             }
         }
 
-        private void changeKeyState(Keys k,bool isDown)
-        {
-            switch (k)
-            {
-                case Keys.Space:
-                    BackspaceIsDown = isDown;
-                    break;
-            }
-        }
         private void RelationView_KeyUp(object sender, KeyEventArgs e)
         {
-            changeKeyState(e.KeyCode, false);
-        }
-        public void Flash()
-        {
-            redraw_all();
         }
         public List<PointF> PointList
         {
@@ -708,7 +424,7 @@ namespace RS
                 skillList[selectedID].removeTail(tailAdded);
                 return;
             }
-            redraw_all();
+            Flash();
         }
         private void 删除后继_Click(object sender, EventArgs e)
         {
@@ -718,7 +434,7 @@ namespace RS
             if (tailGet.Selected != -1)
             {
                 skillList[selectedID].removeTail(tailGet.Selected);
-                redraw_all();
+                Flash();
             }
         }
         private void reNameBox_KeyDown(object sender, KeyEventArgs e)
@@ -728,41 +444,6 @@ namespace RS
                 startRename();
             }
         }
-        int getArrowPioner(Point locate)
-        {
-            for (int i = 0; i < skillList.Count; i++)
-            {
-                var currTail = skillList[i].getTail;
-                foreach (int ed in currTail)
-                {
-                    if (Geom.pointInArrowHand(locate,Geom.getArrowHead(circleCenter[i], circleCenter[ed],size_circle)))
-                        return i;
-                }
-            }                                                 
-            return selectedId_None;
-        }
-        private void DependencyView_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int selectedId_ArrowPoiner = getArrowPioner(e.Location);
-            Point aim = new Point(Width / 2, Height / 2);
-            if (selectedId_ArrowPoiner != selectedId_None)
-            {
-                Point dis = Point.Round(circleCenter[selectedId_ArrowPoiner])-(Size)aim;
-                if (dis.X == 0 && dis.Y == 0)
-                {
-                    dis.X = dis.Y = 2;
-                }
-                moveAllSkill(dis);
-            }
-            Flash();
-        }
-
-        private void DependencyView_SizeChanged(object sender, EventArgs e)
-        {
-            formGraphis = this.CreateGraphics();
-            redraw_all();
-        }
-
         private void 重置所有进度ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("你确定要清空所有学习进度吗?", "重置进度", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -773,7 +454,7 @@ namespace RS
                     drawModeList[i] = SkillDrawMode.Us;
                 }
                 resetAllDrawmode();
-                redraw_all();
+                Flash();
             }
         }
     }
