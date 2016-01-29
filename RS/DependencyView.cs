@@ -457,7 +457,7 @@ namespace RS
             float zo = Geometric.LengthF(before - (Size)Anchor);
             float zi = Geometric.LengthF(after - (Size)Anchor);
             spinAllCenter(Anchor, before, after);
-            if (size_circle > minCircleSize || zo < zi)
+            if ((size_circle > minCircleSize || zo < zi) && (size_circle < maxCircleSize || zo > zi))
             {
                 scaleAllCenter(Anchor, before, after);
             }
@@ -694,6 +694,7 @@ namespace RS
         Point Anchors;
         bool anchorExist;
         const int minCircleSize = 10;
+        const int maxCircleSize = 7000000;
         int size_anchor = 5;
         private void RelationView_KeyDown(object sender, KeyEventArgs e)
         {
