@@ -51,6 +51,7 @@
             this.colorCheck.Size = new System.Drawing.Size(15, 14);
             this.colorCheck.TabIndex = 1;
             this.colorCheck.UseVisualStyleBackColor = true;
+            this.colorCheck.CheckState = System.Windows.Forms.CheckState.Indeterminate;
             this.colorCheck.CheckedChanged += new System.EventHandler(this.checker_CheckedChanged);
             // 
             // ColorView
