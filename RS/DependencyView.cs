@@ -292,33 +292,6 @@ namespace RS
             }
             return deviaion;
         }
-        private void DependencyView_DoubleClick(object sender, EventArgs e)
-        {
-
-            int selectedId_ArrowPoiner = getArrowPioner(Control.MousePosition);
-            Point aim = new Point(Width / 2, Height / 2);
-            if (selectedId_ArrowPoiner != selectedId_None)
-            {
-                Point dis = Point.Round(circleCenter[selectedId_ArrowPoiner]) - (Size)aim;
-                if (dis.X == 0 && dis.Y == 0)
-                {
-                    dis.X = dis.Y = 2;
-                }
-                moveAllSkill(dis);
-            }
-            Flash();
-            if (anchorExist == false)
-            {
-                anchorExist = true;
-                Anchors = Control.MousePosition;
-                drawAnchor(Anchors, 5, formGraphis);
-            }
-            else
-            {
-                anchorExist = false;
-                redraw_all();
-            }
-        }
         Point spaceMouseLocate;
         Point rotateMouseLocate;
         private void DependencyView_MouseDown(object sender, MouseEventArgs e)
@@ -361,6 +334,33 @@ namespace RS
         {
             formGraphis = this.CreateGraphics();
             Flash();
+        }
+
+        private void DependencyView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedId_ArrowPoiner = getArrowPioner(e.Location);
+            Point aim = new Point(Width / 2, Height / 2);
+            if (selectedId_ArrowPoiner != selectedId_None)
+            {
+                Point dis = Point.Round(circleCenter[selectedId_ArrowPoiner]) - (Size)aim;
+                if (dis.X == 0 && dis.Y == 0)
+                {
+                    dis.X = dis.Y = 2;
+                }
+                moveAllSkill(dis);
+            }
+            Flash();
+            if (anchorExist == false)
+            {
+                anchorExist = true;
+                Anchors = e.Location;
+                drawAnchor(Anchors, 5, formGraphis);
+            }
+            else
+            {
+                anchorExist = false;
+                redraw_all();
+            }
         } 
     }
 }

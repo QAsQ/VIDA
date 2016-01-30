@@ -38,9 +38,9 @@
             this.Size = new System.Drawing.Size(315, 209);
             this.Load += new System.EventHandler(this.DependencyView_Load);
             this.SizeChanged += new System.EventHandler(this.DependencyView_SizeChanged);
-            this.DoubleClick += new System.EventHandler(this.DependencyView_DoubleClick);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DependencyView_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DependencyView_KeyUp);
+            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DependencyView_MouseDoubleClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DependencyView_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DependencyView_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DependencyView_MouseUp);
