@@ -32,7 +32,7 @@ namespace RS
             Cs, //Can sdudy
             Us  //Unable study
         };
-        protected  FillStyle[] fs = new FillStyle[3];
+        protected  DrawStyle[] fs = new DrawStyle[3];
         protected Color color_background;
         private double circleR;
         public int size_circle
@@ -62,7 +62,7 @@ namespace RS
         }
         protected Font font_name;
         string fontName = "微软雅黑";
-        private void drawSkill(PointF _center, Skill curr_skill, FillStyle curr_style)
+        private void drawSkill(PointF _center, Skill curr_skill, DrawStyle curr_style)
         {
             Point center = Point.Round(_center);
             int r = size_circle;
@@ -95,7 +95,7 @@ namespace RS
         {
             formGraphis = CreateGraphics();
         }
-        private void DrawArrow(PointF _st, PointF _ed, FillStyle start, FillStyle end)
+        private void DrawArrow(PointF _st, PointF _ed, DrawStyle start, DrawStyle end)
         {
             Point st = Point.Round(_st);
             Point ed = Point.Round(_ed);
@@ -109,7 +109,7 @@ namespace RS
             buffer.DrawLine(edPen, st, pointList[0]);
             DrawArrow(pointList, start);
         }
-        private void DrawArrow(Point[] PointList, FillStyle currStyle)
+        private void DrawArrow(Point[] PointList, DrawStyle currStyle)
         {
             if (currStyle.fill.IsEmpty == false)
             {
@@ -123,7 +123,7 @@ namespace RS
                 buffer.DrawPolygon(edgePen, PointList);
             }
         }
-        FillStyle getFillSytle(SkillDrawMode curr)
+        DrawStyle getFillSytle(SkillDrawMode curr)
         {
             switch (curr)
             {
@@ -137,9 +137,17 @@ namespace RS
                     return fs[2];
             }
         }
+        Bitmap BUF;
         private void redraw_all()
         {
-            Bitmap BUF = new Bitmap(this.Width, this.Height);
+            try
+            {
+                 BUF = new Bitmap(this.Width, this.Height);
+            }
+            catch(Exception ex){
+                GC.Collect();
+                return;
+            }
             buffer = Graphics.FromImage(BUF);
             buffer.Clear(color_background);
             for (int i = skillList.Count - 1; i >= 0; i--)
@@ -162,8 +170,14 @@ namespace RS
             {
                 drawAnchor(Anchors, size_anchor, buffer);
             }
-            formGraphis.DrawImage(BUF, 0, 0);
-            BUF.Dispose();
+            try
+            {
+                formGraphis.DrawImage(BUF, 0, 0);
+            }
+            catch (OutOfMemoryException ex)
+            {
+                GC.Collect();
+            }
         }
         int size_anchor = 5;
         private void drawAnchor(Point center, int r, Graphics aimer)
@@ -196,24 +210,21 @@ namespace RS
             {
                 if (Geom.Distance(e.Location, Anchors) > size_anchor)
                     moveAllCenter(Anchors, rotateMouseLocate, e.Location);
-                rotateMouseLocate = e.Location;
-                Flash();
             }
             if (selectedId_drag != selectedId_None && MouseLeftButtonIsDown)
             {
                 Point offset = locate_mouse - (Size)e.Location;
-                locate_mouse = e.Location;
                 circleCenter[selectedId_drag] -= (Size)offset;
-                Flash();
             }
             if (BackspaceIsDown == true && MouseLeftButtonIsDown)
             {
                 Point deviaion;
                 deviaion = locate_mouse - (Size)e.Location;
-                locate_mouse = e.Location;
                 deviaion = moveAllSkill(deviaion);
-                Flash();
             }
+            rotateMouseLocate = e.Location;
+            locate_mouse = e.Location;
+            Flash();
         }
         private void moveAllCenter(Point Anchor, Point before, Point after)
         {
@@ -265,6 +276,10 @@ namespace RS
             {
                 case Keys.Space:
                     BackspaceIsDown = isDown;
+                    if (anchorExist && MouseLeftButtonIsDown)
+                    {
+                        anchorExist = false;
+                    }
                     break;
             }
         }
@@ -301,12 +316,16 @@ namespace RS
                 MouseLeftButtonIsDown = true;
                 locate_mouse = e.Location;
                 selectedId_drag = get_circleID(e.Location);
-                spaceMouseLocate = e.Location;
                 rotateMouseLocate = e.Location;
-            }
-            if (anchorExist)
-            {
-                rotateMouseLocate = e.Location;
+                if (anchorExist)
+                {
+                    rotateMouseLocate = e.Location;
+                }
+                if (BackspaceIsDown)
+                {
+                    spaceMouseLocate = e.Location;
+                    anchorExist = false;
+                }
             }
         }
         protected int get_circleID(Point lotated)

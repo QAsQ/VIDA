@@ -49,8 +49,8 @@ namespace RS
             Cs, //Can sdudy
             Us  //Unable study
         };
-        FillStyle[] fs = new FillStyle[3];
-        public FillStyle[] Fs
+        DrawStyle[] fs = new DrawStyle[3];
+        public DrawStyle[] Fs
         {
             get
             {
@@ -102,7 +102,7 @@ namespace RS
         private List<Skill> skillList = new List<Skill>();
         private List<bool> isLearnList = new List<bool>();
         private List<SkillDrawMode> drawModeList = new List<SkillDrawMode>();
-        private void drawSkill(PointF _center, Skill curr_skill, FillStyle curr_style)
+        private void drawSkill(PointF _center, Skill curr_skill, DrawStyle curr_style)
         {
             Point center = Point.Round(_center);
             int r = size_circle;
@@ -134,7 +134,7 @@ namespace RS
         {
             return formGraphis.MeasureString(name, font_name).ToSize();
         }
-        FillStyle getFillSytle(SkillDrawMode curr)
+        DrawStyle getFillSytle(SkillDrawMode curr)
         {
             switch (curr)
             {
@@ -148,7 +148,7 @@ namespace RS
                     return fs[2];
             }
         }
-        private void DrawArrow(PointF _st, PointF _ed, FillStyle start, FillStyle end)
+        private void DrawArrow(PointF _st, PointF _ed, DrawStyle start, DrawStyle end)
         {
             Point st = Point.Round(_st);
             Point ed = Point.Round(_ed);
@@ -199,7 +199,7 @@ namespace RS
             var button = mid - (Size)perp;
             return new Point[] { nst, top, ed, button };
         }
-        private void DrawArrow(Point[] PointList, FillStyle currStyle)
+        private void DrawArrow(Point[] PointList, DrawStyle currStyle)
         {
             if (currStyle.fill.IsEmpty == false)
             {

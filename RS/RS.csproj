@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorScheme.cs" />
     <Compile Include="ColorView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -112,7 +113,7 @@
     <Compile Include="edgeGetForm.Designer.cs">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FillStyle.cs" />
+    <Compile Include="DrawStyle.cs" />
     <Compile Include="Geometric.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

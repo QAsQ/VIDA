@@ -205,7 +205,7 @@ namespace RS
             if (openScheme.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Color backgroundColor;
-                FillStyle[] fs = new FillStyle[3];
+                DrawStyle[] fs = new DrawStyle[3];
                 StreamReader reader = new StreamReader(openScheme.FileName, Encoding.Default);
                 try
                 {
@@ -215,7 +215,7 @@ namespace RS
                         Color Edge = StringToColor(reader.ReadLine());
                         Color Fill = StringToColor(reader.ReadLine());
                         Color Font = StringToColor(reader.ReadLine());
-                        fs[i] = new FillStyle(Edge, Fill, Font);
+                        fs[i] = new DrawStyle(Edge, Fill, Font);
                     }
                     MainDV.Fs = fs;
                     MainDV.BackgroundColor = backgroundColor;

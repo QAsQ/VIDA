@@ -103,7 +103,7 @@ namespace RS
             resetAllDrawmode();
             reName(skillList.Count- 1);
         }
-        public FillStyle[] Fs
+        public DrawStyle[] Fs
         {
             get
             {
@@ -128,13 +128,13 @@ namespace RS
         void initScheme()
         {
             color_background = ColorTranslator.FromHtml("#86CDE8");
-            fs[0] = new FillStyle(Color.Empty
+            fs[0] = new DrawStyle(Color.Empty
                                , ColorTranslator.FromHtml("#AAAAA2")
                                , ColorTranslator.FromHtml("White"));
-            fs[1] = new FillStyle(Color.Empty
+            fs[1] = new DrawStyle(Color.Empty
                                 , ColorTranslator.FromHtml("#F5F1A5")
                                 , ColorTranslator.FromHtml("#2D35D2"));
-            fs[2] = new FillStyle(Color.Empty
+            fs[2] = new DrawStyle(Color.Empty
                                 , ColorTranslator.FromHtml("#C66A8A")
                                 , ColorTranslator.FromHtml("White"));
         }
@@ -171,7 +171,6 @@ namespace RS
         }
         private void startRename()
         {
-            reNameBox.Font = font_name;
             skillList[selectedId_renameBox].name = reNameBox.Text;
             reNameBox.Hide();
             this.Focus();
@@ -222,6 +221,7 @@ namespace RS
 
         private void reName(int selectedId)
         {
+            reNameBox.Font = font_name;
             string oldName = skillList[selectedId].name;
             Point sizeOfName = (Point)getNameSize(oldName);
             reNameBox.Size = (Size)sizeOfName;

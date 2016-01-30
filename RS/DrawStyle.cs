@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace RS
 {
-    public class FillStyle
+    public class DrawStyle
     {
-        public FillStyle(Color Edge, Color Fill,Color Font)
+        public DrawStyle(Color Edge, Color Fill,Color Font)
         {
             init(Edge, Fill,Font);
         }

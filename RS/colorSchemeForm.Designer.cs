@@ -156,7 +156,7 @@
             // MiniDV
             // 
             this.MiniDV.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(122)))), ((int)(((byte)(146)))));
-            this.MiniDV.Fs = new RS.FillStyle[] {
+            this.MiniDV.Fs = new RS.DrawStyle[] {
         null,
         null,
         null};

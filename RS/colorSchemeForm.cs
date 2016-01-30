@@ -13,7 +13,7 @@ namespace RS
 {
     public partial class colorSchemeForm : Form
     {
-        public void getColor(FillStyle[] _fs, Color bg)
+        public void getColor(DrawStyle[] _fs, Color bg)
         {
             notUserAct = true;
             changeScheme = false;
@@ -29,7 +29,7 @@ namespace RS
             MiniDV.BackgroundColor = back_ground.color;
             MiniDV.Fs = fs;
         }
-        public FillStyle[] Fs
+        public DrawStyle[] Fs
         {
             get
             {
@@ -62,7 +62,7 @@ namespace RS
             changeVisable(false);
         }
         bool notUserAct;
-        FillStyle []fs = new FillStyle[3];
+        DrawStyle []fs = new DrawStyle[3];
         private void Status_SelectedIndexChanged(object sender, EventArgs e)
         {
             saveColor(curr_index);
@@ -72,7 +72,7 @@ namespace RS
             }
             curr_index = Status.SelectedIndex;
         }
-        private void loadStyle(FillStyle fs)
+        private void loadStyle(DrawStyle fs)
         {
             notUserAct = true;
             Fonts.color = fs.font;
@@ -103,7 +103,7 @@ namespace RS
         {
             MiniDV.Flash();
         }
-        public void SchemeChange(FillStyle[] _fs)
+        public void SchemeChange(DrawStyle[] _fs)
         {
             fs = _fs;
         }
