@@ -138,8 +138,6 @@ namespace RS
                                 , ColorTranslator.FromHtml("#C66A8A")
                                 , ColorTranslator.FromHtml("White"));
         }
-        
-
         int selectedId_menu; 
        
         public bool changeLearnState(string biter)

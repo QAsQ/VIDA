@@ -56,6 +56,7 @@
             // 
             // From
             // 
+            this.From.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.From.FormattingEnabled = true;
             this.From.Location = new System.Drawing.Point(10, 12);
             this.From.Name = "From";
@@ -65,6 +66,7 @@
             // 
             // To
             // 
+            this.To.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.To.FormattingEnabled = true;
             this.To.Location = new System.Drawing.Point(133, 12);
             this.To.Name = "To";

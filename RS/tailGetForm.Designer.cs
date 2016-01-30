@@ -70,6 +70,7 @@
             this.Controls.Add(this.To);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.OK);
+            this.MinimumSize = new System.Drawing.Size(275, 108);
             this.Name = "tailGetForm";
             this.Text = "请选择后继";
             this.ResumeLayout(false);

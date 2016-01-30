@@ -83,43 +83,44 @@
             // 
             // Status
             // 
+            this.Status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Status.FormattingEnabled = true;
             this.Status.Items.AddRange(new object[] {
             "已经学习",
             "可以学习",
             "无法学习"});
+            this.Status.SelectedIndexChanged += new System.EventHandler(this.Status_SelectedIndexChanged);
             this.Status.Location = new System.Drawing.Point(9, 11);
             this.Status.Name = "Status";
             this.Status.Size = new System.Drawing.Size(96, 20);
             this.Status.TabIndex = 10;
-            this.Status.SelectedIndexChanged += new System.EventHandler(this.Status_SelectedIndexChanged);
             // 
             // Fonts
             // 
-            //this.Fonts.color = System.Drawing.SystemColors.Control;
+            this.Fonts.ColorChange += new RS.ColorView.ColorChangeHandler(this.Color_Change);
+            this.Fonts.color = System.Drawing.Color.Empty;
             this.Fonts.Location = new System.Drawing.Point(153, 17);
             this.Fonts.Name = "Fonts";
             this.Fonts.Size = new System.Drawing.Size(65, 14);
             this.Fonts.TabIndex = 9;
-            this.Fonts.ColorChange += new ColorView.ColorChangeHandler(Color_Change);
             // 
             // Edge
             // 
-           // this.Edge.color = System.Drawing.SystemColors.Control;
+            this.Edge.ColorChange += new RS.ColorView.ColorChangeHandler(this.Color_Change);
+            this.Edge.color = System.Drawing.Color.Empty;
             this.Edge.Location = new System.Drawing.Point(380, 17);
             this.Edge.Name = "Edge";
             this.Edge.Size = new System.Drawing.Size(65, 14);
             this.Edge.TabIndex = 7;
-            this.Edge.ColorChange += new ColorView.ColorChangeHandler(Color_Change);
             // 
             // Fill
             // 
-           // this.Fill.color = System.Drawing.SystemColors.Control;
+            this.Fill.ColorChange += new RS.ColorView.ColorChangeHandler(this.Color_Change);
+            this.Fill.color = System.Drawing.Color.Empty;
             this.Fill.Location = new System.Drawing.Point(267, 17);
             this.Fill.Name = "Fill";
             this.Fill.Size = new System.Drawing.Size(65, 14);
             this.Fill.TabIndex = 6;
-            this.Fill.ColorChange += new ColorView.ColorChangeHandler(Color_Change);
             // 
             // 字色
             // 
@@ -143,6 +144,7 @@
             // 
             // Flash
             // 
+            this.Flash.Click += new System.EventHandler(this.Flash_Click);
             this.Flash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Flash.Location = new System.Drawing.Point(12, 363);
             this.Flash.Name = "Flash";
@@ -150,7 +152,6 @@
             this.Flash.TabIndex = 8;
             this.Flash.Text = "刷新";
             this.Flash.UseVisualStyleBackColor = true;
-            this.Flash.Click += new System.EventHandler(this.Flash_Click);
             // 
             // MiniDV
             // 
@@ -167,12 +168,12 @@
             // 
             // back_ground
             // 
-            //this.back_ground.color = System.Drawing.SystemColors.Control;
+            this.back_ground.ColorChange += new RS.ColorView.ColorChangeHandler(this.Color_Change);
+            this.back_ground.color = System.Drawing.Color.Empty;
             this.back_ground.Location = new System.Drawing.Point(55, 25);
             this.back_ground.Name = "back_ground";
             this.back_ground.Size = new System.Drawing.Size(65, 14);
             this.back_ground.TabIndex = 10;
-            this.back_ground.ColorChange += new ColorView.ColorChangeHandler(Color_Change);
             // 
             // OK
             // 
@@ -213,6 +214,7 @@
             this.SkillColor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

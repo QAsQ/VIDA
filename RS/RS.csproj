@@ -75,11 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="colorGet.cs">
+    <Compile Include="ColorView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="colorGet.Designer.cs">
-      <DependentUpon>colorGet.cs</DependentUpon>
+    <Compile Include="ColorView.Designer.cs">
+      <DependentUpon>ColorView.cs</DependentUpon>
     </Compile>
     <Compile Include="codeGet.cs">
       <SubType>Form</SubType>
@@ -147,8 +147,8 @@
     <Compile Include="tailGetForm.Designer.cs">
       <DependentUpon>tailGetForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="colorGet.resx">
-      <DependentUpon>colorGet.cs</DependentUpon>
+    <EmbeddedResource Include="ColorView.resx">
+      <DependentUpon>ColorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="codeGet.resx">
       <DependentUpon>codeGet.cs</DependentUpon>

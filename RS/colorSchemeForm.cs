@@ -15,11 +15,13 @@ namespace RS
     {
         public void getColor(FillStyle[] _fs, Color bg)
         {
-            changeColor = false;
+            notUserAct = true;
+            changeScheme = false;
             back_ground.color = bg;
             fs = _fs;
             UpdateColorScheme();
             this.ShowDialog();
+            notUserAct = false;
         }
 
         private void UpdateColorScheme()
@@ -45,36 +47,38 @@ namespace RS
         {
             get
             {
-                return changeColor;
+                return changeScheme;
             }
         }
         List<Skill> sample = new List<Skill>();
         public colorSchemeForm()
         {
+            notUserAct = true;
             InitializeComponent();
+            notUserAct = false;
             curr_index = -1;
             Fonts.none = true;
             back_ground.none = true;
             changeVisable(false);
         }
-        bool userAct;
+        bool notUserAct;
         FillStyle []fs = new FillStyle[3];
         private void Status_SelectedIndexChanged(object sender, EventArgs e)
         {
             saveColor(curr_index);
             if (Status.SelectedIndex != -1)
             {
-                userAct = false;
                 loadStyle(fs[Status.SelectedIndex]);
-                userAct = true;
             }
             curr_index = Status.SelectedIndex;
         }
         private void loadStyle(FillStyle fs)
         {
+            notUserAct = true;
             Fonts.color = fs.font;
             Edge.color = fs.edge;
             Fill.color = fs.fill;
+            notUserAct = false;
             changeVisable(true);
         }
         int curr_index;
@@ -109,21 +113,21 @@ namespace RS
             UpdateColorScheme();
             MiniDV.Flash();
         }
-        bool changeColor;
+        bool changeScheme;
         private void OK_Click(object sender, EventArgs e)
         {
-            changeColor = true;
+            changeScheme = true;
             Hide();
         }
 
         private void Cancel_Click(object sender, EventArgs e)
         {
-            changeColor = false;
+            changeScheme = false;
             Hide();
         }
         private void Color_Change(object sender)
         {
-            if (MiniDV.Visible == true && userAct)
+            if (!notUserAct)
             {
                 saveColor(curr_index);
                 UpdateColorScheme();

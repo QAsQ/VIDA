@@ -38,8 +38,7 @@ namespace RS
                     colorCheck.CheckState = CheckState.Checked;
                     colorButton.BackColor = value;
                 }
-                if(Visible == true)
-                    ColorChange(null);
+                ColorChange(null);
             }
         }
         private void colorChange_Click(object sender, EventArgs e)
