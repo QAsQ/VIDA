@@ -193,7 +193,6 @@
             // 
             this.MainDV.AutoSize = true;
             this.MainDV.BackColor = System.Drawing.SystemColors.Control;
-            this.MainDV.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(122)))), ((int)(((byte)(146)))));
             this.MainDV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainDV.Location = new System.Drawing.Point(0, 25);
             this.MainDV.Name = "MainDV";

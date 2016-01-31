@@ -28,40 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.colorButton = new System.Windows.Forms.Button();
-            this.colorCheck = new System.Windows.Forms.CheckBox();
-            this.colorGet = new System.Windows.Forms.ColorDialog();
+            this.ColorGeter = new System.Windows.Forms.ColorDialog();
+            this.checker = new System.Windows.Forms.CheckBox();
+            this.button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // colorButton
+            // checker
             // 
-            this.colorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.colorButton.Location = new System.Drawing.Point(0, 0);
-            this.colorButton.Name = "colorButton";
-            this.colorButton.Size = new System.Drawing.Size(40, 14);
-            this.colorButton.TabIndex = 0;
-            this.colorButton.UseVisualStyleBackColor = true;
-            this.colorButton.Click += new System.EventHandler(this.colorChange_Click);
+            this.checker.AutoSize = true;
+            this.checker.Location = new System.Drawing.Point(0, 9);
+            this.checker.Name = "checker";
+            this.checker.Size = new System.Drawing.Size(15, 14);
+            this.checker.TabIndex = 0;
+            this.checker.UseVisualStyleBackColor = true;
+            this.checker.CheckStateChanged += new System.EventHandler(this.checker_CheckStateChanged);
             // 
-            // colorCheck
+            // button
             // 
-            this.colorCheck.AutoSize = true;
-            this.colorCheck.Location = new System.Drawing.Point(46, 0);
-            this.colorCheck.Name = "colorCheck";
-            this.colorCheck.Size = new System.Drawing.Size(15, 14);
-            this.colorCheck.TabIndex = 1;
-            this.colorCheck.UseVisualStyleBackColor = true;
-            this.colorCheck.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.colorCheck.CheckedChanged += new System.EventHandler(this.checker_CheckedChanged);
+            this.button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button.Location = new System.Drawing.Point(21, 3);
+            this.button.Name = "button";
+            this.button.Size = new System.Drawing.Size(75, 25);
+            this.button.TabIndex = 1;
+            this.button.UseVisualStyleBackColor = true;
+            this.button.Click += new System.EventHandler(this.button_Click);
             // 
             // ColorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.colorCheck);
-            this.Controls.Add(this.colorButton);
+            this.Controls.Add(this.button);
+            this.Controls.Add(this.checker);
             this.Name = "ColorView";
-            this.Size = new System.Drawing.Size(65, 14);
+            this.Size = new System.Drawing.Size(101, 31);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,8 +68,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button colorButton;
-        private System.Windows.Forms.CheckBox colorCheck;
-        private System.Windows.Forms.ColorDialog colorGet;
+        private System.Windows.Forms.ColorDialog ColorGeter;
+        private System.Windows.Forms.CheckBox checker;
+        private System.Windows.Forms.Button button;
     }
 }

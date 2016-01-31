@@ -50,6 +50,7 @@ UI
 	+when scale too learge will srash
 	remind save in file when close ( dam,vdas )
 	self-adaptation font size
+	when some skill is out of windows, try to remind user where it is
 	muti-tab page
 	short key to flash
 	add new DrawMode(selected)

@@ -12,70 +12,60 @@ namespace RS
 {
     public partial class ColorView : UserControl
     {
-        public delegate void ColorChangeHandler(object sender);
-        public event ColorChangeHandler ColorChange;
-        public ColorView()
-        {
-            InitializeComponent();
-        }
-        Color colors;
+        public delegate EventHandler ColorChange(object sender);
+        public event ColorChange userChange;
         public Color color
         {
             get
             {
-                return colors;
-            }
-            set
-            {
-                colors = value;
-                if (value.IsEmpty)
-                {
-                    colorCheck.CheckState = CheckState.Unchecked;
-                    colorButton.BackColor = DefaultBackColor;
-                }
-                else
-                {
-                    colorCheck.CheckState = CheckState.Checked;
-                    colorButton.BackColor = value;
-                }
-                ColorChange(null);
+                return button.BackColor;
             }
         }
-        private void colorChange_Click(object sender, EventArgs e)
+        bool userAct;
+        public ColorView()
         {
-            colorGet.Color = color;
-            colorGet.ShowDialog();
-            color = colorGet.Color;
-            colorButton.BackColor = color;
+            userAct = false;
+            InitializeComponent();
+            checker.CheckState = CheckState.Unchecked;
+            button.Enabled = false;
+            button.BackColor = Color.Empty; 
         }
-        private void checker_CheckedChanged(object sender, EventArgs e)
+        private void checker_CheckStateChanged(object sender, EventArgs e)
         {
-            if (colorCheck.CheckState == CheckState.Checked)
+            if (checker.CheckState == CheckState.Unchecked)
             {
-                colorButton.Enabled = true;
-                colorButton.BackColor = color;
+                button.BackColor = Color.Empty;
+                button.Enabled = false;
+            }
+            if (checker.CheckState == CheckState.Checked)
+            {
+                button.Enabled = true;
+            }
+            if (userAct)
+                userChange(this);
+        }
+        private void button_Click(object sender, EventArgs e)
+        {
+            ColorGeter.Color = button.BackColor;
+            ColorGeter.ShowDialog();
+            button.BackColor = ColorGeter.Color;
+            userChange(this);
+        }
+        public void init(Color color)
+        {
+            userAct = false;
+            button.BackColor = color;
+            if (color.IsEmpty)
+            {
+                checker.CheckState = CheckState.Unchecked;
+                button.Enabled = false;
             }
             else
             {
-                colorButton.BackColor = DefaultBackColor;
-                colorButton.Enabled = false;
-                color = Color.Empty;
+                checker.CheckState = CheckState.Checked;
+                button.Enabled = true;
             }
-        }
-        public bool none
-        {
-            set
-            {
-                if (value == true)
-                {
-                    colorCheck.Visible = false;
-                    colorButton.Enabled = true;
-                }
-                else
-                {
-                    colorCheck.Visible = true;
-                }
-            }
+            userAct = true;
         }
     }
 }

@@ -11,7 +11,11 @@ namespace RS
     {
         public DrawStyle(Color Edge, Color Fill,Color Font)
         {
-            init(Edge, Fill,Font);
+            initFromColor(Edge, Fill,Font);
+        }
+        public DrawStyle(string Edge, string Fill, string Font)
+        {
+            initFromString(Edge, Fill, Font);
         }
         public Color font;
         public Color edge;
@@ -35,11 +39,21 @@ namespace RS
         {
             font = color;
         }
-        public void init(Color Edge, Color Fill,Color Font)
+        public void initFromColor(Color Edge, Color Fill,Color Font)
         {
             EdgeInit(Edge);
             FillInit(Fill);
             FontInit(Font);
+        }
+        Color stringToColor(string col)
+        {
+            return ColorTranslator.FromHtml(col);
+        }
+        public void initFromString(string Edge, string Fill, string Font)
+        {
+            edge = stringToColor(Edge);
+            fill = stringToColor(Fill);
+            font = stringToColor(Font);
         }
     }
 }

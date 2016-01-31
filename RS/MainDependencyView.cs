@@ -41,10 +41,10 @@ namespace RS
         }
         public MainDependencyView()
         {
+            initScheme();
             InitializeComponent();
             Usermode = initUsermode;
             reNameBox.Font = font_name;
-            initScheme();
             ButtonStateInit();
             selectedId_menu = selectedId_None;
             selectedId_renameBox = selectedId_None;
@@ -103,40 +103,12 @@ namespace RS
             resetAllDrawmode();
             reName(skillList.Count- 1);
         }
-        public DrawStyle[] Fs
-        {
-            get
-            {
-                return fs;
-            }
-            set
-            {
-                fs = value;
-            }
-        }
-        public Color BackgroundColor
-        {
-            get
-            {
-                return color_background;
-            }
-            set
-            {
-                color_background = value;
-            }
-        }
         void initScheme()
         {
-            color_background = ColorTranslator.FromHtml("#86CDE8");
-            fs[0] = new DrawStyle(Color.Empty
-                               , ColorTranslator.FromHtml("#AAAAA2")
-                               , ColorTranslator.FromHtml("White"));
-            fs[1] = new DrawStyle(Color.Empty
-                                , ColorTranslator.FromHtml("#F5F1A5")
-                                , ColorTranslator.FromHtml("#2D35D2"));
-            fs[2] = new DrawStyle(Color.Empty
-                                , ColorTranslator.FromHtml("#C66A8A")
-                                , ColorTranslator.FromHtml("White"));
+            string[] lists = new string[] { "#86CDE8", "", "#AAAAA2", "White",
+                                                        "", "#F5F1A5", "#2D35D2",
+                                                        "", "#C66A8A", "White" };
+            colorScheme.initInString(lists);
         }
         int selectedId_menu; 
        

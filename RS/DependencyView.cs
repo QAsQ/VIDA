@@ -20,6 +20,7 @@ namespace RS
             circleR = 50;
             font_name = new Font(fontName, size_font);
         }
+        protected ColorScheme colorScheme = new ColorScheme();
         protected bool BackspaceIsDown;
         protected bool MouseLeftButtonIsDown; 
         protected  List<PointF> circleCenter = new List<PointF>();
@@ -32,8 +33,17 @@ namespace RS
             Cs, //Can sdudy
             Us  //Unable study
         };
-        protected  DrawStyle[] fs = new DrawStyle[3];
-        protected Color color_background;
+        public ColorScheme Scheme
+        {
+            get
+            {
+                return colorScheme;
+            }
+            set
+            {
+                colorScheme = value;
+            }
+        }
         private double circleR;
         public int size_circle
         {
@@ -128,13 +138,13 @@ namespace RS
             switch (curr)
             {
                 case SkillDrawMode.Hs:
-                    return fs[0];
+                    return colorScheme.Hs;
                 case SkillDrawMode.Cs:
-                    return fs[1];
+                    return colorScheme.Cs;
                 case SkillDrawMode.Us:
-                    return fs[2];
+                    return colorScheme.Us;
                 default:
-                    return fs[2];
+                    return colorScheme.Hs;
             }
         }
         Bitmap BUF;
@@ -149,7 +159,7 @@ namespace RS
                 return;
             }
             buffer = Graphics.FromImage(BUF);
-            buffer.Clear(color_background);
+            buffer.Clear(colorScheme.BackGround);
             for (int i = skillList.Count - 1; i >= 0; i--)
             {
                 List<int> currTail = skillList[i].getTail;

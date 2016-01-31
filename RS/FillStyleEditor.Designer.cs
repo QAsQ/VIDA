@@ -1,6 +1,6 @@
 ﻿namespace RS
 {
-    partial class MiniDependencyView
+    partial class FillStyleEditor
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -30,19 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // MiniDependencyView
+            // FillStyleEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "MiniDependencyView";
-            this.Size = new System.Drawing.Size(349, 303);
-            this.Load += new System.EventHandler(this.MiniDependencyView_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MiniDependencyView_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MiniDependencyView_KeyUp);
-            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MiniDependencyView_MouseDoubleClick);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MiniDependencyView_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MiniDependencyView_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MiniDependencyView_MouseUp);
+            this.Name = "FillStyleEditor";
+            this.Size = new System.Drawing.Size(356, 60);
             this.ResumeLayout(false);
 
         }

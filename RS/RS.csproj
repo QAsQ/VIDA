@@ -76,12 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorScheme.cs" />
-    <Compile Include="ColorView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ColorView.Designer.cs">
-      <DependentUpon>ColorView.cs</DependentUpon>
-    </Compile>
     <Compile Include="codeGet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,11 +88,11 @@
     <Compile Include="codeShow.Designer.cs">
       <DependentUpon>codeShow.cs</DependentUpon>
     </Compile>
-    <Compile Include="colorSchemeForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="ColorView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="colorSchemeForm.Designer.cs">
-      <DependentUpon>colorSchemeForm.cs</DependentUpon>
+    <Compile Include="ColorView.Designer.cs">
+      <DependentUpon>ColorView.cs</DependentUpon>
     </Compile>
     <Compile Include="denCode.cs" />
     <Compile Include="DependencyView.cs">
@@ -114,18 +108,18 @@
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DrawStyle.cs" />
+    <Compile Include="FillStyleEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FillStyleEditor.Designer.cs">
+      <DependentUpon>FillStyleEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Geometric.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MiniDependencyView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MiniDependencyView.Designer.cs">
-      <DependentUpon>MiniDependencyView.cs</DependentUpon>
     </Compile>
     <Compile Include="PasswordForm.cs">
       <SubType>Form</SubType>
@@ -141,6 +135,12 @@
     <Compile Include="MainDependencyView.Designer.cs">
       <DependentUpon>MainDependencyView.cs</DependentUpon>
     </Compile>
+    <Compile Include="SchemeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SchemeEditor.Designer.cs">
+      <DependentUpon>SchemeEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Skill.cs" />
     <Compile Include="tailGetForm.cs">
       <SubType>Form</SubType>
@@ -148,17 +148,14 @@
     <Compile Include="tailGetForm.Designer.cs">
       <DependentUpon>tailGetForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ColorView.resx">
-      <DependentUpon>ColorView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="codeGet.resx">
       <DependentUpon>codeGet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="codeShow.resx">
       <DependentUpon>codeShow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="colorSchemeForm.resx">
-      <DependentUpon>colorSchemeForm.cs</DependentUpon>
+    <EmbeddedResource Include="ColorView.resx">
+      <DependentUpon>ColorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DependencyView.resx">
       <DependentUpon>DependencyView.cs</DependentUpon>
@@ -166,11 +163,11 @@
     <EmbeddedResource Include="edgeGetForm.resx">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FillStyleEditor.resx">
+      <DependentUpon>FillStyleEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MiniDependencyView.resx">
-      <DependentUpon>MiniDependencyView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordForm.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>
@@ -187,6 +184,9 @@
     </Compile>
     <EmbeddedResource Include="MainDependencyView.resx">
       <DependentUpon>MainDependencyView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SchemeEditor.resx">
+      <DependentUpon>SchemeEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tailGetForm.resx">
       <DependentUpon>tailGetForm.cs</DependentUpon>

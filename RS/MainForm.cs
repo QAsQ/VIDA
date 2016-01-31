@@ -160,14 +160,12 @@ namespace RS
 
         private void 编辑颜色_Click(object sender, EventArgs e)
         {
-            colorSchemeForm colorForm = new colorSchemeForm();
-            colorForm.getColor(MainDV.Fs, MainDV.BackgroundColor);
-            if (colorForm.ChangeColor)
-            {
-                MainDV.Fs = colorForm.Fs;
-                MainDV.BackgroundColor = colorForm.BackgroundColor;
-                MainDV.Flash();
-            }
+            //colorSchemeForm colorForm = new colorSchemeForm();
+            //colorForm.getColor(MainDV.Scheme);
+            //if (colorForm.ChangeColor)
+            //{
+            //    MainDV.Scheme = colorForm.colorScheme;
+            //}
         }
 
         private void 保存到文件_Click(object sender, EventArgs e)
@@ -175,12 +173,10 @@ namespace RS
             if (saveScheme.ShowDialog() == DialogResult.OK)
             {
                 var writer = new StreamWriter(saveScheme.FileName, false, Encoding.Default);
-                writer.WriteLine(colorToString(MainDV.BackgroundColor));
-                for (int i = 0; i < 3; i++)
+                string[] lists = MainDV.Scheme.toStringList();
+                for (int i = 0; i < lists.Length; i++)
                 {
-                    writer.WriteLine(colorToString(MainDV.Fs[i].edge));
-                    writer.WriteLine(colorToString(MainDV.Fs[i].fill));
-                    writer.WriteLine(colorToString(MainDV.Fs[i].font));
+                    writer.WriteLine(lists[i]);
                 }
                 writer.Flush();
                 writer.Close();
@@ -188,37 +184,27 @@ namespace RS
         }
         string colorToString(Color color)
         {
-            if (color.IsEmpty)
-                return "*";
-            else
-                return ColorTranslator.ToHtml(color);
+            return ColorTranslator.ToHtml(color);
         }
         Color StringToColor(string s)
         {
-            if (s == "*")
-                return Color.Empty;
-            else
-                return ColorTranslator.FromHtml(s);
+            return ColorTranslator.FromHtml(s);
         }
         private void 从文件读取_Click(object sender, EventArgs e)
         {
             if (openScheme.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Color backgroundColor;
-                DrawStyle[] fs = new DrawStyle[3];
+                ColorScheme scheme = new ColorScheme();
                 StreamReader reader = new StreamReader(openScheme.FileName, Encoding.Default);
+                string[] lists = new string[10];
                 try
                 {
-                    backgroundColor = StringToColor(reader.ReadLine());
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < 10; i++)
                     {
-                        Color Edge = StringToColor(reader.ReadLine());
-                        Color Fill = StringToColor(reader.ReadLine());
-                        Color Font = StringToColor(reader.ReadLine());
-                        fs[i] = new DrawStyle(Edge, Fill, Font);
+                        lists[i] = reader.ReadLine();
                     }
-                    MainDV.Fs = fs;
-                    MainDV.BackgroundColor = backgroundColor;
+                    scheme.initInString(lists);
+                    MainDV.Scheme = scheme;
                 }
                 catch (Exception ex)
                 {
