@@ -108,11 +108,11 @@
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DrawStyle.cs" />
-    <Compile Include="FillStyleEditor.cs">
+    <Compile Include="DrawStyleEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FillStyleEditor.Designer.cs">
-      <DependentUpon>FillStyleEditor.cs</DependentUpon>
+    <Compile Include="DrawStyleEditor.Designer.cs">
+      <DependentUpon>DrawStyleEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Geometric.cs" />
     <Compile Include="MainForm.cs">
@@ -163,8 +163,8 @@
     <EmbeddedResource Include="edgeGetForm.resx">
       <DependentUpon>edgeGetForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FillStyleEditor.resx">
-      <DependentUpon>FillStyleEditor.cs</DependentUpon>
+    <EmbeddedResource Include="DrawStyleEditor.resx">
+      <DependentUpon>DrawStyleEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

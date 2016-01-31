@@ -36,7 +36,7 @@
             // checker
             // 
             this.checker.AutoSize = true;
-            this.checker.Location = new System.Drawing.Point(0, 9);
+            this.checker.Location = new System.Drawing.Point(57, 4);
             this.checker.Name = "checker";
             this.checker.Size = new System.Drawing.Size(15, 14);
             this.checker.TabIndex = 0;
@@ -46,9 +46,9 @@
             // button
             // 
             this.button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button.Location = new System.Drawing.Point(21, 3);
+            this.button.Location = new System.Drawing.Point(0, 0);
             this.button.Name = "button";
-            this.button.Size = new System.Drawing.Size(75, 25);
+            this.button.Size = new System.Drawing.Size(52, 21);
             this.button.TabIndex = 1;
             this.button.UseVisualStyleBackColor = true;
             this.button.Click += new System.EventHandler(this.button_Click);
@@ -60,7 +60,7 @@
             this.Controls.Add(this.button);
             this.Controls.Add(this.checker);
             this.Name = "ColorView";
-            this.Size = new System.Drawing.Size(101, 31);
+            this.Size = new System.Drawing.Size(77, 21);
             this.ResumeLayout(false);
             this.PerformLayout();
 

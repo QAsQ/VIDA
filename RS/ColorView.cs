@@ -12,8 +12,8 @@ namespace RS
 {
     public partial class ColorView : UserControl
     {
-        public delegate EventHandler ColorChange(object sender);
-        public event ColorChange userChange;
+        public delegate void ColorChangeHandler(object sender);
+        public event ColorChangeHandler userChange;
         public Color color
         {
             get
@@ -28,7 +28,7 @@ namespace RS
             InitializeComponent();
             checker.CheckState = CheckState.Unchecked;
             button.Enabled = false;
-            button.BackColor = Color.Empty; 
+            button.BackColor = Color.Empty;
         }
         private void checker_CheckStateChanged(object sender, EventArgs e)
         {
@@ -65,6 +65,13 @@ namespace RS
                 checker.CheckState = CheckState.Checked;
                 button.Enabled = true;
             }
+            userAct = true;
+        }
+        public void nonempty()
+        {
+            userAct = false;
+            checker.Visible = false;
+            button.Enabled = true;
             userAct = true;
         }
     }
