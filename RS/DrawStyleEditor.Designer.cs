@@ -29,53 +29,86 @@
         private void InitializeComponent()
         {
             this.FontCV = new RS.ColorView();
-            this.FillCV = new RS.ColorView();
-            this.EdgeCV = new RS.ColorView();
+            this.SkillFillCV = new RS.ColorView();
+            this.SkillEdgeCV = new RS.ColorView();
+            this.ArrowLineCV = new RS.ColorView();
+            this.ArrowEdgeCV = new RS.ColorView();
+            this.ArrowFillCV = new RS.ColorView();
             this.SuspendLayout();
             // 
             // FontCV
             // 
-            this.FontCV.Location = new System.Drawing.Point(220, 0);
+            this.FontCV.Location = new System.Drawing.Point(0, 0);
             this.FontCV.Name = "FontCV";
             this.FontCV.Size = new System.Drawing.Size(110, 25);
             this.FontCV.TabIndex = 2;
-            this.FontCV.Texts = "null";
+            this.FontCV.Texts = "字色";
             // 
-            // FillCV
+            // SkillFillCV
             // 
-            this.FillCV.Location = new System.Drawing.Point(110, 0);
-            this.FillCV.Name = "FillCV";
-            this.FillCV.Size = new System.Drawing.Size(110, 25);
-            this.FillCV.TabIndex = 1;
-            this.FillCV.Texts = "null";
+            this.SkillFillCV.Location = new System.Drawing.Point(110, 0);
+            this.SkillFillCV.Name = "SkillFillCV";
+            this.SkillFillCV.Size = new System.Drawing.Size(110, 25);
+            this.SkillFillCV.TabIndex = 1;
+            this.SkillFillCV.Texts = "填充";
             // 
-            // EdgeCV
+            // SkillEdgeCV
             // 
-            this.EdgeCV.Location = new System.Drawing.Point(0, 0);
-            this.EdgeCV.Name = "EdgeCV";
-            this.EdgeCV.Size = new System.Drawing.Size(110, 25);
-            this.EdgeCV.TabIndex = 0;
-            this.EdgeCV.Texts = "null";
-            this.EdgeCV.UseWaitCursor = true;
+            this.SkillEdgeCV.Location = new System.Drawing.Point(220, 0);
+            this.SkillEdgeCV.Name = "SkillEdgeCV";
+            this.SkillEdgeCV.Size = new System.Drawing.Size(110, 25);
+            this.SkillEdgeCV.TabIndex = 0;
+            this.SkillEdgeCV.Texts = "描边";
+            this.SkillEdgeCV.UseWaitCursor = true;
+            // 
+            // ArrowLineCV
+            // 
+            this.ArrowLineCV.Location = new System.Drawing.Point(0, 29);
+            this.ArrowLineCV.Name = "ArrowLineCV";
+            this.ArrowLineCV.Size = new System.Drawing.Size(110, 25);
+            this.ArrowLineCV.TabIndex = 3;
+            this.ArrowLineCV.Texts = "null";
+            // 
+            // ArrowEdgeCV
+            // 
+            this.ArrowEdgeCV.Location = new System.Drawing.Point(110, 31);
+            this.ArrowEdgeCV.Name = "ArrowEdgeCV";
+            this.ArrowEdgeCV.Size = new System.Drawing.Size(110, 25);
+            this.ArrowEdgeCV.TabIndex = 4;
+            this.ArrowEdgeCV.Texts = "null";
+            // 
+            // ArrowFillCV
+            // 
+            this.ArrowFillCV.Location = new System.Drawing.Point(220, 29);
+            this.ArrowFillCV.Name = "ArrowFillCV";
+            this.ArrowFillCV.Size = new System.Drawing.Size(110, 25);
+            this.ArrowFillCV.TabIndex = 5;
+            this.ArrowFillCV.Texts = "null";
             // 
             // DrawStyleEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ArrowFillCV);
+            this.Controls.Add(this.ArrowEdgeCV);
+            this.Controls.Add(this.ArrowLineCV);
             this.Controls.Add(this.FontCV);
-            this.Controls.Add(this.FillCV);
-            this.Controls.Add(this.EdgeCV);
+            this.Controls.Add(this.SkillFillCV);
+            this.Controls.Add(this.SkillEdgeCV);
             this.Name = "DrawStyleEditor";
-            this.Size = new System.Drawing.Size(330, 25);
+            this.Size = new System.Drawing.Size(330, 60);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ColorView EdgeCV;
-        private ColorView FillCV;
+        private ColorView SkillEdgeCV;
+        private ColorView SkillFillCV;
         private ColorView FontCV;
+        private ColorView ArrowLineCV;
+        private ColorView ArrowEdgeCV;
+        private ColorView ArrowFillCV;
 
 
 

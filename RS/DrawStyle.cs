@@ -11,55 +11,49 @@ namespace RS
     {
         public DrawStyle()
         {
-            font = Color.Empty;
-            edge = Color.Empty;
-            fill = Color.Empty;
+            Font = Color.Empty;
+            SkillEdge = Color.Empty;
+            SkillFill = Color.Empty;
+            ArrowFill = Color.Empty;
+            ArrowEdge = Color.Empty;
+            ArrowFill = Color.Empty;
         }
-        public DrawStyle(Color Edge, Color Fill,Color Font)
+        public DrawStyle(Color Font, Color SkillFill, Color SkillEdge,Color ArrowLine,Color ArrowEdge,Color ArrowFill)
         {
-            initFromColor(Edge, Fill,Font);
+            initFromColor(Font, SkillFill, SkillEdge,ArrowLine,ArrowEdge,ArrowFill);
         }
-        public DrawStyle(string Edge, string Fill, string Font)
+        public DrawStyle(string Font, string SkillFill, string SkillEdge,string ArrowLine,string ArrowEdge,string ArrowFill)
         {
-            initFromString(Edge, Fill, Font);
+            initFromString(Font, SkillFill, SkillEdge,ArrowLine,ArrowEdge,ArrowFill);
         }
-        public Color font;
-        public Color edge;
-        public Color fill;
-        public void EdgeClear()
+        public const int length = 6;
+        public Color Font;
+        public Color SkillEdge;
+        public Color SkillFill;
+        public Color ArrowLine;
+        public Color ArrowEdge;
+        public Color ArrowFill;
+        public void initFromColor(Color font, Color skillFill, Color skillEdge,Color arrowLine,Color arrowEdge,Color arrowFill)
         {
-            edge = Color.Empty;
-        }
-        public void EdgeInit(Color color)
-        {
-            edge = color;
-        }
-        public void FillClear(){
-            fill = Color.Empty;
-        }
-        public void FillInit(Color color)
-        {
-            fill = color;
-        }
-        public void FontInit(Color color)
-        {
-            font = color;
-        }
-        public void initFromColor(Color Edge, Color Fill,Color Font)
-        {
-            EdgeInit(Edge);
-            FillInit(Fill);
-            FontInit(Font);
+            Font = font;
+            SkillFill = skillFill;
+            SkillEdge = skillEdge;
+            ArrowLine = arrowLine;
+            ArrowEdge = arrowEdge;
+            ArrowFill = arrowFill;
         }
         Color stringToColor(string col)
         {
             return ColorTranslator.FromHtml(col);
         }
-        public void initFromString(string Edge, string Fill, string Font)
+        public void initFromString(string font, string skillFill, string skillEdge,string arrowLine,string arrowEdge,string arrowFill)
         {
-            edge = stringToColor(Edge);
-            fill = stringToColor(Fill);
-            font = stringToColor(Font);
+            SkillEdge = stringToColor(skillEdge);
+            SkillFill = stringToColor(skillFill);
+            Font = stringToColor(font);
+            ArrowLine = stringToColor(arrowLine);
+            ArrowEdge = stringToColor(arrowEdge);
+            ArrowFill = stringToColor(arrowFill);
         }
     }
 }

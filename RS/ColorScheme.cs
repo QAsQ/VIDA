@@ -14,6 +14,12 @@ namespace RS
             bg = BackGround;
             ds[0] = ds[1] = ds[2] = new DrawStyle();
         }
+        public ColorScheme(ColorScheme _scheme)
+        {
+            this._scheme = _scheme;
+            ds = _scheme.ds;
+            this.bg= _scheme.BackGround;
+        }
         DrawStyle []ds = new DrawStyle[3];
         public DrawStyle Us
         {
@@ -37,6 +43,7 @@ namespace RS
             }
         }
         Color bg;
+        private ColorScheme _scheme;
         public Color BackGround
         {
             get
@@ -59,9 +66,15 @@ namespace RS
         public void initInString(string[] lists)
         {
             bg = ColorTranslator.FromHtml(lists[0]);
+            int DSlength = DrawStyle.length;
             for (int i = 0; i < 3; i++)
             {
-                ds[i] = new DrawStyle(lists[i * 3 + 1], lists[i * 3 + 2], lists[i * 3 + 3]);
+                ds[i] = new DrawStyle(lists[i * DSlength + 1]
+                                    ,lists[i * DSlength + 2]
+                                    ,lists[i * DSlength + 3]
+                                    ,lists[i * DSlength + 4]
+                                    ,lists[i * DSlength + 5]
+                                    ,lists[i * DSlength + 6]);
             }
         }
         public string[] toStringList()
@@ -70,6 +83,6 @@ namespace RS
             string[] lists = new string[10];
             return lists;
         }
-
+        
     }
 }

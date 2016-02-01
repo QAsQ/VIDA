@@ -79,20 +79,20 @@ namespace RS
             int stx = center.X - r, sty = center.Y - r;
             int d = r * 2;
             Rectangle rect = new Rectangle(stx, sty, d, d);
-            if (curr_style.edge.IsEmpty == false)
+            if (curr_style.SkillEdge.IsEmpty == false)
             {
                 Pen edgePen;
-                edgePen = new Pen(curr_style.edge);
+                edgePen = new Pen(curr_style.SkillEdge);
                 edgePen.Width = lineW;
                 buffer.DrawEllipse(edgePen, rect);
             }
-            if (curr_style.fill.IsEmpty == false)
+            if (curr_style.SkillFill.IsEmpty == false)
             {
-                Brush fillBush = new SolidBrush(curr_style.fill);
+                Brush fillBush = new SolidBrush(curr_style.SkillFill);
                 buffer.FillEllipse(fillBush, rect);
             }
             Brush fontbush;
-            fontbush = new SolidBrush(curr_style.font);
+            fontbush = new SolidBrush(curr_style.Font);
 
             Point fontSize = (Point)getNameSize(curr_skill.name);
             Point DrawStringPoint = center;
@@ -105,30 +105,33 @@ namespace RS
         {
             formGraphis = CreateGraphics();
         }
-        private void DrawArrow(PointF _st, PointF _ed, DrawStyle start, DrawStyle end)
+        private void DrawArrow(PointF _st, PointF _ed, DrawStyle start)
         {
             Point st = Point.Round(_st);
             Point ed = Point.Round(_ed);
             int length = Geom.Distance(st, ed);
             if (length <= size_circle * 2)
                 return;
-            Pen edPen = new Pen(end.fill);
-            edPen.Width = lineW;
             Point[] pointList = Geom.getArrowHead(st, ed, size_circle);
             Geom.scaleLine(ref st, ref ed, size_circle);
-            buffer.DrawLine(edPen, st, pointList[0]);
+            if (start.ArrowLine.IsEmpty == false)
+            {
+                Pen edPen = new Pen(start.ArrowLine);
+                edPen.Width = lineW;
+                buffer.DrawLine(edPen, st, pointList[0]);
+            }
             DrawArrow(pointList, start);
         }
         private void DrawArrow(Point[] PointList, DrawStyle currStyle)
         {
-            if (currStyle.fill.IsEmpty == false)
+            if (currStyle.ArrowFill.IsEmpty == false)
             {
-                Brush fillBush = new SolidBrush(currStyle.fill);
+                Brush fillBush = new SolidBrush(currStyle.ArrowFill);
                 buffer.FillPolygon(fillBush, PointList);
             }
-            if (currStyle.edge.IsEmpty == false)
+            if (currStyle.ArrowEdge.IsEmpty == false)
             {
-                Pen edgePen = new Pen(currStyle.edge);
+                Pen edgePen = new Pen(currStyle.ArrowEdge);
                 edgePen.Width = lineW;
                 buffer.DrawPolygon(edgePen, PointList);
             }
@@ -167,8 +170,7 @@ namespace RS
                 {
                     int end = currTail[j];
                     DrawArrow(circleCenter[i], circleCenter[end],
-                              getFillSytle(drawModeList[i]),
-                              getFillSytle(drawModeList[end]));
+                              getFillSytle(drawModeList[i]));
                 }
             }
             for (int i = skillList.Count - 1; i >= 0; i--)

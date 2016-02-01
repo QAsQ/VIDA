@@ -26,14 +26,14 @@ namespace RS
             InitializeComponent();
             Id_selected = -1;
             drawStyleEditor.userChange += new DrawStyleEditor.DrawStyleChangeHandler(ColorChange);
-            backGround.userChange += new ColorView.ColorChangeHandler(ColorChange); 
-            backGround.nonempty();
+            backGroundColor.userChange += new ColorView.ColorChangeHandler(ColorChange); 
+            backGroundColor.nonempty();
         }
         public void EditScheme(ColorScheme _scheme)
         {
             drawStyleEditor.Visible = false;
-            backGround.init(_scheme.BackGround);
-            MiniDV.Scheme = _scheme;
+            backGroundColor.init(_scheme.BackGround);
+            MiniDV.Scheme = new ColorScheme(_scheme);
             MiniDV.Flash();
             isChange = false;
             ShowDialog();
@@ -78,7 +78,7 @@ namespace RS
                 drawStyleEditor.Visible = true;
                 MiniDV.Scheme.loadByIndex(index, drawStyleEditor.drawStyle);
             }
-            MiniDV.Scheme.loadBackGround(backGround.color);
+            MiniDV.Scheme.loadBackGround(backGroundColor.color);
         }
 
         private void OK_Click(object sender, EventArgs e)

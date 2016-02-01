@@ -105,9 +105,9 @@ namespace RS
         }
         void initScheme()
         {
-            string[] lists = new string[] { "#86CDE8", "", "#AAAAA2", "White",
-                                                        "", "#F5F1A5", "#2D35D2",
-                                                        "", "#C66A8A", "White" };
+            string[] lists = new string[] { "#86CDE8", "White", "#AAAAA2","Black" ,"","","Black",
+                                                   "Black", "#F5F1A5", "#2D35D2","","","",
+                                                   "Black", "#C66A8A", "White","","",""};
             colorScheme.initInString(lists);
         }
         int selectedId_menu; 

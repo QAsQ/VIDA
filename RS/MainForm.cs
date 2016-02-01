@@ -162,7 +162,7 @@ namespace RS
         {
             SchemeEditor editor = new SchemeEditor();
             editor.EditScheme(MainDV.Scheme);
-            if (true)
+            if (editor.ChangeScheme)
             {
                 MainDV.Scheme = editor.scheme;
             }
