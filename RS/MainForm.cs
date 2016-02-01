@@ -160,12 +160,12 @@ namespace RS
 
         private void 编辑颜色_Click(object sender, EventArgs e)
         {
-            //colorSchemeForm colorForm = new colorSchemeForm();
-            //colorForm.getColor(MainDV.Scheme);
-            //if (colorForm.ChangeColor)
-            //{
-            //    MainDV.Scheme = colorForm.colorScheme;
-            //}
+            SchemeEditor editor = new SchemeEditor();
+            editor.EditScheme(MainDV.Scheme);
+            if (true)
+            {
+                MainDV.Scheme = editor.scheme;
+            }
         }
 
         private void 保存到文件_Click(object sender, EventArgs e)

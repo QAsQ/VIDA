@@ -9,6 +9,12 @@ namespace RS
 {
     public class DrawStyle
     {
+        public DrawStyle()
+        {
+            font = Color.Empty;
+            edge = Color.Empty;
+            fill = Color.Empty;
+        }
         public DrawStyle(Color Edge, Color Fill,Color Font)
         {
             initFromColor(Edge, Fill,Font);

@@ -28,79 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.EdgeCV = new RS.ColorView();
-            this.FillCV = new RS.ColorView();
             this.FontCV = new RS.ColorView();
-            this.edgeLable = new System.Windows.Forms.Label();
-            this.FillLable = new System.Windows.Forms.Label();
-            this.FontLable = new System.Windows.Forms.Label();
+            this.FillCV = new RS.ColorView();
+            this.EdgeCV = new RS.ColorView();
             this.SuspendLayout();
             // 
-            // Edge
+            // FontCV
             // 
-            this.EdgeCV.Location = new System.Drawing.Point(39, 0);
-            this.EdgeCV.Name = "Edge";
-            this.EdgeCV.Size = new System.Drawing.Size(77, 21);
-            this.EdgeCV.TabIndex = 0;
-            // 
-            // Fill
-            // 
-            this.FillCV.Location = new System.Drawing.Point(165, 0);
-            this.FillCV.Name = "Fill";
-            this.FillCV.Size = new System.Drawing.Size(77, 21);
-            this.FillCV.TabIndex = 1;
-            // 
-            // Font
-            // 
-            this.FontCV.Location = new System.Drawing.Point(288, 0);
-            this.FontCV.Name = "Font";
-            this.FontCV.Size = new System.Drawing.Size(77, 21);
+            this.FontCV.Location = new System.Drawing.Point(220, 0);
+            this.FontCV.Name = "FontCV";
+            this.FontCV.Size = new System.Drawing.Size(110, 25);
             this.FontCV.TabIndex = 2;
+            this.FontCV.Texts = "null";
             // 
-            // edgeLable
+            // FillCV
             // 
-            this.edgeLable.AutoSize = true;
-            this.edgeLable.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.edgeLable.Location = new System.Drawing.Point(-4, 0);
-            this.edgeLable.Name = "edgeLable";
-            this.edgeLable.Size = new System.Drawing.Size(37, 20);
-            this.edgeLable.TabIndex = 3;
-            this.edgeLable.Text = "描边";
+            this.FillCV.Location = new System.Drawing.Point(110, 0);
+            this.FillCV.Name = "FillCV";
+            this.FillCV.Size = new System.Drawing.Size(110, 25);
+            this.FillCV.TabIndex = 1;
+            this.FillCV.Texts = "null";
             // 
-            // FillLable
+            // EdgeCV
             // 
-            this.FillLable.AutoSize = true;
-            this.FillLable.Font = new System.Drawing.Font("微软雅黑", 10.5F);
-            this.FillLable.Location = new System.Drawing.Point(122, 0);
-            this.FillLable.Name = "FillLable";
-            this.FillLable.Size = new System.Drawing.Size(37, 20);
-            this.FillLable.TabIndex = 4;
-            this.FillLable.Text = "填充";
-            // 
-            // FontLable
-            // 
-            this.FontLable.AutoSize = true;
-            this.FontLable.Font = new System.Drawing.Font("微软雅黑", 10.5F);
-            this.FontLable.Location = new System.Drawing.Point(245, 0);
-            this.FontLable.Name = "FontLable";
-            this.FontLable.Size = new System.Drawing.Size(37, 20);
-            this.FontLable.TabIndex = 5;
-            this.FontLable.Text = "字色";
+            this.EdgeCV.Location = new System.Drawing.Point(0, 0);
+            this.EdgeCV.Name = "EdgeCV";
+            this.EdgeCV.Size = new System.Drawing.Size(110, 25);
+            this.EdgeCV.TabIndex = 0;
+            this.EdgeCV.Texts = "null";
+            this.EdgeCV.UseWaitCursor = true;
             // 
             // DrawStyleEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.FontLable);
-            this.Controls.Add(this.FillLable);
-            this.Controls.Add(this.edgeLable);
             this.Controls.Add(this.FontCV);
             this.Controls.Add(this.FillCV);
             this.Controls.Add(this.EdgeCV);
             this.Name = "DrawStyleEditor";
-            this.Size = new System.Drawing.Size(375, 22);
+            this.Size = new System.Drawing.Size(330, 25);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -109,9 +76,9 @@
         private ColorView EdgeCV;
         private ColorView FillCV;
         private ColorView FontCV;
-        private System.Windows.Forms.Label edgeLable;
-        private System.Windows.Forms.Label FillLable;
-        private System.Windows.Forms.Label FontLable;
+
+
+
 
     }
 }

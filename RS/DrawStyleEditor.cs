@@ -19,6 +19,9 @@ namespace RS
             FillCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
             EdgeCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
             FontCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
+            FillCV.Texts = "填充";
+            EdgeCV.Texts = "描边";
+            FontCV.Texts = "字色";
         }
         public delegate void DrawStyleChangeHandler(object sender);
         public event DrawStyleChangeHandler userChange;
@@ -27,6 +30,7 @@ namespace RS
             get
             {
                 return new DrawStyle(EdgeCV.color, FillCV.color, FontCV.color);
+                return new DrawStyle();
             }
             set
             {

@@ -9,6 +9,11 @@ namespace RS
 {
     public class ColorScheme
     {
+        public ColorScheme()
+        {
+            bg = BackGround;
+            ds[0] = ds[1] = ds[2] = new DrawStyle();
+        }
         DrawStyle []ds = new DrawStyle[3];
         public DrawStyle Us
         {

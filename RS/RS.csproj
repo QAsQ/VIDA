@@ -121,6 +121,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MiniDependencyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MiniDependencyView.Designer.cs">
+      <DependentUpon>MiniDependencyView.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniDependencyView.resx">
+      <DependentUpon>MiniDependencyView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordForm.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>
