@@ -37,6 +37,7 @@ namespace RS
             drawModeList.Add(SkillDrawMode.Cs);
             drawModeList.Add(SkillDrawMode.Us);
             drawModeList.Add(SkillDrawMode.Us);
+            size_circle = 22;
         }
     }
 }

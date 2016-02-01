@@ -44,6 +44,10 @@ namespace RS
                 return bg;
             }
         }
+        public void loadBackGround(Color backGround)
+        {
+            bg = backGround;
+        }
         public void loadByIndex(int index, DrawStyle inp)
         {
             ds[index] = inp;

@@ -12,18 +12,30 @@ namespace RS
 {
     public partial class SchemeEditor : Form
     {
+        bool isChange;
+        public bool ChangeScheme
+        {
+            get
+            {
+                return isChange;
+            }
+        }
         int Id_selected;
         public SchemeEditor()
         {
             InitializeComponent();
             Id_selected = -1;
             drawStyleEditor.userChange += new DrawStyleEditor.DrawStyleChangeHandler(ColorChange);
+            backGround.userChange += new ColorView.ColorChangeHandler(ColorChange); 
+            backGround.nonempty();
         }
         public void EditScheme(ColorScheme _scheme)
         {
             drawStyleEditor.Visible = false;
+            backGround.init(_scheme.BackGround);
             MiniDV.Scheme = _scheme;
             MiniDV.Flash();
+            isChange = false;
             ShowDialog();
         }
         public ColorScheme scheme
@@ -61,8 +73,24 @@ namespace RS
         /// <param name="index"></param>
         private void saveDS(int index)
         {
-            drawStyleEditor.Visible = true;
-            MiniDV.Scheme.loadByIndex(index, drawStyleEditor.drawStyle);
+            if (index != -1)
+            {
+                drawStyleEditor.Visible = true;
+                MiniDV.Scheme.loadByIndex(index, drawStyleEditor.drawStyle);
+            }
+            MiniDV.Scheme.loadBackGround(backGround.color);
+        }
+
+        private void OK_Click(object sender, EventArgs e)
+        {
+            isChange = true;
+            Hide();
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            isChange = false;
+            Hide();
         }
     }
 }
