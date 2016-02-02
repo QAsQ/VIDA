@@ -34,11 +34,13 @@
             this.ArrowLineCV = new RS.ColorView();
             this.ArrowEdgeCV = new RS.ColorView();
             this.ArrowFillCV = new RS.ColorView();
+            this.SkilLabel = new System.Windows.Forms.Label();
+            this.ArrowLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // FontCV
             // 
-            this.FontCV.Location = new System.Drawing.Point(0, 0);
+            this.FontCV.Location = new System.Drawing.Point(52, 0);
             this.FontCV.Name = "FontCV";
             this.FontCV.Size = new System.Drawing.Size(110, 25);
             this.FontCV.TabIndex = 2;
@@ -46,7 +48,7 @@
             // 
             // SkillFillCV
             // 
-            this.SkillFillCV.Location = new System.Drawing.Point(110, 0);
+            this.SkillFillCV.Location = new System.Drawing.Point(162, 0);
             this.SkillFillCV.Name = "SkillFillCV";
             this.SkillFillCV.Size = new System.Drawing.Size(110, 25);
             this.SkillFillCV.TabIndex = 1;
@@ -54,41 +56,62 @@
             // 
             // SkillEdgeCV
             // 
-            this.SkillEdgeCV.Location = new System.Drawing.Point(220, 0);
+            this.SkillEdgeCV.Location = new System.Drawing.Point(272, 0);
             this.SkillEdgeCV.Name = "SkillEdgeCV";
             this.SkillEdgeCV.Size = new System.Drawing.Size(110, 25);
             this.SkillEdgeCV.TabIndex = 0;
             this.SkillEdgeCV.Texts = "描边";
-            this.SkillEdgeCV.UseWaitCursor = true;
             // 
             // ArrowLineCV
             // 
-            this.ArrowLineCV.Location = new System.Drawing.Point(0, 29);
+            this.ArrowLineCV.Location = new System.Drawing.Point(52, 29);
             this.ArrowLineCV.Name = "ArrowLineCV";
             this.ArrowLineCV.Size = new System.Drawing.Size(110, 25);
             this.ArrowLineCV.TabIndex = 3;
-            this.ArrowLineCV.Texts = "null";
+            this.ArrowLineCV.Texts = "线色";
             // 
             // ArrowEdgeCV
             // 
-            this.ArrowEdgeCV.Location = new System.Drawing.Point(110, 31);
+            this.ArrowEdgeCV.Location = new System.Drawing.Point(162, 31);
             this.ArrowEdgeCV.Name = "ArrowEdgeCV";
             this.ArrowEdgeCV.Size = new System.Drawing.Size(110, 25);
             this.ArrowEdgeCV.TabIndex = 4;
-            this.ArrowEdgeCV.Texts = "null";
+            this.ArrowEdgeCV.Texts = "描边";
             // 
             // ArrowFillCV
             // 
-            this.ArrowFillCV.Location = new System.Drawing.Point(220, 29);
+            this.ArrowFillCV.Location = new System.Drawing.Point(272, 29);
             this.ArrowFillCV.Name = "ArrowFillCV";
             this.ArrowFillCV.Size = new System.Drawing.Size(110, 25);
             this.ArrowFillCV.TabIndex = 5;
-            this.ArrowFillCV.Texts = "null";
+            this.ArrowFillCV.Texts = "填充";
+            // 
+            // SkilLabel
+            // 
+            this.SkilLabel.AutoSize = true;
+            this.SkilLabel.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.SkilLabel.Location = new System.Drawing.Point(10, 2);
+            this.SkilLabel.Name = "SkilLabel";
+            this.SkilLabel.Size = new System.Drawing.Size(37, 19);
+            this.SkilLabel.TabIndex = 6;
+            this.SkilLabel.Text = "Skill";
+            // 
+            // ArrowLabel
+            // 
+            this.ArrowLabel.AutoSize = true;
+            this.ArrowLabel.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ArrowLabel.Location = new System.Drawing.Point(0, 32);
+            this.ArrowLabel.Name = "ArrowLabel";
+            this.ArrowLabel.Size = new System.Drawing.Size(53, 19);
+            this.ArrowLabel.TabIndex = 7;
+            this.ArrowLabel.Text = "Arrow";
             // 
             // DrawStyleEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ArrowLabel);
+            this.Controls.Add(this.SkilLabel);
             this.Controls.Add(this.ArrowFillCV);
             this.Controls.Add(this.ArrowEdgeCV);
             this.Controls.Add(this.ArrowLineCV);
@@ -96,8 +119,9 @@
             this.Controls.Add(this.SkillFillCV);
             this.Controls.Add(this.SkillEdgeCV);
             this.Name = "DrawStyleEditor";
-            this.Size = new System.Drawing.Size(330, 60);
+            this.Size = new System.Drawing.Size(384, 55);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -109,6 +133,8 @@
         private ColorView ArrowLineCV;
         private ColorView ArrowEdgeCV;
         private ColorView ArrowFillCV;
+        private System.Windows.Forms.Label SkilLabel;
+        private System.Windows.Forms.Label ArrowLabel;
 
 
 

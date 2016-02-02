@@ -196,10 +196,11 @@ namespace RS
             {
                 ColorScheme scheme = new ColorScheme();
                 StreamReader reader = new StreamReader(openScheme.FileName, Encoding.Default);
-                string[] lists = new string[10];
+                int length = ColorScheme.Size;
+                string[] lists = new string[length];
                 try
                 {
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < length; i++)
                     {
                         lists[i] = reader.ReadLine();
                     }

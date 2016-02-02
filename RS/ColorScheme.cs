@@ -20,6 +20,7 @@ namespace RS
             ds = _scheme.ds;
             this.bg= _scheme.BackGround;
         }
+        public const int Size = DrawStyle.length * 3 + 1;
         DrawStyle []ds = new DrawStyle[3];
         public DrawStyle Us
         {
@@ -79,9 +80,17 @@ namespace RS
         }
         public string[] toStringList()
         {
-            // todo upadte
-            string[] lists = new string[10];
-            return lists;
+            List<string> lists = new List<string>();
+            lists.Add(ColorTranslator.ToHtml(bg));
+            for (int i = 0; i < 3; i++)
+            {
+                var temp = ds[i].getStringList();
+                for (int j = 0; j < temp.Length; j++)
+                {
+                    lists.Add(temp[j]);
+                }
+            }
+            return lists.ToArray();
         }
         
     }

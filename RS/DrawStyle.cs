@@ -28,8 +28,8 @@ namespace RS
         }
         public const int length = 6;
         public Color Font;
-        public Color SkillEdge;
         public Color SkillFill;
+        public Color SkillEdge;
         public Color ArrowLine;
         public Color ArrowEdge;
         public Color ArrowFill;
@@ -54,6 +54,18 @@ namespace RS
             ArrowLine = stringToColor(arrowLine);
             ArrowEdge = stringToColor(arrowEdge);
             ArrowFill = stringToColor(arrowFill);
+        }
+
+        public string[] getStringList()
+        {
+            string[] value = new string[length];
+            value[0] = ColorTranslator.ToHtml(Font);
+            value[1] = ColorTranslator.ToHtml(SkillFill);
+            value[2] = ColorTranslator.ToHtml(SkillEdge);
+            value[3] = ColorTranslator.ToHtml(ArrowLine);
+            value[4] = ColorTranslator.ToHtml(ArrowEdge);
+            value[5] = ColorTranslator.ToHtml(ArrowFill);
+            return value;
         }
     }
 }

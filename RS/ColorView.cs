@@ -40,21 +40,33 @@ namespace RS
                 button.BackColor = Color.Empty;
                 theColor = Color.Empty;
                 button.Enabled = false;
+                if (userAct)
+                    userChange(this);
             }
-            if (checker.CheckState == CheckState.Checked)
+            if (checker.CheckState == CheckState.Checked && userAct == true)
             {
-                button.Enabled = true;
+                ColorGeter.Color = BackColor;
+                if (ColorGeter.ShowDialog() == DialogResult.OK)
+                {
+                    button.BackColor = ColorGeter.Color;
+                    theColor = ColorGeter.Color;
+                    button.Enabled = true;
+                    userChange(this);
+                }
+                else
+                {
+                    checker.CheckState = CheckState.Unchecked;
+                }
             }
-            if (userAct)
-                userChange(this);
         }
         private void button_Click(object sender, EventArgs e)
         {
-            ColorGeter.Color = button.BackColor;
-            ColorGeter.ShowDialog();
-            button.BackColor = ColorGeter.Color;
-            theColor = ColorGeter.Color;
-            userChange(this);
+            if (ColorGeter.ShowDialog() == DialogResult.OK)
+            {
+                button.BackColor = ColorGeter.Color;
+                theColor = ColorGeter.Color;
+                userChange(this);
+            }
         }
         public void init(Color color)
         {

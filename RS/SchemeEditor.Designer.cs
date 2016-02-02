@@ -74,7 +74,7 @@
             // 
             // backGroundColor
             // 
-            this.backGroundColor.Location = new System.Drawing.Point(139, 42);
+            this.backGroundColor.Location = new System.Drawing.Point(12, 42);
             this.backGroundColor.Name = "backGroundColor";
             this.backGroundColor.Size = new System.Drawing.Size(110, 25);
             this.backGroundColor.TabIndex = 3;
@@ -94,7 +94,7 @@
             this.drawStyleEditor.drawStyle = drawStyle1;
             this.drawStyleEditor.Location = new System.Drawing.Point(139, 12);
             this.drawStyleEditor.Name = "drawStyleEditor";
-            this.drawStyleEditor.Size = new System.Drawing.Size(346, 24);
+            this.drawStyleEditor.Size = new System.Drawing.Size(387, 55);
             this.drawStyleEditor.TabIndex = 0;
             // 
             // SchemeEditor

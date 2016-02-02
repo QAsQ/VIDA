@@ -19,6 +19,9 @@ namespace RS
             SkillFillCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
             SkillEdgeCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
             FontCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
+            ArrowFillCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
+            ArrowEdgeCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
+            ArrowLineCV.userChange += new ColorView.ColorChangeHandler(userChageDrawStyle);
             SkillFillCV.Texts = "填充";
             SkillEdgeCV.Texts = "描边";
             FontCV.Texts = "字色";
@@ -30,13 +33,16 @@ namespace RS
             get
             {
                 return new DrawStyle(FontCV.color, SkillFillCV.color, SkillEdgeCV.color,
-                                    ArrowLineCV.color,ArrowEdgeCV.color,ArrowEdgeCV.color);
+                                    ArrowLineCV.color,ArrowEdgeCV.color,ArrowFillCV.color);
             }
             set
             {
                 SkillEdgeCV.init(value.SkillEdge);
                 SkillFillCV.init(value.SkillFill);
                 FontCV.init(value.Font);
+                ArrowLineCV.init(value.ArrowLine);
+                ArrowFillCV.init(value.ArrowFill);
+                ArrowEdgeCV.init(value.ArrowEdge);
             }
         }
         void userChageDrawStyle(object sender)
