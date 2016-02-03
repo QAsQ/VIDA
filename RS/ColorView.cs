@@ -61,6 +61,7 @@ namespace RS
         }
         private void button_Click(object sender, EventArgs e)
         {
+            ColorGeter.Color = button.BackColor;
             if (ColorGeter.ShowDialog() == DialogResult.OK)
             {
                 button.BackColor = ColorGeter.Color;

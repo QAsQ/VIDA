@@ -31,6 +31,7 @@ namespace RS
             }
             skillList[0].addTail(1);
             skillList[1].addTail(2);
+            skillList[0].addTail(3);
             skillList[1].addTail(3);
             skillList[2].addTail(3);
             drawModeList.Add(SkillDrawMode.Hs);
