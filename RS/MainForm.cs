@@ -160,7 +160,7 @@ namespace RS
 
         private void 编辑颜色_Click(object sender, EventArgs e)
         {
-            SchemeEditor editor = new SchemeEditor();
+            SchemeEditor editor = new SchemeEditor(); 
             editor.EditScheme(MainDV.Scheme);
             if (editor.ChangeScheme)
             {

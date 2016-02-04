@@ -7,21 +7,15 @@ using System.Threading.Tasks;
 
 namespace RS
 {
-    public class ColorScheme
+    public class ColorScheme : ICloneable
     {
         public ColorScheme()
         {
-            bg = BackGround;
+            bg = Color.Empty;
             ds[0] = ds[1] = ds[2] = new DrawStyle();
         }
-        public ColorScheme(ColorScheme _scheme)
-        {
-            this._scheme = _scheme;
-            ds = _scheme.ds;
-            this.bg= _scheme.BackGround;
-        }
         public const int Size = DrawStyle.length * 3 + 1;
-        DrawStyle []ds = new DrawStyle[3];
+        DrawStyle[] ds = new DrawStyle[3];
         public DrawStyle Us
         {
             get
@@ -44,7 +38,6 @@ namespace RS
             }
         }
         Color bg;
-        private ColorScheme _scheme;
         public Color BackGround
         {
             get
@@ -71,11 +64,11 @@ namespace RS
             for (int i = 0; i < 3; i++)
             {
                 ds[i] = new DrawStyle(lists[i * DSlength + 1]
-                                    ,lists[i * DSlength + 2]
-                                    ,lists[i * DSlength + 3]
-                                    ,lists[i * DSlength + 4]
-                                    ,lists[i * DSlength + 5]
-                                    ,lists[i * DSlength + 6]);
+                                    , lists[i * DSlength + 2]
+                                    , lists[i * DSlength + 3]
+                                    , lists[i * DSlength + 4]
+                                    , lists[i * DSlength + 5]
+                                    , lists[i * DSlength + 6]);
             }
         }
         public string[] toStringList()
@@ -92,6 +85,16 @@ namespace RS
             }
             return lists.ToArray();
         }
-        
+        public object Clone()
+        {
+            ColorScheme ret = new ColorScheme();
+            ret.bg = this.bg;
+            for (int i = 0; i < 3; i++)
+            {
+                ret.ds[i] = (DrawStyle)this.ds[i].Clone();
+            }
+            return ret;
+        }
+
     }
 }

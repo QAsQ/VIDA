@@ -31,9 +31,10 @@ namespace RS
         }
         public void EditScheme(ColorScheme _scheme)
         {
+            _scheme = (ColorScheme)_scheme.Clone();
             drawStyleEditor.Visible = false;
             backGroundColor.init(_scheme.BackGround);
-            MiniDV.Scheme = new ColorScheme(_scheme);
+            MiniDV.Scheme = _scheme;
             MiniDV.Flash();
             isChange = false;
             ShowDialog();

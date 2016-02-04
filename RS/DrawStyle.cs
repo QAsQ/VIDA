@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RS
 {
-    public class DrawStyle
+    public class DrawStyle : ICloneable
     {
         public DrawStyle()
         {
@@ -66,6 +66,12 @@ namespace RS
             value[4] = ColorTranslator.ToHtml(ArrowEdge);
             value[5] = ColorTranslator.ToHtml(ArrowFill);
             return value;
+        }
+        public object Clone()
+        {
+            DrawStyle ret = new DrawStyle();
+            ret.initFromColor(Font, SkillFill, SkillEdge, ArrowLine, ArrowEdge, ArrowFill);
+            return ret;
         }
     }
 }
