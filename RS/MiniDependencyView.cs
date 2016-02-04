@@ -19,7 +19,7 @@ namespace RS
         }
         public void exampleInit()
         {
-            string[] name = new string[4] { "V", "I", "D", "A" };
+            string[] name = new string[4] { "已经学习", "可以学习", "不能学习", "不能学习" };
             PointF[] local = new PointF[4] {new PointF(63,118),
                                             new PointF(158,57),
                                             new PointF(320,106),

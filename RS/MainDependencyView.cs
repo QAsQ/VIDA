@@ -105,10 +105,10 @@ namespace RS
         }
         void initScheme()
         {
-            string[] lists = new string[] { "#78B6A4",
-                                            "#9C853F","#E3E58A","#E5FF8A","#E59A8A","#E5CFCA","#D5C6C1",
-                                            "#F7854F","#B2CABC","#ECE5E3","#739775","#678FAC","#B2CABC",
-                                            "#5591D9","#8A9CE5","#678FAC","#426F6A","#426F6A","#B8BCBC"
+            string[] lists = new string[] {"#78B6A4",
+                                        "#9C853F","#E3E58A","#E5FF8A","#FFF3A2","#CCE3DC","#EDEEB5",
+                                        "#F7854F","#B2CABC","#ECE5E3","#739775","#678FAC","#B2CABC",
+                                        "#5591D9","#8A9CE5","#678FAC","#426F6A","#426F6A","#8ABCBC"
             };
             colorScheme.initInString(lists);
         }

@@ -54,7 +54,8 @@
             // 
             // cancel
             // 
-            this.cancel.Location = new System.Drawing.Point(492, 446);
+            this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancel.Location = new System.Drawing.Point(483, 435);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(75, 25);
             this.cancel.TabIndex = 6;
@@ -64,7 +65,8 @@
             // 
             // OK
             // 
-            this.OK.Location = new System.Drawing.Point(411, 446);
+            this.OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.OK.Location = new System.Drawing.Point(402, 435);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(75, 25);
             this.OK.TabIndex = 5;
@@ -82,10 +84,13 @@
             // 
             // MiniDV
             // 
+            this.MiniDV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MiniDV.Location = new System.Drawing.Point(12, 73);
             this.MiniDV.Name = "MiniDV";
             this.MiniDV.Scheme = colorScheme1;
-            this.MiniDV.Size = new System.Drawing.Size(555, 361);
+            this.MiniDV.Size = new System.Drawing.Size(546, 350);
             this.MiniDV.size_circle = 50;
             this.MiniDV.TabIndex = 2;
             // 
@@ -101,7 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 483);
+            this.ClientSize = new System.Drawing.Size(570, 472);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.OK);
             this.Controls.Add(this.backGroundColor);
