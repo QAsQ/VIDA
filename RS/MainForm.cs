@@ -32,14 +32,10 @@ namespace RS
         }
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //if (DialogResult.Yes == MessageBox.Show("是否保存当前的状态", "Save", MessageBoxButtons.YesNo))
-            //{
-            //    var list_skill = MainDV.getAllSkill;
-            //    foreach (Skill curr in list_skill)
-            //    {
-            //        MessageBox.Show(curr.ToString());
-            //    }
-            //}
+            if (DialogResult.Yes == MessageBox.Show("是否保存当前主题", "Save", MessageBoxButtons.YesNo))
+            {
+                保存到文件_Click(null, null);
+            }
         }
         private void mainForm_Resize(object sender, EventArgs e)
         {  
@@ -56,7 +52,7 @@ namespace RS
             //    {
             //        MainDV.TeacherMode();
             //        haveInAdmin = true;
-            //    }
+            //    } 
             //}
             menu.Items[2].Visible = false; //教师端没有进度定义
             MainDV.TeacherMode();
