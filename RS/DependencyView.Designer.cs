@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "DependencyView";
-            this.Size = new System.Drawing.Size(315, 209);
+            this.Size = new System.Drawing.Size(515, 388);
             this.Load += new System.EventHandler(this.DependencyView_Load);
             this.SizeChanged += new System.EventHandler(this.DependencyView_SizeChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DependencyView_KeyDown);

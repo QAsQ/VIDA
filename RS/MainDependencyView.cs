@@ -41,8 +41,8 @@ namespace RS
         }
         public MainDependencyView()
         {
-            initScheme();
             InitializeComponent();
+            initScheme();
             Usermode = initUsermode;
             reNameBox.Font = font_name;
             ButtonStateInit();
@@ -53,6 +53,8 @@ namespace RS
         {
             skillList = _skillList;
             circleCenter = _pointList;
+            isLearnList.Clear();
+            drawModeList.Clear();
             for (int i = 0; i < _skillList.Count; i++)
             {
                 drawModeList.Add(SkillDrawMode.Us);

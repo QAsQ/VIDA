@@ -116,14 +116,14 @@
             // 管理模式ToolStripMenuItem
             // 
             this.管理模式ToolStripMenuItem.Name = "管理模式ToolStripMenuItem";
-            this.管理模式ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.管理模式ToolStripMenuItem.Text = "管理模式";
+            this.管理模式ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.管理模式ToolStripMenuItem.Text = "编辑模式";
             this.管理模式ToolStripMenuItem.Click += new System.EventHandler(this.管理模式ToolStripMenuItem_Click);
             // 
             // 学习模式ToolStripMenuItem
             // 
             this.学习模式ToolStripMenuItem.Name = "学习模式ToolStripMenuItem";
-            this.学习模式ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.学习模式ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.学习模式ToolStripMenuItem.Text = "学习模式";
             this.学习模式ToolStripMenuItem.Click += new System.EventHandler(this.学习模式ToolStripMenuItem_Click);
             // 

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            RS.ColorScheme colorScheme1 = new RS.ColorScheme();
             RS.DrawStyle drawStyle1 = new RS.DrawStyle();
             this.StateChoice = new System.Windows.Forms.ComboBox();
             this.cancel = new System.Windows.Forms.Button();
@@ -89,7 +88,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MiniDV.Location = new System.Drawing.Point(12, 73);
             this.MiniDV.Name = "MiniDV";
-            this.MiniDV.Scheme = colorScheme1;
             this.MiniDV.Size = new System.Drawing.Size(546, 350);
             this.MiniDV.size_circle = 62;
             this.MiniDV.TabIndex = 2;
