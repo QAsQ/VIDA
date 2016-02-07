@@ -17,8 +17,8 @@ namespace RS
             InitializeComponent();
             selectedId_drag = selectedId_None;
             anchorExist = false;
-            circleR = 50;
             font_name = new Font(fontName, size_font);
+            circleR = 50;
         }
         protected ColorScheme colorScheme = new ColorScheme();
         protected bool BackspaceIsDown;

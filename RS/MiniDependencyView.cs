@@ -20,10 +20,10 @@ namespace RS
         public void exampleInit()
         {
             string[] name = new string[4] { "已经学习", "可以学习", "不能学习", "不能学习" };
-            PointF[] local = new PointF[4] {new PointF(63,118),
-                                            new PointF(158,57),
-                                            new PointF(320,106),
-                                            new PointF(225,16)};
+            PointF[] local = new PointF[4] {new PointF(87,306),
+                                            new PointF(146,116),
+                                            new PointF(464,64),
+                                            new PointF(368,303)};
             for (int i = 0; i < 4; i++)
             {
                 skillList.Add(new Skill(name[i]));
@@ -38,7 +38,6 @@ namespace RS
             drawModeList.Add(SkillDrawMode.Cs);
             drawModeList.Add(SkillDrawMode.Us);
             drawModeList.Add(SkillDrawMode.Us);
-            size_circle = 22;
         }
     }
 }

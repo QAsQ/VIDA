@@ -32,10 +32,10 @@ namespace RS
         }
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("是否保存当前主题", "Save", MessageBoxButtons.YesNo))
-            {
-                保存到文件_Click(null, null);
-            }
+           //if (DialogResult.Yes == MessageBox.Show("是否保存当前主题", "Save", MessageBoxButtons.YesNo))
+           // {
+           //     保存到文件_Click(null, null);
+           // }
         }
         private void mainForm_Resize(object sender, EventArgs e)
         {  

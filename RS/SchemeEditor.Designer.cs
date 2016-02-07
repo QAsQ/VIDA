@@ -91,7 +91,7 @@
             this.MiniDV.Name = "MiniDV";
             this.MiniDV.Scheme = colorScheme1;
             this.MiniDV.Size = new System.Drawing.Size(546, 350);
-            this.MiniDV.size_circle = 50;
+            this.MiniDV.size_circle = 62;
             this.MiniDV.TabIndex = 2;
             // 
             // drawStyleEditor
