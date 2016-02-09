@@ -3,7 +3,7 @@ VIDA(VIsual Dependency mAnagement)
 ###What is dependency?
 ?
 ###What is VIDA look Like
-![VIDA_image.png](https://ooo.0o0.ooo/2016/01/18/569da65e904d8.png)
+![VIDA.png](https://ooo.0o0.ooo/2016/02/09/56b9d721afe6d.png)
 ###What can Vida do?
 vida can help you management some dependency in you life.
 ####As a student
