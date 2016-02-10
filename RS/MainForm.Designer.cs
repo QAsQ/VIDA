@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            RS.ColorScheme colorScheme1 = new RS.ColorScheme();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.openfile = new System.Windows.Forms.OpenFileDialog();
             this.savefile = new System.Windows.Forms.SaveFileDialog();

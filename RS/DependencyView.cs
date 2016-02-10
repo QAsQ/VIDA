@@ -20,7 +20,7 @@ namespace RS
             font_name = new Font(fontName, size_font);
             circleR = 50;
         }
-        protected ColorScheme colorScheme = new ColorScheme();
+        protected ColorScheme colorScheme;
         protected bool BackspaceIsDown;
         protected bool MouseLeftButtonIsDown; 
         protected  List<PointF> circleCenter = new List<PointF>();
@@ -162,6 +162,8 @@ namespace RS
                 return;
             }
             buffer = Graphics.FromImage(BUF);
+            if (colorScheme == null)
+                colorScheme = new ColorScheme();
             buffer.Clear(colorScheme.BackGround);
             for (int i = skillList.Count - 1; i >= 0; i--)
             {
