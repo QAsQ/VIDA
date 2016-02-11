@@ -160,7 +160,7 @@ namespace RS
             editor.EditScheme(MainDV.Scheme);
             if (editor.ChangeScheme)
             {
-                MainDV.Scheme = editor.scheme;
+                MainDV.setScheme(editor.scheme);
             }
         }
 
@@ -201,7 +201,7 @@ namespace RS
                         lists[i] = reader.ReadLine();
                     }
                     scheme.initInString(lists);
-                    MainDV.Scheme = scheme;
+                    MainDV.setScheme(scheme);
                 }
                 catch (Exception ex)
                 {

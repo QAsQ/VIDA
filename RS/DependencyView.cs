@@ -39,10 +39,10 @@ namespace RS
             {
                 return colorScheme;
             }
-            set
-            {
-                colorScheme = value;
-            }
+        }
+        public void setScheme(ColorScheme _scheme)
+        {
+            colorScheme = (ColorScheme)_scheme.Clone();
         }
         private double circleR;
         public int size_circle
